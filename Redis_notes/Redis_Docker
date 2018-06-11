@@ -1,0 +1,15 @@
+Redis Docker setup :
+
+1. create a data-dir on location as mentioned in command . 
+2. pass settings like --appendonly yes or --save 10 1 or --requirespass vaneet 0r --any other setting key value in redis-server command itself .
+
+sudo docker run -p 6389:6379 -d --name myredis -v /home/vaneet.kumar/docker/mapped-volumes/redis/data-dir:/data  redis redis-server --save 10 1  --requirepass a
+
+From with in docker : sudo docker run -it --link myredis:redishost redis redis-cli -h redishost -p 6379 -a a
+
+Outside : ~/anyPathtoRedisCliDir/redis-cli -h 127.0.0.1 -p 6389 -a a 
+
+If save 10 1 means save in every 10 seconds in dump.rdb file if atleast one key changes in this time . 
+OR 
+If appendonly yes is passed 
+Then dump.rdb or appendonly files will be present in /home/vaneet.kumar/docker/mapped-volumes/redis/data-dir file on restarting container again and again same data will be found . 
