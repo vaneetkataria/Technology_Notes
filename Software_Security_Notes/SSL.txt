@@ -20,7 +20,7 @@ How SSH key authentication works in ssh .
    5.2. Now server genrates a random number and encrypts it with public key and sends back to client . 
    5.3. Client decrypts the key . Append this key to ssh session key and genrated an MD5 hash of it and pass it to the server . 
    5.4. Now server append that random random number to ssh session key and takes MD5 hash of it .  
-   5.5. If String produced in step 5.3 by client and 5.4 by server are same it means the data decrypted by 
+   5.5. If String produced in step 5.3 by client and 5.4 by server are same it means the data encrypted by 
         public key by server was decrypted by client by private key .Which means client is authentic . 
    5.6. Now connection is established .      
         
