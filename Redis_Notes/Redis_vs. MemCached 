@@ -1,0 +1,25 @@
+1. Redis was developed on the basis of problems occured in prod environment by memcached system .Redis acts as memcached with steroids . 
+
+2. Memcached is used for caching small chunks of data like html code fragments and it is effiecient is caching . It is used for simplest use cases as its stores less memory for meta data storage .But for redis if hashes are used it is equivalent . 
+
+3. Memcache can only store string but redis is a ds store . 
+
+4. In MemCache key names can upto be 250 bytes and values upto 1 MB only but in redis both key values can be 512 MB each . 
+
+5. Memcache has only LRU eviction policy while redis has six different eviction policy . In Memcache data being avicted is similar to the size 
+   of new data . But redis keeps on evcticting data on the basis of various algorithms and it keeps on avicting data proactively . 
+
+6. Memory usage: Redis is better.
+memcached: You specify the cache size and as you insert items the daemon quickly grows to a little more than this size. There is never really a way to reclaim any of that space, short of restarting memcached. All your keys could be expired, you could flush the database, and it would still use the full chunk of RAM you configured it with.
+redis: Setting a max size is up to you. Redis will never use more than it has to and will give you back memory it is no longer using.
+I stored 100,000 ~2KB strings (~200MB) of random sentences into both. Memcached RAM usage grew to ~225MB. Redis RAM usage grew to ~228MB. After flushing both, redis dropped to ~29MB and memcached stayed at ~225MB. They are similarly efficient in how they store data, but only one is capable of reclaiming it.
+
+7. Disk I/O dumping: A clear win for redis since it does this by default and has very configurable persistence. Memcached has no mechanisms for dumping to disk without 3rd party tools.
+
+  
+8.If one instance of redis/memcached isn't enough performance for your workload, redis is the clear choice. Redis includes cluster support and comes with high availability tools (redis-sentinel) right "in the box". Over the past few years redis has also emerged as the clear leader in 3rd party tooling. Companies like Redis Labs, Amazon, and others offer many useful redis tools and services. The ecosystem around redis is much larger. The number of large scale deployments is now likely greater than for memcached.
+
+9. Memcached is multithreaded and redis cache is single threaded . 
+
+10 . Memcache does not support replication while redis supporets master slave and slave of slave replications .BUt redis distribution is difficult .
+

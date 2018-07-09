@@ -1,0 +1,8 @@
+
+
+No save 
+no apendonly
+
+maxmemory-policy=allkeys-lru
+maxmemory-samples 5
+maxmemory 4 gb
