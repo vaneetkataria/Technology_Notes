@@ -1,0 +1,15 @@
+1. There are two ways to install git in Ubuntu .
+1.1. By Ubuntu software repositories . [By Apt-Get commands][This will not give latest version of git]
+1.2. By Downlaoding Git code from its GitHub Page and compiling and installing code it self . 
+
+1.2.1. Just go to Git hub page of Git open source source code . 
+1.2.2. Just switch to latest non rc tag . 
+1.2.3. Download source code as zip as git is not present on client machine as of now . 
+1.2.4. Downlaod and add packages required for git . 
+       sudo apt-get update
+       sudo apt-get install build-essential libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext unzip
+1.2.5. compile and install code by doing into git unzipped folder.
+       make prefix=/usr/local all
+       sudo make prefix=/usr/local install
+1.2.6. Git is installed . Now We can clone another latest git non rc tag version and make and install it . It will override previous one .
+

@@ -1,0 +1,12 @@
+1. To setup git default text editor . 
+   git config --global core.editor "gedit -s"
+
+2. To setup username/email in git . 
+   git config --global user.name "vaneetkataria"
+   git config --global user.email "vaneetkataria54@gmail.com" 
+
+3. To list entire global level config 
+   git connfig --list 
+
+4. To store credentials in git [Will ask for once only]
+   git config --global credential.helper store

@@ -1,0 +1,9 @@
+1. To Setup Git .ignore file jsut put a .gitignore named file in ROOT level of the project .
+2. To ignore any file anywhere in the project just write file name . 
+3. To ignore any directory anywhere in the project just write directoyName/ in .gitignore file .
+4. For example
+   .classpath
+   .project
+   target/ 
+   .svn/
+   .git/
