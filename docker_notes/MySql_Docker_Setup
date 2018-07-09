@@ -30,7 +30,7 @@ select User,Host from mysql.user;
 mysql -h 127.0.0.1 -P 6603 -uroot -pmypassword
 or mysql -h 127.0.0.1  -P 6603 -uvaneet1 -pvaneet
 
-
+5 .Testing ssh key gen setup .
 
 
 
