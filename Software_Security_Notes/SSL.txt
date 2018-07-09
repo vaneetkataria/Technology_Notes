@@ -1,0 +1,8 @@
+How ssl is established : 
+
+1. Clien says ssl hello . 
+2. server sends ssl certificate which includes public key  . Now public key is transmitted over wire can be seen by attacker. 
+3. client creates a key and encrypts it with public key . now no one can decrypt it as it can be decrypted only by server . 
+4. Now server will decrpt the key and both wull have same key to enc/dec . 
+5. ssl certificate has both for authentication weather the content is coming from a secure certified server and public key . 
+6.  

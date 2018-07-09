@@ -1,0 +1,16 @@
+Hashing is used when we need to represent a lsrge chunk of data with a csertainspecified bits or bytes of data . 
+
+1. Applications --> multilingual dbs . 
+2. downloads fails if server sent hash does noy matches with clinet hash  
+
+Properties of good hash function : 
+
+1. impossible for collisions . 
+2. even if smallest of bits is chnaged the entire hash must be chnaged . 
+
+
+
+SHa-2 is present and future standard for hashing . It can generate hashes of 256 , 128 , 512 bits  . Its the strongest . 
+Alsp sha-3 is uwnder research and testing . 
+
+

@@ -1,0 +1,55 @@
+Encryption means encrypting the data to communicate it securily . 
+
+Types : 
+
+ASymmitric : Means there area pair of keys with which enc/dec can be done . Data encription done with public key can only be 
+decrypted with private key and vice versa .. Most important vice versa . 
+
+Use cases : 
+
+1. Sending credit card data from js to server with public private . send by encryting by public but can be decrypted with private only . 
+2 .ssh secure shell. 
+3. vpn . 
+4. sftp . 
+5. Data transfer in https happens with publicc/private . Data enc/dec happens on both sides . 
+
+
+Benifits of Symittric is faster and simple . 
+
+Symittric : 
+Only one key for encryption is there and can be decrypted with this also . 
+1. To store credit card data in db . 
+2. 
+
+AES : Advanced Encryption standards : 
+1. It is standardised protoco; worldwide . 
+2  There are testing frameowrks available for this encryption by community of encryption standards . 
+
+Needs for encryption : 
+1. Clear or plain text data . 
+2. Encryption key which is same for decription as well . 
+3. After encryption we will get the cipther text . 
+4. for decription u need same key and encrypted data to convert it back to plain text . 
+
+Data requirements for encrytion :
+It needs minimum 16 bytes of data . After that it it breaks data in 16 bytes chunks , But for size let than 16 bytes it padds data to make it 16 bytes . 
+Hence 4 bytes data can be encrypted . 
+
+Keys standards : Keys can be of any size . But as per standars keys should be of 128 , 192 or 256 bits means 16 , 24 or 32 bytes or 8 , 12 or 16 characters . 
+Larger the key , larger thae work needed for encryption . stronger is the encryption . Any thing can be used for encryption . Name or anything . Best standard is 128
+0r 256 bits means 16 or 32 bytes means passwords for 8 or 16 characters are good . like vaneet$1  , feq74uiyuityui@# . 
+
+Machnisms for making the keys strong  : 
+1. Encrypt the simple key with some hash generator . For exmaple excrypt vaneet with sha algo get a 16 bytes of hash and use it to encrypt the data by aes . In this way 
+key will becme super strong . Now for decrytion just again hash vaneet with sha in same way then decrypt data with aes by this key  .
+2. Random number generaters can give strong keys . 
+
+
+
+
+
+
+
+
+ 
+
