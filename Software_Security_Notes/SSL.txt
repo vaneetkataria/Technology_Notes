@@ -5,4 +5,22 @@ How ssl is established :
 3. client creates a key and encrypts it with public key . now no one can decrypt it as it can be decrypted only by server . 
 4. Now server will decrpt the key and both wull have same key to enc/dec . 
 5. ssl certificate has both for authentication weather the content is coming from a secure certified server and public key . 
-6.  
+
+How SSH key authentication works in ssh . 
+1. A local client system if wants to take ssh of various remote systems then client has to provide user name 
+   and password every time client wants to connect to server .
+2. SSH keygen can be used for this purpose which will allow client to not enter password every time . 
+3. Procedure is defined in the link below : 
+   https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+4. Analogy for this is detailed in the link below : 
+   http://blakesmith.me/2010/02/08/understanding-public-key-private-key-concepts.html
+5. Procedure of working is follow : 
+   5.1. While genration of keys client saves public and private keys in ~/.ssh folder . Client sends an ID to server to whom 
+   ssh is being taken . ID was present in public key that was saved in server's ~/.ssh/autherized_keys directory . 
+   5.2. Now server genrates a random number and encrypts it with public key and sends back to client . 
+   5.3. Client decrypts the key . Append this key to ssh session key and genrated an MD5 hash of it and pass it to the server . 
+   5.4. Now server append that random random number to ssh session key and takes MD5 hash of it .  
+   5.5. If String produced in step 5.3 by client and 5.4 by server are same it means the data decrypted by 
+        public key by server was decrypted by client by private key .Which means client is authentic . 
+   5.6. Now connection is established .      
+        
