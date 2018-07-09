@@ -23,4 +23,4 @@ How SSH key authentication works in ssh .
    5.5. If String produced in step 5.3 by client and 5.4 by server are same it means the data encrypted by 
         public key by server was decrypted by client by private key .Which means client is authentic . 
    5.6. Now connection is established .      
-        
+   5.7. Completed .      
