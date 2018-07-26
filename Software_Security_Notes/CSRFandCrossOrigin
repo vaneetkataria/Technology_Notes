@@ -1,0 +1,19 @@
+1. All the URLs developed as a restful service or any url are not by default cross origin secure . Means :
+
+1.1. A Yatra.com API can be hit from the pages of paytm.com or any other site not having yatra.com origin or domain .
+1.2. Once the API hits the server request will be processed from in the server and response will be given back . Now the cross domain page can 
+     easily read this response .
+
+2.  To Prevent this cross origin requests to ever succeed at server end CSRF attack prevention is done on server side .  
+2.1.The very first API of the backend project which will be 100% called before rendering any page of the application can serve the purpose of g    generating a CSRF toekn .   
+2.3.This very first API will put CSRF token in cookies while sending response back . In the next subsequent calls this token will be expected in request headers .  
+2.4.Now even if the third party site was able to call first API but it will not be to read the cookie and send it in the header . All CSRF protected APIs will be discarded for processing . 
+2.4. Very First API can also give the csrf token in json response . As if this request is login secure the client has to send this request with     sendCredential = true flag . Server will process this request and while sending back Access-Control-Allow-Origin will be * . 
+2.5. Browser will not let this response rendered and read by client as it was a senCredential = true request with ACAO * . 
+2.6. Hence In next calls this client will not be able to call with CSRF token .
+
+3. The above apporoach will completely decouple all cross origin requests from the server . But if we need to allow cross origin for some site     then backend code has to write ACAO header as url of mainSite.com and url of thisThirdParty.com . 
+
+3.1. Hence If some other site needs to access our API then we will have to male JSON based csrf protection and also ACAO header value having 
+     url of thirdPartySite.com
+
