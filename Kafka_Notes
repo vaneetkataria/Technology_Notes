@@ -1,0 +1,63 @@
+Topic and Broker level configs . 
+
+1.partitions ==> Should be defined in an optimal range . 
+                 Cons of high number : A very high number will make a very high load on zookeeper for leader
+                 elections .  
+                 Pros of high Number : You can have very high throughput by having better parallelism for consumer groups.
+                 
+                 Cons of small number : Less parallelism . It will waste resources. Will have less throughput and high latency
+                 
+                 Should be Num broker * 2 for numBrokers <=6
+                 Should be = Num broker got numBrokers >6
+                    
+2.num-replicas==> 
+                Should not be very less as very less resplicas will make system very less durable and consistent . 
+                Should not be very high as it will make system very cpu intensive decreasing throughput and high latency.
+
+3.log.segment.bytes default = 1GB 
+[Should be optimal as if value is set much smaller it will result in more files opened and much log compaction or deletion happeneing . If 1 GB or more  data is coming a day then 1 GB is OK but if 1 GB is coming in a week then this should be smaller so that segments can be deleted after commit .]
+
+4.log.segment.ms = 1-week [Should be optimal as if value is set much smaller it will result in more files opened and much log compaction happeneing .]
+log.cleanup.policy = delete or compact
+
+5.log.cleaner.backoff.ms default 15 ms is the default time to check if some segment is acvailale for deletion or compaction .
+
+6.log.retention.hours = 1-week by default [In a partition all the segments will have data and it will start from oldest segment and start deleting data if it is 1-week old . ]
+
+7.log.retention.bytes [default -1 means any infinite size message or partition size if we set it 500 MB then after going above 500MB old data will start deleting .]
+
+#Log cleanup ploicies 
+
+1. Delete policy will check log.retention.hours or log.retention.bytes for old segments and will delete the 
+   data for which these limits have been given . Old segments are those for which either there segments.bytes (size) or 
+   segment.ms (time) has been elapsed .default is 1GB and 1 week. 
+
+2. Compact policy will keep on deleting keys having new latest value and will keep latest value only . 
+   Old segments are those for which either there segments.bytes (size) or segment.ms (time) has been elapsed .default 
+   is 1GB and 1 week.    
+
+
+#Testing of kafka log compaction . 
+
+#Setup Kafka topic with configs . 
+kafka-topics.sh --zookeeper 127.0.0.1:2181 --topic logcompaction --partitions 1 --replication-factor 1 --config cleanup.policy=compact --config min.cleanable.dirty.ratio=0.001 --config segment.ms=5000 --create
+
+#Describe Kafka . 
+kafka-topics.sh --zookeeper 127.0.0.1:2181 --topic logcompaction1 --describe
+
+#Way to set configs in topic after creation .
+kafka-configs.sh --zookeeper 127.0.0.1:2181 --entity-type topics --entity-name log_compaction --add-config 'cleanup.policy=compact,min.cleanable.dirty.ratio=0.001,segment.ms=5000' --alter
+
+#Start consoler consumer
+kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic logcompaction1 --property print.key=true --property key.separator=, --from-beginning
+
+#Start consoler producer
+kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic logcompaction --property parse.key=true --property key.separator=,
+
+Keep on start stop the consumer with repeat keys values . You will see keys are getting their latest valuess . 
+
+
+
+
+
+ 
