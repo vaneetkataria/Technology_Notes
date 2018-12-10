@@ -44,7 +44,14 @@ Ans : FRIENDSOF_FRIENDS_OF_FRIENDS_NAME . Hibernate makes a snake case from came
 Q5: How doed byte , short , int , long ids map to db ? 
 Ans : byte ==> TINTINT(3) , short ==> SMALLINIT(5) , int ==> INTEGER(10) , long ==> BIGINT(19)
 
-Q5:  
+Q5: Why 3 , 5 , 10 and 19 are generated for above values ? 
+1. byte	8 bits	-128 .. 127   ==> column with tiniint(3) will be able to take values in the range defined -128 +127 . Hence 3 digit .  
+
+2. short	16 bits	-32,768 .. 32,767 ==> column with smallint(5) will be able to take values in the range defined -32,768 .. 32,767 . Hence 5 .
+
+3.  int	32 bits	-2,147,483,648 .. 2,147,483,647 ==> column with Integer(10) will be able to take values in the range defined -2,147,483,648 .. 2,147,483,647 . Hence 10 .
+
+4. long	64 bits	-9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807   ==> column with BigInt(19) will be able to take values in the range defined -9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807 . Hence 19 .
 
 
 
