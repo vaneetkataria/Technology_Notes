@@ -1,3 +1,52 @@
 Q1: Can we specify an entity witthout defining a feild with @Id annatation ? 
 Ans : No , An exception saying No identifier specified for entity: com.katariasoft.technologies.jpaHibernate.college.data.entity.Student
-      will be thrown .  
+      will be thrown . Hence we have to define an entity with identifier only . 
+
+Q2: What if i didn't annotated with @Entity as start annotating with @Id like below ?
+
+     public class IdProof {
+
+	@Id
+	private long id;
+	private String proofNo;
+	private String address
+	private String fatherName;
+     }
+
+Ans : No Tables will be generated as jpa-hibernate will create tables for only those classes marked with @Entity annoatation. 
+
+Q3: What if i didn't coded any constructor and any getter setter ? 
+Ans : Tables will be generated successfully as soon as pojos marked with @Entity are found . Getter setter and constructor 
+      declaration does not affect table generation .  
+
+Q4: How Entity class name and entity feild names are mapped to database if no @Coloumn and @Table are defined? 
+Ans :     
+    For below class 
+
+    @Entity
+    public class IdProof {
+
+	@Id
+	private long id;
+	private String proofNo;
+	private String address
+	private String fatherName;
+     }   
+
+Table name will be : ID_PROOF and feilds name will be ID , PROOF_NO , ADDRESS , FATHER_NAME . 
+However while writing queries we can query them by id , proof_no etc . 
+
+Q5: How friendsofFriendsOfFriendsName will be genrated as a coloumn name in table ? 
+Ans : FRIENDSOF_FRIENDS_OF_FRIENDS_NAME . Hibernate makes a snake case from camel case . 
+      It converts from camelk case to snake case . Means for every largeCap character it will add a _ before large cap and 
+      start writing the complete name again . 
+
+Q5: How doed byte , short , int , long ids map to db ? 
+Ans : byte ==> TINTINT(3) , short ==> SMALLINIT(5) , int ==> INTEGER(10) , long ==> BIGINT(19)
+
+Q5:  
+
+
+
+  
+     
