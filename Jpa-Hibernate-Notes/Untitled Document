@@ -53,6 +53,30 @@ Q5: Why 3 , 5 , 10 and 19 are generated for above values ?
 
 4. long	64 bits	-9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807   ==> column with BigInt(19) will be able to take values in the range defined -9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807 . Hence 19 .
 
+Q6: How does char gets defined in db ? 
+Ans : char gets defined as char(255) . Which is very ineficient way of storing java char . 
+
+Q7: How does boolean gets stored in db ? 
+ans : boolean gets stored in db as Boolean(1) , In db tables it will be shown as true/false . Also if any number except zero is supplied 
+      in query it will be true anf for zero its false. 
+      2. If true is supplied it will be true and if false is supplied it will be false . 
+      3. It will be true if 'any number except zero is supplied' for example '515' '-67543' etc . But if '0' is supplied it will be false . 
+
+Hence in db queries [ a number (12 , 120 , -90876 , 0(false)) , a number enclosed in '' like ('12' , '120' , '-90876' , '0') 
+                     , true/false will work and 'true'/'false' also works.] .
+Hence numbers in single quotes or without single quotes and true/false in with or without single quotes work .  
+   
+
+
+
+
+
+
+
+
+
+
+
 
 
   
