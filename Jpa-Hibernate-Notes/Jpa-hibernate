@@ -94,8 +94,19 @@ Ans:  If we define byte[] in entities it will store it as varbinary(255) which i
 
 BLOB values are treated as binary strings (byte strings). They have the binary character set and collation, and comparison and sorting are based on the numeric values of the bytes in column values.
 Text values are treated as nonbinary strings (character strings). They have a character set other than binary, and values are sorted and compared based on the collation of the character set.
+In addition, MySQL does not remove or pad spaces when retrieve or insert text data like CHAR and VARCHAR . Note that the TEXT data is not stored in the database server's memory, therefore, whenever you query TEXT data, MySQL has to read from it from the disk, which is much slower in comparison with CHAR and VARCHAR .
 
-Q12 . 
+Q12 . Which when to use when between char , varchar , tinitext , text , mediumtext , longtext ? 
+Ans : 1 . If we want to store string and we know the string to be stored has fixed length then it must be stored as char 
+          as mysql server can jump from one to other with a fixed offset . Hence it is more performant . 
+      2. If lenght is not fixed but some sorting seraching can be done on this data then store Varchar . Max row size can be 65535
+      3. If lenght is not fixed but not exceed max by 255 and is never going to be used for sort serach use tinitext  .
+      4. If lenght is not fixed but not exceed max by 65535(64 kb) and is never going to be used for sort serach use text  .
+      5. If lenght is not fixed but not exceed max by (16 mb) and is never going to be used for sort serach use mediumtext  .
+      6. If lenght is not fixed but not exceed max by (4 gb mb) and is never going to be used for sort serach use mediumtext  .
+      
+      texts are stored in disk not in memory hence are less efficient in queries.
+      
 
 
 
