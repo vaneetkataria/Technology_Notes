@@ -176,6 +176,9 @@ Ans :The column ddl generation is totally dependent on undelying database from d
 
  Conslusion : For default java types it is totally dialect dependent thing that what ddl will be generated for cloumns . 
 
+Q14 : Best practice to map date with time zones in db ? 
+
+
          
 
   
