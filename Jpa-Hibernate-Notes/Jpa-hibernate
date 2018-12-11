@@ -101,9 +101,9 @@ Ans : 1 . If we want to store string and we know the string to be stored has fix
           as mysql server can jump from one to other with a fixed offset . Hence it is more performant . 
       2. If lenght is not fixed but some sorting seraching can be done on this data then store Varchar . Max row size can be 65535
       3. If lenght is not fixed but not exceed max by 255 and is never going to be used for sort serach use tinitext  .
-      4. If lenght is not fixed but not exceed max by 65535(64 kb) and is never going to be used for sort serach use text  .
-      5. If lenght is not fixed but not exceed max by (16 mb) and is never going to be used for sort serach use mediumtext  .
-      6. If lenght is not fixed but not exceed max by (4 gb mb) and is never going to be used for sort serach use mediumtext  .
+      4. If lenght is not fixed greater than 255 bytes but not exceed max by 65535(64 kb) and is never going to be used for sort srch use text
+      5. If lenght is not fixed greater than 64 kb but not exceed max by (16 mb) and is never going to be used for sort serach use mediumtext  .
+      6. If lenght is not fixed greater than 16 Mb but not exceed max by (4 gb ) and is never going to be used for sort serach use longtext  .
       
       texts are stored in disk not in memory hence are less efficient in queries.
       
