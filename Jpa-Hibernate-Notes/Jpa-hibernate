@@ -63,7 +63,17 @@ ans : boolean gets stored in db as Boolean(1) , In db tables it will be shown as
       2. If true is supplied it will be true and if false is supplied it will be false . 
       3. It will be true if 'any number except zero is supplied' for example '515' '-67543' etc . But if '0' is supplied it will be false . 
 
-Hence in db queries [ a number (12 , 120 , -90876 , 0(false)) , a number enclosed in '' like ('12' , '120' , '-90876' , '0') 
+Hence in db queries [ a number (12 ,
+Q12 . Which when to use when between char , varchar , tinitext , text , mediumtext , longtext ? 
+Ans : 1 . If we want to store string and we know the string to be stored has fixed length then it must be stored as char 
+          as mysql server can jump from one to other with a fixed offset . Hence it is more performant . 
+      2. If lenght is not fixed but some sorting seraching can be done on this data then store Varchar . Max row size can be 65535
+      3. If lenght is not fixed but not exceed max by 255 and is never going to be used for sort serach use tinitext  .
+      4. If lenght is not fixed greater than 255 bytes but not exceed max by 65535(64 kb) and is never going to be used for sort srch use text
+      5. If lenght is not fixed greater than 64 kb but not exceed max by (16 mb) and is never going to be used for sort serach use mediumtext  .
+      6. If lenght is not fixed greater than 16 Mb but not exceed max by (4 gb ) and is never going to be used for sort serach use longtext  .
+      
+      texts are stored in disk not in memory hence are less efficient in queries. 120 , -90876 , 0(false)) , a number enclosed in '' like ('12' , '120' , '-90876' , '0') 
                      , true/false will work and 'true'/'false' also works.] .
 Hence numbers in single quotes or without single quotes and true/false in with or without single quotes work .  t can ran ge
 
@@ -71,7 +81,7 @@ Q8: How BigDecimal maps to database column by default by jpa hibernate  ?
 Ans :Bigdecimal gets mapped to Decimal(19,2) . As Decimal(5 , 2) means it can have 5-2 = 3 digits max before decimal . Hence it can have a range of -999.00 to +999.99 . If we will store +999.906 then it will store +999.91 means round off value only  . 
 
 Q9 : How does LocalDate , LocalTime and LocalDateTime gets saved in db by default by jpa hibernate   ? 
-Ans : LocalDate in mapped to Date(10) , LocalTime is mapped to LocalTime(8) and LocalDateTime is mapped to LocalDateTime(26) 
+Ans : LocalDate in mapped to Date(10) , LocalTime is mapped to atabase server's memory, therefore, whenever you query TEXT data, MySQL has to read from it from the disk, which is much slower in comparison with CHAR and VARCHAR .LocalTime(8) and LocalDateTime is mapped to LocalDateTime(26) 
       yyyy:MM:dd ==> 10 chars
       HH:mm:ss==>8 chars
       yyyy:MM:dd HH:mm:ss.ssssss ==> 26 chars . 
@@ -106,13 +116,73 @@ Ans : 1 . If we want to store string and we know the string to be stored has fix
       6. If lenght is not fixed greater than 16 Mb but not exceed max by (4 gb ) and is never going to be used for sort serach use longtext  .
       
       texts are stored in disk not in memory hence are less efficient in queries.
-      
+
+Q13: Is data type and column ddl generated from jpa hibernate dependent on undelying database ? If yes then how ? 
+Ans :The column ddl generation is totally dependent on undelying database from default java type to column ddl generation . As per POC 
+     with in memory database h2 and mysql following differences were observed . 
+     1. byte: 
+          H2: In h2 it got mapped to tinyint(3) having a range of -128 to +127 . We could insert +/- sign with this range . Any number 
+              outside range could not be entered . 
+          Mysql: In Mysql it got mapped to tinyint(4) having a range of -128 to +127 . We could insert +/- sign with this range . Any number 
+              outside range could not be entered . 
+     2. short: 
+          H2: In h2 it got mapped to smallint(5) having a range of -32768 to +32767 . We could insert +/- sign with this range . Any number 
+              outside range could not be entered . 
+          Mysql: In Mysql it got mapped to smallint(6) having a range of -32768 to +32767 . We could insert +/- sign with this range . 
+               Any number outside range could not be entered . 
+     3. int : 
+          H2: In h2 it got mapped to int(10) having a range of  -2,147,483,648 .. 2,147,483,647 . We could insert +/- sign with this range .
+              Any number outside range could not be entered . 
+          Mysql: In Mysql it got mapped to int(11) having a range of -2,147,483,648 .. +2,147,483,647. We could insert +/- sign with this   
+                 range. Any number outside range could not be entered . 
+     4. long : 
+          H2: In h2 it got mapped to bigint(19) having a range of  -9,223,372,036,854,775,808 .. +9,223,372,036,854,775,807  . We could insert 
+              +/- sign with this range .Any number outside range could not be entered . 
+          Mysql: In Mysql it got mapped to bigint(20) having a range of -9,223,372,036,854,775,808 .. +9,223,372,036,854,775,807. We could   
+               insert +/- sign with this range. Any number outside range could not be entered . 
+     5. char : 
+          H2: In h2 it got mapped to char(255) which is quite inefficiently mapped . 
+          Mysql: In Mysql it got mapped char(1) which is efficient but may be not solving original purpose hence we need to define it . 
+     6. String: 
+          H2: In h2 it got mapped to varchar(255) .
+          Mysql: In Mysql it got mapped to varchar(255). 
+     7. BigDecimal 
+          H2: In h2 it got mapped decimal(19,2)
+          Mysql:  In mysql also it got mapped decimal(19,2) 
+     8. LocalDate 
+          H2: In h2 it got mapped date(10)
+          Mysql:  In mysql it got mapped date .
+     9. LocalTime 
+          H2: In h2 it got mapped time(8) . Time in second was rounded off if 13:10:30.890765 is entered to 13:10:31 .
+          Mysql:  In mysql it got mapped time .  Time in second was rounded off if 13:10:30.890765 is entered to 13:10:31 .
+     9. LocalDateTime 
+          H2: In h2 it got mapped timestamp(26,6)  . if 30:12:1990 13:10:30.890765 is entered to 
+              30:12:1990 13:10:31.890765 is stored in column and if 30:12:1990 13:10:30.890765910 is entered then 
+              30:12:1990 13:10:30.890766 is stored .
+          Mysql:  In mysql it got mapped to datetime. Which cannot hold milliseconds . if '2018-12-11 16:27:01.789123123'  
+                  is stored then '2018-12-11 16:27:02' will be stored in db . Hence to use timstamp we need to define 
+                  on our own .
+     10.byte[]
+          H2: In h2 it got mapped to varbinary(255) . 
+          Mysql:  In mysql it got mapped to tiniblob .
+
+     11. boolean 
+          H2: In h2 it got mapped Boolean(1) which means if we updated true , 'true' , '1' , '5' , '-10' , '10' true is saved in db . 
+              and if false , 'false' , '0' , 0 is updated then false is saved in db and also if 'antthing else true false and a number
+              is updated then exception occurs. 
+          Mysql:  In mysql it got mapped to bit(1) which means it will be shown in db as 1 , 0 and will be converted to 
+                 true/false java types . Hence we can update true, 1 for true and false , 0 for false values in queries only . 
+          
+
+ Conslusion : For default java types it is totally dialect dependent thing that what ddl will be generated for cloumns . 
+
+         
+
+  
 
 
-
-
-   
-
+              
+               
 
 
 
