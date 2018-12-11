@@ -1,0 +1,118 @@
+Q1: Can we specify an entity without defining a feild with @Id annatation ? 
+Ans : No , An exception saying No identifier specified for entity: com.katariasoft.technologies.jpaHibernate.college.data.entity.Student
+      will be thrown . Hence we have to define an entity with identifier only . 
+
+Q2: What if i didn't annotated with @Entity as start annotating with @Id like below ?
+
+     public class IdProof {
+
+	@Id
+	private long id;
+	private String proofNo;
+	private String address
+	private String fatherName;
+     }
+
+Ans : No Tables will be generated as jpa-hibernate will create tables for only those classes marked with @Entity annoatation. 
+
+Q3: What if i didn't coded any constructor and any getter setter ? 
+Ans : Tables will be generated successfully as soon as pojos marked with @Entity are found . Getter setter and constructor 
+      declaration does not affect table generation .  
+
+Q4: How Entity class name and entity feild names are mapped to database if no @Coloumn and @Table are defined? 
+Ans :     
+    For below class 
+
+    @Entity
+    public class IdProof {
+
+	@Id
+	private long id;
+	private String proofNo;
+	private String address
+	private String fatherName;
+     }   
+
+Table name will be : ID_PROOF and feilds name will be ID , PROOF_NO , ADDRESS , FATHER_NAME . 
+However while writing queries we can query them by id , proof_no etc . 
+
+Q5: How friendsofFriendsOfFriendsName will be genrated as a coloumn name in table ? 
+Ans : FRIENDSOF_FRIENDS_OF_FRIENDS_NAME . Hibernate makes a snake case from camel case . 
+      It converts from camelk case to snake case . Means for every largeCap character it will add a _ before large cap and 
+      start writing the complete name again . 
+
+Q5: How does byte , short , int , long ids map to db by default with jpa ? 
+Ans : byte(8 bits -127 to +127 ) ==> TINTINT(3) , short(2 bytes , 16 bits , -32768 -> +32767) ==> SMALLINIT(5) , 
+      int(4 bytes = 32 bits , 2^32-1 which is 10 digit number)  ==> INTEGER(10) , long ==> BIGINT(19)
+
+Q5: Why 3 , 5 , 10 and 19 are generated for above values ? 
+1. byte	8 bits	-128 .. 127   ==> column with tiniint(3) will be able to take values in the range defined -128 +127 . Hence 3 digit .  
+
+2. short	16 bits	-32,768 .. 32,767 ==> column with smallint(5) will be able to take values in the range defined -32,768 .. 32,767 . Hence 5 .
+
+3.  int	32 bits	-2,147,483,648 .. 2,147,483,647 ==> column with Integer(10) will be able to take values in the range defined -2,147,483,648 .. 2,147,483,647 . Hence 10 .
+
+4. long	64 bits	-9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807   ==> column with BigInt(19) will be able to take values in the range defined -9,223,372,036,854,775,808 .. 9,223,372,036,854,775,807 . Hence 19 .
+
+Q6: How does char gets defined in db by default by jpa hibernate ? 
+Ans : char gets defined as char(255) . Which is very ineficient way of storing java char . 
+
+Q7: How does boolean gets stored in db by default by jpa hibernate  ? 
+ans : boolean gets stored in db as Boolean(1) , In db tables it will be shown as true/false . Also if any number except zero is supplied 
+      in query it will be true anf for zero its false. 
+      2. If true is supplied it will be true and if false is supplied it will be false . 
+      3. It will be true if 'any number except zero is supplied' for example '515' '-67543' etc . But if '0' is supplied it will be false . 
+
+Hence in db queries [ a number (12 , 120 , -90876 , 0(false)) , a number enclosed in '' like ('12' , '120' , '-90876' , '0') 
+                     , true/false will work and 'true'/'false' also works.] .
+Hence numbers in single quotes or without single quotes and true/false in with or without single quotes work .  t can ran ge
+
+Q8: How BigDecimal maps to database column by default by jpa hibernate  ? 
+Ans :Bigdecimal gets mapped to Decimal(19,2) . As Decimal(5 , 2) means it can have 5-2 = 3 digits max before decimal . Hence it can have a range of -999.00 to +999.99 . If we will store +999.906 then it will store +999.91 means round off value only  . 
+
+Q9 : How does LocalDate , LocalTime and LocalDateTime gets saved in db by default by jpa hibernate   ? 
+Ans : LocalDate in mapped to Date(10) , LocalTime is mapped to LocalTime(8) and LocalDateTime is mapped to LocalDateTime(26) 
+      yyyy:MM:dd ==> 10 chars
+      HH:mm:ss==>8 chars
+      yyyy:MM:dd HH:mm:ss.ssssss ==> 26 chars . 
+      saving LocalDateTime like 1990-12-20 08:57:30.123456789 will save 1990-12-20 08:57:30.123457 in db round off . 
+      saving 14:30:05.823456 LocalTime will save 14:30:06 in db . 
+
+Q10: How does String is stored in db by default by JPA hibernate ? 
+Ans : Varchar(255) . This is more efficient than character(255) . 
+
+Q11 : How to store text and binary data in mysql with blobs and texts ? 
+Ans:  If we define byte[] in entities it will store it as varbinary(255) which is actually TINIBLOB.  
+
+ Data Type   Date Type   Storage Required
+     (CLOB)      (BLOB)
+
+     TINYTEXT    TINYBLOB    L + 1 bytes, where L < 2**8  (255)
+      TEXT        BLOB       L + 2 bytes, where L < 2**16 (64 K)
+     MEDIUMTEXT  MEDIUMBLOB  L + 3 bytes, where L < 2**24 (16 MB)
+      LONGTEXT    LONGBLOB   L + 4 bytes, where L < 2**32 (4 GB)     
+
+BLOB values are treated as binary strings (byte strings). They have the binary character set and collation, and comparison and sorting are based on the numeric values of the bytes in column values.
+Text values are treated as nonbinary strings (character strings). They have a character set other than binary, and values are sorted and compared based on the collation of the character set.
+
+Q12 . 
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+     
