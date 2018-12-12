@@ -1,4 +1,4 @@
-1. There are two ways to install git in Ubuntu .
+11. There are two ways to install git in Ubuntu .
 1.1. By Ubuntu software repositories . [By Apt-Get commands][This will not give latest version of git]
 1.2. By Downlaoding Git code from its GitHub Page and compiling and installing code it self . 
 
