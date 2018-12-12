@@ -1,4 +1,3 @@
-4321
 Q1: Can we specify an entity without defining a feild with @Id annatation ? 
 Ans : No , An exception saying No identifier specified for entity: com.katariasoft.technologies.jpaHibernate.college.data.entity.Student
       will be thrown . Hence we have to define an entity with identifier only . 
