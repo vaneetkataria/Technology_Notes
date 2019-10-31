@@ -135,6 +135,19 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
         find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"dob.age" : 1}) will be directly 
         fetched as index scan and no additional sorting will be required hence performant .   
  
+  37.   db.persons.explain("executionStats").find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com" })
+        .sort({"dob.age" : -1 , gender : -1 , email : -1 }) will be performant and no additional sorting step will be rquired . Only index
+        will be used for sorting .  
+  
+  38 .  > db.persons.explain("executionStats").find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com" })
+        .sort({"dob.age" :-1 , gender :-1 , email : -1 })  will be performant and no additional sorting step will be rquired . Only index
+        will be used for sorting .  
+
+  30 .  Rest every combination {"dob.age" :1 , gender :1 , email : -1 } ,   {"dob.age" :1 , gender :-1 , email : 1 } ,  
+                                {"dob.age" :-1 , gender :1 , email : -1 } ,   {"dob.age" :1 , gender :-1 , email : 1 }
+       all will require an additional sorting . 
+ 
+  
          
 
 
