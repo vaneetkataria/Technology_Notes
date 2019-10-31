@@ -85,6 +85,56 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
   ------>
   Sorting Order 
   ------>  
+  24 .  db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"dob.age" : 1}) will be directly 
+        fetched as index scan and no additional sorting will be required hence performant . 
+  
+  25 .  db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"dob.age" : 1 , gender : 1 })
+        will be directly fetched as index scan and no additional sorting will be required hence performant . 
+
+  26.   db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"dob.age" : 1 , gender : 1 , email: 1 })
+        will be directly fetched as index scan and no additional sorting will be required hence performant .
+
+  28.    db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"gender" : 1}) will be directly 
+        fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed on gender . 
+
+  29.    db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"gender" : 1 , email : 1 }) will be directly 
+        fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed on gender and then email  .
+  
+  30.    db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({email : 1 }) will be directly 
+        fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed on email  .
+
+  31 .  db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({email : 1})  will be directly 
+        fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed on email  .
+ 
+  32 .  db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({email : 1 , gender : 1 })
+        will be directly fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed 
+        on email and then gender .  .
+
+  33.   db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({email: 1 , gender : 1 , "dob.age" : 1 })
+         will be directly fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed 
+        on email and then gender and then "dob.age"  . Hence sorting order matters . This is reverse case of case 26 .
+
+  34.   db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"gender" : 1}) will be directly 
+        fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed on gender . 
+
+  35.    db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"gender" : 1 , "dob.age" : 1 }) will be directly 
+        fetched as index scan and an additional sorting will be required hence non performant as data is not directly indexed on gender and then "dob.age" .
+  
+  36.   db.persons.explain("executionStats").
+        find({"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"}).sort({"dob.age" : 1}) will be directly 
+        fetched as index scan and no additional sorting will be required hence performant .   
+ 
          
 
 
