@@ -180,6 +180,18 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
         2. Chooses the winning plan which executes the query fastest . For this query it caches this plan .
         3. Now If 1000 docs are inserted , New index is created , Old indexes are rebuild or server is shitdhown mongo db will flush cache and do the step 1 
            again . 
+
+  45.   ======>  Multi Key Indexes 
+        1.  db.students.createIndex({hobbies : 1}) will create Multi key index on Studens having hobbies : ["Cricket" , "Football"] as array . 
+            db.students.find({hobbies : "Football"}) will be an index scan . 
+        2.  db.students.createIndex({addresses : 1}) will create Multi key index on Studens having addresses: [{type : "p" , address : "a"} 
+                   , {type : "c" , address : "b"}] as array . 
+            db.students.find({"addresses.type" : "p"}) will be a collection scan as index has been created on whole addresses array .
+            db.students.find({addresses : {type : "p" , address : "a"}}) will be an Index scan as index has been created on whole addresses array .  
+        3.  db.createIndex({hobbies : 1 , addresses: 1}) is not possible . Parllel arrays will result in a very large cartesian product . 
+        4.  db.createIndex({name : 1 , addresses: 1}) or db.createIndex({name : 1 , hobbies : 1}) is possible and it will be a compoud index with a 
+            multi key index into it and it will have sam eproperties of a compound index .  
+         
          
 
            
@@ -212,4 +224,5 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
 4.1. Max doc size :16 MB 
 4.2. Max nesting level per doc : 100 
 4.3. Max sorting memory by default : 32 MB 
+
 
