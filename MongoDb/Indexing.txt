@@ -81,6 +81,10 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
   
   23.   db.persons.explain("executionStats").find({"dob.age" : 65}) will also be a collection scan as for all docs this index has not been created .
         Hence this is query specific index if all params mathcing for which index was created are given then it becomes an index scan . 
+
+  23.1  db.instructor.createIndex({age : 1 } , {unique : 1 , partialFilterExpression : {age : {$exists : true } } } )
+        will only create age asc index in doscuments in which age feild is present . As if unique index on age is created and 
+        two docs cannot have age feild as null or undefined . Hence it is sigificant .
  
   ------>
   Sorting Order 
@@ -143,9 +147,44 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
         .sort({"dob.age" :-1 , gender :-1 , email : -1 })  will be performant and no additional sorting step will be rquired . Only index
         will be used for sorting .  
 
-  30 .  Rest every combination {"dob.age" :1 , gender :1 , email : -1 } ,   {"dob.age" :1 , gender :-1 , email : 1 } ,  
+  39 .  Rest every combination {"dob.age" :1 , gender :1 , email : -1 } ,   {"dob.age" :1 , gender :-1 , email : 1 } ,  
                                 {"dob.age" :-1 , gender :1 , email : -1 } ,   {"dob.age" :1 , gender :-1 , email : 1 }
-       all will require an additional sorting . 
+        all will require an additional sorting . 
+
+  40.   Different options in expalain method : queryPlanner [By default no need to specify] 2. executionStats 3. allPlansExecution
+ 
+  41.   How to check if a query is efficient : 
+        1. Check if it is a IXscan or CollScan .
+        2. Mills to execute query .
+        3. sorting step was introduced or not .  
+        4. Check Number of keys examined . If number of keys examined are almost equal to number of docs examined  in collection scan then performance 
+           will degrade . As in single feild indexes if a query {"dob.age" : { $gt : 1} } is executed it will degrade the performance as number of keys 
+           examined wil be equal to number of docs scanned in coll scan . So In Compoud indexes in such case if number of keys examined are less 
+           {"dob.age" : {$gt : 1 } , gender : "male" , email : "vaneet.kataria@rategain.com"  } will perform better as number of keys scanned will be very less .
+
+  42.   TTL Index : db.instructor.createIndex({"dob" : 1 } , {expireAfterSeconds : 10 } ) . Here dob feild cqan only be ISODate() or new Date() . 
+        Record being inserted with a date feild will be expired and removed from db after specified number of seconds . It can only be a songle feild index
+        only on ISODate() and new Date() feilds . It cannot be created as a coupound index  .  
+  
+        ========> Covered Queries 
+  43 .  db.persons.explain("executionStats").find({"name.first" : "harvey" } , {_id : 0 , "name.first" : 1  } ) . Create db.persons.createIndex({"name.first" : 1})
+        before executing this query . Now this query will do index scan and return only 1 key and after than no doc wil be examined as the feild required 
+        for projection will be preseent in index itself . Hence this will be a covered query .  
+
+  44.   =====> Hoe mongo db rejects a query plan 
+        Suppose db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 1}) , db.persons.createIndex({"dob.age" : 1 , gender : 1 }) 
+        db.persons.createIndex({"dob.age" : 1}) are created index on a colelction . And we issue db.persons.find({"dob.age" : {$gt : 1} , gender : "male" , 
+         email : "vaneet.kataria@rategain.com" }) then MOndo db will use first index and other two will be rejected . 
+       
+        1. It fetches 100 d0cs with all plans 
+        2. Chooses the winning plan which executes the query fastest . For this query it caches this plan .
+        3. Now If 1000 docs are inserted , New index is created , Old indexes are rebuild or server is shitdhown mongo db will flush cache and do the step 1 
+           again . 
+         
+
+           
+
+
  
   
          
