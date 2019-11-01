@@ -191,14 +191,81 @@ Compound Indexes : db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 
         3.  db.createIndex({hobbies : 1 , addresses: 1}) is not possible . Parllel arrays will result in a very large cartesian product . 
         4.  db.createIndex({name : 1 , addresses: 1}) or db.createIndex({name : 1 , hobbies : 1}) is possible and it will be a compoud index with a 
             multi key index into it and it will have sam eproperties of a compound index .  
-         
-         
+	
 
+    46. =======> Text Indexes 
+         > db.text.find({$text : {$search : "vaneet laptop book " }  })
+          { "_id" : ObjectId("5dbbd6f5e43eb26d816916d2"), "title" : "Book", "desctiprtion" : "This book is Awesome !" }
+          { "_id" : ObjectId("5dbbd86be43eb26d816916d4"), "title" : "Laptop Book", "description" : "This Laptop book is awesome ." }
+          { "_id" : ObjectId("5dbbd6ffe43eb26d816916d3"), "title" : "laptop", "desctiprtion" : "This laptop is Awesome !" }
+          { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome" }	
+		  
+		  Create Index : db.text.createIndex({titlle : "text"}) . This will create index on title attribute .
+		  
+		  Observations : 
+		 1.   > db.text.find({$text : {$search : "vaneet laptop book " }  }) All docs containing at least one word among these 3 is searched .
+         { "_id" : ObjectId("5dbbd6f5e43eb26d816916d2"), "title" : "Book", "desctiprtion" : "This book is Awesome !" }
+         { "_id" : ObjectId("5dbbd86be43eb26d816916d4"), "title" : "Laptop Book", "description" : "This Laptop book is awesome ." }
+         { "_id" : ObjectId("5dbbd6ffe43eb26d816916d3"), "title" : "laptop", "desctiprtion" : "This laptop is Awesome !" }
+         { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome" }
+
+         2.   > db.text.find({$text : {$search : "vaneet " }  }) Each doc having vaneet at least one time is searched . 
+         { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome" }
+		 
+         3.   > db.text.find({$text : {$search : "vaneet book " }  }) Each doc having vaneet or book at least one time is searched . 
+         { "_id" : ObjectId("5dbbd6f5e43eb26d816916d2"), "title" : "Book", "desctiprtion" : "This book is Awesome !" }
+         { "_id" : ObjectId("5dbbd86be43eb26d816916d4"), "title" : "Laptop Book", "description" : "This Laptop book is awesome ." } 
+         { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome" }
+		 
+		 4. > db.text.find({$text : {$search : "Awesome" }} )
+              No Result Means Awesome is treated as a stock word and not indexed and same for "is" also . 
+			  
+		 5. > db.text.find({$text : {$search : "\"laptop book\""  } }) Docs having exact phrase "laptop book" is searched .
+            { "_id" : ObjectId("5dbbd86be43eb26d816916d4"), "title" : "Laptop Book", "description" : "This Laptop book is awesome ." }	  
+			
+         6. > db.text.find({$text : {$search : "\"laptop book is awesome\""  } }) dont give any results as awesome is not indexed .			
+			
+         7.  db.text.createIndex({title : "text" , description : "text" }) here text index is combined for both the fields . 
+             Now both fields will be considered for text search . 		 
+         
+		 8. db.text.insertMany([{title : "Raj" , description : "Kamna is heroine" } , {title : "kalpana" , description : "Goru is awesome"  } ])
+		    
+			Now text search works on both feilds as below . 
+			
+             > db.text.find({$text : {$search : "kalpana" } })
+            { "_id" : ObjectId("5dbbe08e2fb6ef25d13d42fe"), "title" : "kalpana", "description" : "Goru is awesome" }
+
+            > db.text.find({$text : {$search : "goru" } })
+            { "_id" : ObjectId("5dbbe08e2fb6ef25d13d42fe"), "title" : "kalpana", "description" : "Goru is awesome" }
+
+            > db.text.find({$text : {$search : "raj" } })
+            { "_id" : ObjectId("5dbbe08e2fb6ef25d13d42fd"), "title" : "Raj", "description" : "Kamna is heroine" }
+
+            > db.text.find({$text : {$search : "kamna" } })
+            { "_id" : ObjectId("5dbbe08e2fb6ef25d13d42fd"), "title" : "Raj", "description" : "Kamna is heroine" }			
            
+          10 . Score Analysis 
+            > db.text.insertOne({title : "vaneet ji" , description : "Sahil is aweomse ." })
+           ==========> Now run below query :             
+		   > db.text.find({$text : {$search : "vaneet" } } , {score : {$meta : "textScore" } }  )
+             { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome", "score" : 1.85 }
+             { "_id" : ObjectId("5dbbe1cd2fb6ef25d13d42ff"), "title" : "vaneet ji", "description" : "Sahil is aweomse .", "score" : 0.75 }			
+           
+		  11. > db.text.find({$text : {$search : "vaneet" } } , {score : {$meta : "textScore" } }  ).sort({score : {$meta : "textScore"  }})
+            { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome", "score" : 1.85 }
+            { "_id" : ObjectId("5dbbe1cd2fb6ef25d13d42ff"), "title" : "vaneet ji", "description" : "Sahil is aweomse .", "score" : 0.75 } 
+          
+		  12. =======> Exlude words =====> db.text.find({$text : {$search : "Vaneet -ji   " }   })
+                 { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome" }
 
-
+				   > db.text.find({$text : {$search : "Vaneet" }   }) With only Vaneet below is the result . 
+                 { "_id" : ObjectId("5dbbdd2e2fb6ef25d13d42fa"), "title" : "Vaneet", "description" : "Vaneet is Awesome" }
+                 { "_id" : ObjectId("5dbbe1cd2fb6ef25d13d42ff"), "title" : "vaneet ji", "description" : "Sahil is aweomse ." }
  
-  
+          13. Create INdexes in background does not lock collection and hence while index creation collection is operative for crud but in 
+               foreground that is default collections blocks out . 
+               
+                db.persons.createIndex({"dob.age" : 1 , gender : 1 , email : 1 } , {background : true , unique : true , partialFilterExpression : {gender : "male" , phone : {$exists : true}} })			   
          
 
 
