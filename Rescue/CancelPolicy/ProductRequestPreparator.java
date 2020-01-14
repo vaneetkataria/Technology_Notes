@@ -4,9 +4,11 @@ import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -70,14 +72,14 @@ public class ProductRequestPreparator {
 			request.setRatePlan(shop.getStpRenderedShopKey().getRpc());
 			request.setDpRatePlanCode(dpRateCode);
 			/** Prepare Consolidated Cancel Policy from multiple days shopped */
-			CancelPolicyConsolidator.of()
+			List<MergedCancelPolicy> mergedPolicies = CancelPolicyConsolidator.of()
 					.consolidate(stpRenderedShops.stream().map(this::mapToRenderedShop).collect(Collectors.toList()));
-
+			request.setCancelPolicies(mergedPolicies.stream().map(mp -> CancelPolicy.of(mp.getDpCancelPolicyCode() , mp.getDateRanges())).collect(Collectors.toList())));
 		} catch (Exception e) {
 			throw e;
 		}
 
-		return null;
+		return request;
 	}
 
 	private RenderedShop mapToRenderedShop(StpRenderedShop stpRenderedShop) {
@@ -135,11 +137,11 @@ public class ProductRequestPreparator {
 		 */
 		private Map<String, MergedCancelPolicy> policyOccuranceMap;
 
-		public void consolidate(List<RenderedShop> renderedShops) {
+		public List<MergedCancelPolicy> consolidate(List<RenderedShop> renderedShops) {
 			renderedShops.stream().forEach(this::add);
 			assignPolicyToUnknownPolicyDays();
 			buildOccuranceMap();
-			categoriseCancelPolicies();
+			return categoriseCancelPolicies();
 		}
 
 		private void add(RenderedShop shop) {
@@ -200,8 +202,10 @@ public class ProductRequestPreparator {
 							MergedCancelPolicy::merge, HashMap::new));
 		}
 
-		private void categoriseCancelPolicies() {
-
+		private List<MergedCancelPolicy> categoriseCancelPolicies() {
+			/** Sort Policies based on occurances */
+			return policyOccuranceMap.entrySet().stream().map(Entry::getValue)
+					.sorted(Comparator.comparing(MergedCancelPolicy::getCount)).collect(Collectors.toList());
 		}
 
 	}
@@ -235,6 +239,7 @@ public class ProductRequestPreparator {
 			simplifiedPolicy.setDeadlineHours(calculateDeadLineHours(shop));
 			setPenalty(simplifiedPolicy, shop);
 			simplifiedPolicy.setDpCancelPolicyCode("153"); // TODO
+			simplifiedPolicy.setNonRefundable(false); // TODO
 			simplifiedPolicy.setCancelPolicy(shop.getCancelPolicy());
 			simplifiedPolicy.setShopDate(shop.getDate());
 			return Optional.of(simplifiedPolicy);
@@ -306,6 +311,7 @@ public class ProductRequestPreparator {
 		protected String dpCancelPolicyCode;
 		protected LocalDate shopDate;
 		protected CancelPolicy cancelPolicy;
+		protected boolean isNonRefundable;
 
 		public static SimplifiedCancelPolicy of() {
 			return new SimplifiedCancelPolicy();
@@ -317,6 +323,10 @@ public class ProductRequestPreparator {
 
 		public LocalDate getShopDate() {
 			return shopDate;
+		}
+
+		public boolean isNonRefundable() {
+			return isNonRefundable;
 		}
 
 		public void setCancelPolicy(CancelPolicy cancelPolicy) {
@@ -342,6 +352,11 @@ public class ProductRequestPreparator {
 		public void setShopDate(LocalDate shopDate) {
 			this.shopDate = shopDate;
 		}
+
+		public void setNonRefundable(boolean isNonRefundable) {
+			this.isNonRefundable = isNonRefundable;
+		}
+
 	}
 
 	private static class MergedCancelPolicy extends SimplifiedCancelPolicy {
@@ -353,6 +368,7 @@ public class ProductRequestPreparator {
 			merged.penaltyNights = policy.penaltyNights;
 			merged.cancelPolicy = policy.cancelPolicy;
 			merged.dpCancelPolicyCode = policy.dpCancelPolicyCode;
+			merged.isNonRefundable = policy.isNonRefundable;
 			merged.dateRanges = new ArrayList<>();
 			merged.addNewDateRange(policy.getShopDate());
 			return merged;
@@ -365,6 +381,18 @@ public class ProductRequestPreparator {
 
 		private int count = 1;
 		private List<LocalDate[]> dateRanges;
+
+		public int getCount() {
+			return count;
+		}
+
+		public List<LocalDate[]> getDateRanges() {
+			return dateRanges;
+		}
+
+		public void setDateRanges(List<LocalDate[]> dateRanges) {
+			this.dateRanges = dateRanges;
+		}
 
 		public MergedCancelPolicy merge(MergedCancelPolicy m2) {
 			count++;

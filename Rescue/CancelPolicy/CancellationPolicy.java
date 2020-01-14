@@ -20,7 +20,7 @@ public interface CancellationPolicy extends Serializable {
 	 * 
 	 */
 
-	Optional<String> getFullyRefundablePolicy();
+	Optional<CancellationPolicyDTO> getFullyRefundablePolicy();
 
 	/**
 	 * 
@@ -36,7 +36,7 @@ public interface CancellationPolicy extends Serializable {
 	 *         </pre>
 	 */
 
-	Optional<String> getPolicyForPenaltyPercent(short deadlineHours, double penaltyPercentage);
+	Optional<CancellationPolicyDTO> getPolicyForPenaltyPercent(short deadlineHours, double penaltyPercentage);
 
 	/**
 	 * 
@@ -52,6 +52,6 @@ public interface CancellationPolicy extends Serializable {
 	 *         </pre>
 	 */
 
-	Optional<String> getPolicyForPenaltyNights(short deadlineHours, short penaltyNights);
+	Optional<CancellationPolicyDTO> getPolicyForPenaltyNights(short deadlineHours, short penaltyNights);
 
 }

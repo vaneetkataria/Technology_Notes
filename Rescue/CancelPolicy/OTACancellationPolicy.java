@@ -24,7 +24,7 @@ public class OTACancellationPolicy implements CancellationPolicy {
 
 	private static final long serialVersionUID = 1L;
 
-	private String policyCodeFullyRefundable;
+	private CancellationPolicyDTO fullyRefundablePolicy;
 	private RangeMap<Short, DeadlineHoursWisePolicy> deadlineHoursWisePolicyRangeMap = TreeRangeMap.create();
 
 	public static OTACancellationPolicy of(List<CancellationPolicyDTO> cancellationPolicy) {
@@ -52,11 +52,11 @@ public class OTACancellationPolicy implements CancellationPolicy {
 
 	private void loadDeadlineHoursWise(CancellationPolicyDTO dto) {
 		if (dto.isFullyRefundable()) {
-			if (Objects.nonNull(policyCodeFullyRefundable))
+			if (Objects.nonNull(fullyRefundablePolicy))
 				throw new IllegalArgumentException(
 						"Cannot have multiple ota policy codes as fully refundable policy code .");
 
-			policyCodeFullyRefundable = dto.getOtaPolicyCode();
+			fullyRefundablePolicy = dto;
 			return;
 		}
 
@@ -73,16 +73,16 @@ public class OTACancellationPolicy implements CancellationPolicy {
 	}
 
 	@Override
-	public Optional<String> getFullyRefundablePolicy() {
-		return Optional.ofNullable(policyCodeFullyRefundable);
+	public Optional<CancellationPolicyDTO> getFullyRefundablePolicy() {
+		return Optional.ofNullable(fullyRefundablePolicy);
 	}
 
 	@Override
-	public Optional<String> getPolicyForPenaltyPercent(short deadlineHours, double penaltyPercentage) {
+	public Optional<CancellationPolicyDTO> getPolicyForPenaltyPercent(short deadlineHours, double penaltyPercentage) {
 		if (deadlineHours == 0)
 			return getFullyRefundablePolicy();
 
-		String policyCode = null;
+		CancellationPolicyDTO policyCode = null;
 		DeadlineHoursWisePolicy policy = deadlineHoursWisePolicyRangeMap.get(deadlineHours);
 		if (Objects.nonNull(policy))
 			policyCode = policy.getPercentageWisePenalty(penaltyPercentage);
@@ -91,11 +91,11 @@ public class OTACancellationPolicy implements CancellationPolicy {
 	}
 
 	@Override
-	public Optional<String> getPolicyForPenaltyNights(short deadlineHours, short penaltyNights) {
+	public Optional<CancellationPolicyDTO> getPolicyForPenaltyNights(short deadlineHours, short penaltyNights) {
 		if (deadlineHours == 0)
 			return getFullyRefundablePolicy();
 
-		String policyCode = null;
+		CancellationPolicyDTO policyCode = null;
 		DeadlineHoursWisePolicy policy = deadlineHoursWisePolicyRangeMap.get(deadlineHours);
 		if (Objects.nonNull(policy) && penaltyNights >= 1)
 			policyCode = penaltyNights > 1 ? policy.getMultiNightPenalty() : policy.getSingleNightPenalty();
@@ -107,42 +107,41 @@ public class OTACancellationPolicy implements CancellationPolicy {
 		Predicate<CancellationPolicyDTO> isNightWisePenalty = dto -> dto.getPenaltyPercentageMin() < 0
 				&& dto.getPenaltyPercentageMax() < 0 && dto.getPenaltNights() > 0;
 
-		String singleNightPnltyCode;
-		String multiNightPnltyCode;
-		RangeMap<Double, String> prcntgWisePenaltyRangeMap = TreeRangeMap.create();
+		CancellationPolicyDTO singleNightPnlty;
+		CancellationPolicyDTO multiNightPnltyCode;
+		RangeMap<Double, CancellationPolicyDTO> prcntgWisePenaltyRangeMap = TreeRangeMap.create();
 
 		DeadlineHoursWisePolicy add(CancellationPolicyDTO dto) {
 			if (isNightWisePenalty.test(dto)) {
 				if (dto.getPenaltNights() == 1)
-					singleNightPnltyCode = dto.getOtaPolicyCode();
+					singleNightPnlty = dto;
 				else
-					multiNightPnltyCode = dto.getOtaPolicyCode();
+					multiNightPnltyCode = dto;
 				return this;
 			}
 
-			prcntgWisePenaltyRangeMap.put(
-					Range.openClosed(dto.getPenaltyPercentageMin(), dto.getPenaltyPercentageMax()),
-					dto.getOtaPolicyCode());
+			prcntgWisePenaltyRangeMap
+					.put(Range.openClosed(dto.getPenaltyPercentageMin(), dto.getPenaltyPercentageMax()), dto);
 
 			return this;
 		}
 
-		String getPercentageWisePenalty(double prcnt) {
+		CancellationPolicyDTO getPercentageWisePenalty(double prcnt) {
 			return prcntgWisePenaltyRangeMap.get(prcnt);
 		}
 
-		String getSingleNightPenalty() {
-			return singleNightPnltyCode;
+		CancellationPolicyDTO getSingleNightPenalty() {
+			return singleNightPnlty;
 		}
 
-		String getMultiNightPenalty() {
+		CancellationPolicyDTO getMultiNightPenalty() {
 			return multiNightPnltyCode;
 		}
 
 		@Override
 		public String toString() {
 			return "DeadlineHourWisePolicy [isNightWisePenalty=" + isNightWisePenalty + ", singleNightPenalty="
-					+ singleNightPnltyCode + ", multiNightPenalty=" + multiNightPnltyCode
+					+ singleNightPnlty + ", multiNightPenalty=" + multiNightPnltyCode
 					+ ", percntgWisePenaltyRangeMap=" + prcntgWisePenaltyRangeMap + "]";
 		}
 
@@ -150,7 +149,7 @@ public class OTACancellationPolicy implements CancellationPolicy {
 
 	@Override
 	public String toString() {
-		return "OTACancellationPolicy [policyCodeFullyRefundable=" + policyCodeFullyRefundable
+		return "OTACancellationPolicy [policyCodeFullyRefundable=" + fullyRefundablePolicy
 				+ ", deadlineHourWisePolicyRangeMap=" + deadlineHoursWisePolicyRangeMap + "]";
 	}
 

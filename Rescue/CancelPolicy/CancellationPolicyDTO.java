@@ -8,13 +8,15 @@ public class CancellationPolicyDTO {
 	private double penaltyPercentageMax;
 	private short penaltNights;
 	private boolean isFullyRefundable;
+	private boolean isNonRefundable;
 	private String otaPolicyCode;
 
 	public CancellationPolicyDTO() {
 	}
 
 	public CancellationPolicyDTO(short deadlineHoursMin, short deadlineHoursMax, double penaltyPercentageMin,
-			double penaltyPercentageMax, short penaltNights, boolean isFullyRefundable, String otaPolicyCode) {
+			double penaltyPercentageMax, short penaltNights, boolean isFullyRefundable, boolean isNonRefundable,
+			String otaPolicyCode) {
 		super();
 		this.deadlineHoursMin = deadlineHoursMin;
 		this.deadlineHoursMax = deadlineHoursMax;
@@ -22,6 +24,7 @@ public class CancellationPolicyDTO {
 		this.penaltyPercentageMax = penaltyPercentageMax;
 		this.penaltNights = penaltNights;
 		this.isFullyRefundable = isFullyRefundable;
+		this.isNonRefundable = isNonRefundable;
 		this.otaPolicyCode = otaPolicyCode;
 	}
 
@@ -53,6 +56,10 @@ public class CancellationPolicyDTO {
 		return isFullyRefundable;
 	}
 
+	public boolean isNonRefundable() {
+		return isNonRefundable;
+	}
+
 	public void setDeadlineHoursMin(short deadlineHoursMin) {
 		this.deadlineHoursMin = deadlineHoursMin;
 	}
@@ -81,12 +88,16 @@ public class CancellationPolicyDTO {
 		this.isFullyRefundable = isFullyRefundable;
 	}
 
+	public void setNonRefundable(boolean isNonRefundable) {
+		this.isNonRefundable = isNonRefundable;
+	}
+
 	@Override
 	public String toString() {
 		return "CancellationPolicyDTO [deadlineHoursMin=" + deadlineHoursMin + ", deadlineHoursMax=" + deadlineHoursMax
 				+ ", penaltyPercentageMin=" + penaltyPercentageMin + ", penaltyPercentageMax=" + penaltyPercentageMax
-				+ ", penaltNights=" + penaltNights + ", isFullyRefundable=" + isFullyRefundable + ", otaPolicyCode="
-				+ otaPolicyCode + "]";
+				+ ", penaltNights=" + penaltNights + ", isFullyRefundable=" + isFullyRefundable + ", isNonRefundable="
+				+ isNonRefundable + ", otaPolicyCode=" + otaPolicyCode + "]";
 	}
 
 }
