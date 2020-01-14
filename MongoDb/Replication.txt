@@ -1,0 +1,1 @@
+same Roomtype cannot be created again . Multiple double room types will not be ctreated .
