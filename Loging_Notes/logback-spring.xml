@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<springProperty scope="context" name="springAppName"
+		source="spring.application.name" />
+	<!-- Example for logging into the build folder of your project -->
+	<property name="LOG_FILE"
+		value="/apps/logs/${hostName}/product-automation/product-automation.log" />
+	<!-- You can override this to have a custom pattern -->
+	<property name="CONSOLE_LOG_PATTERN"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${PID}] [${springAppName}, %X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId},%X{X-Span-Export}] [%thread] %-5level %logger{36} Line:%line - %msg%n" />
+
+	<!-- Appender to log to console -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<!-- Minimum logging level to be presented in the console logs -->
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<!-- In Qa/uat/bch/prod environment logs should be wtitten to console as 
+		well as flat file. -->
+	<springProfile name="qa | uat | bch | prod">
+		<appender name="flatfile"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${LOG_FILE}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+				<maxHistory>15</maxHistory>
+			</rollingPolicy>
+			<encoder>
+				<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+				<charset>utf8</charset>
+			</encoder>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="flatfile" />
+		</root>
+	</springProfile>
+
+	<!--In Dev or default profiles no need to write logs in files. -->
+	<springProfile name="dev | default">
+		<root level="INFO">
+			<appender-ref ref="console" />
+		</root>
+	</springProfile>
+
+</configuration>

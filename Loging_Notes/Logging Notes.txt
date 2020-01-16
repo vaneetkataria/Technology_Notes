@@ -1,0 +1,11 @@
+1. Spring genrally provides default logback configuration . In which it provides default Root Logger with Info as default log level a default logging pattern 
+   and a default console appender added to root logger . By default it does not write to any file .  
+2. We just need to add logging level of any library packages in application.properties . Forexample :
+   logging.level.org.hibernate.type:trace  will just start printing trace logs of classes under this package . We just need to add it in application.propeties file.
+3. We can also configure log file path , log pattern start appending logs in file specified which spring 
+   does not do by default . But we cannot configure DailyRolling file appenderes in application.propeties file . sprng does not support this. 
+4. So for advanced config we need to put logback-spring.xml file as put here . 
+5. Now if any logger's level is defined both in application.properties and logback-spring.xml file then more restricitve will finally be chosen. For example 
+if in application.propeties logging.level.org.hibernate.type:trace and in logback-spring.xml logging.level.org.hibernate.type:error is defined then finally  
+   logging.level.org.hibernate.type will become error only . 
+6. We can do profiling such that in dev/defualt environment logs must be printed in console only but to files only in case of qa/uat/bch/prod environment .
