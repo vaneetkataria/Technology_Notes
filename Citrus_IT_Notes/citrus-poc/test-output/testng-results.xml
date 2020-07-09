@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="65293" started-at="2020-07-09T20:27:50Z" finished-at="2020-07-09T20:28:55Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="65293" started-at="2020-07-09T20:27:50Z" finished-at="2020-07-09T20:28:55Z">
+      <class name="com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT">
+        <test-method status="PASS" signature="beforeSuite(org.testng.ITestContext)[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="beforeSuite" is-config="true" duration-ms="938" started-at="2020-07-10T01:57:49Z" finished-at="2020-07-10T01:57:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[org.testng.TestRunner@49dbaaf3]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="1" started-at="2020-07-10T01:57:50Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-07-10T01:57:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2020-07-10T01:57:50Z" finished-at="2020-07-10T01:57:50Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-07-10T01:57:50Z" finished-at="2020-07-10T01:57:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT.countAndValidateShoppingMessages()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="countAndValidateShoppingMessages()[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="countAndValidateShoppingMessages" duration-ms="65275" started-at="2020-07-10T01:57:50Z" finished-at="2020-07-10T01:58:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- countAndValidateShoppingMessages -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-07-10T01:58:55Z" finished-at="2020-07-10T01:58:55Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT.countAndValidateShoppingMessages()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2020-07-10T01:58:55Z" finished-at="2020-07-10T01:58:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+        <test-method status="PASS" signature="afterSuite(org.testng.ITestContext)[pri:0, instance:com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT@6b927fb]" name="afterSuite" is-config="true" duration-ms="27" started-at="2020-07-10T01:58:55Z" finished-at="2020-07-10T01:58:55Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[org.testng.TestRunner@49dbaaf3]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterSuite -->
+      </class> <!-- com.dhisco.product.discovery.testcases.CountAndValidateShoppingMessagesIT -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

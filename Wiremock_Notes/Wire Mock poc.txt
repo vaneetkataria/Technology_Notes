@@ -1,0 +1,54 @@
+1.Run command for no recordng and highly effircient usage : 
+java -jar wiremock-standalone-2.25.1.jar --port 8500 --root-dir d:/wiremock/mappings --no-request-journal 
+
+2. Run command for log priting 
+java -jar wiremock-standalone-2.25.1.jar --port 8500 --verbose --print-all-network-traffic --use-chunked-encoding always
+
+java -jar wiremock-standalone-2.25.1.jar --port 8500  --proxy-all="https://supply-xml.booking.com" --record-mappings --verbose --print-all-network-traffic --use-chunked-encoding always
+
+
+--no-request-journal: Disable the request journal, which records incoming requests for later verification. 
+This allows WireMock to be run (and serve stubs) for long periods (without resetting) without exhausting the heap. 
+The --record-mappings option isn’t available if this one is specified.
+
+--disable-request-logging: Prevent requests and responses from being sent to the notifier. 
+Use this when performance testing as it will save memory and CPU even when info/verbose logging is not enabled. --- not working
+
+--disable-gzip: Prevent response bodies from being gzipped.
+
+--use-chunked-encoding: Set the policy for sending responses with Transfer-Encoding: chunked. Valid values are always, never and body_file.
+ The last of these will cause chunked encoding to be used only when a stub defines its response body from a file.
+
+{
+    "request": {
+        "url": "/p2d/reate_ch_cd_ref_mapping_then_200_OK_single_record_with_2S_delay",
+        "method": "GET"
+    },
+    "response": {
+        "status": 200,
+        "fixedDelayMilliseconds": 5000,
+        "jsonBody": {
+            "status": "SUCCESS",
+            "code": 200,
+            "msg": "OK",
+            "body": [
+                {
+                    "channelId": 4,
+                    "channelName": "BKG",
+                    "codeType": "CANCELLATION_POLICY",
+                    "code": "XXX_XXX_XXX_AFTERBOOKING_FULLSTAY_100_XXX_XXX_delayed_by_5000ms",
+                    "dpCode": "1"
+                }
+            ]
+        },
+        "headers": {
+            "Content-Type": "application/json",
+            "Set-Cookie": [
+                "session_id=91837492837",
+                "split_test_group=B"
+            ],
+            "Cache-Control": "no-cache"
+        }
+    }
+}
+
