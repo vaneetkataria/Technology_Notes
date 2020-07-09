@@ -1,3 +1,5 @@
+DROP database IF EXISTS `appconfig`;
+create database `appconfig`;
 DROP table IF EXISTS  appconfig.configservice;
 
 CREATE TABLE appconfig.configservice (
