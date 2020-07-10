@@ -1,0 +1,65 @@
+body#com-atlassian-confluence.theme-documentation {
+	font-family: 'garagegothic-boldregular', sans-serif
+}
+body#com-atlassian-confluence.theme-documentation.ia-fixed-sidebar {
+	top: 150px!important;
+}
+body#com-atlassian-confluence.theme-documentation #header {
+	height: 150px;
+	background: #8e233b url('http://www.reservations-page.com/C00337/shared/images/Confluence_Pegasus_Header.jpg') no-repeat left top;
+}
+body#com-atlassian-confluence.theme-documentation #header .aui-header {
+	border-bottom: 0px;
+	background-color: transparent!important;
+	width: 1030px;
+	float: right;
+}
+body#com-atlassian-confluence.theme-documentation #header .aui-header .aui-button.aui-button-primary.aui-style {
+	background-image: -moz-linear-gradient(center top, #a2082b, #691528);
+	border: 1px solid #d24060;
+	color:#e8e8e8;
+}
+body#com-atlassian-confluence.theme-documentation .aui-dropdown2.aui-style-default .active, body#com-atlassian-confluence.theme-documentation .aui-dropdown2-radio interactive { background-color:#cfbabf; color:#8b1e36;}
+body#com-atlassian-confluence.theme-documentation .aui-dropdown2-radio interactive a:hover {color:#8b1e36;}
+body#com-atlassian-confluence.theme-documentation span.nav-link-label { background-color:transparent!important;}
+body#com-atlassian-confluence.theme-documentation .aui-header .aui-header-logo img {
+	visibility: hidden;
+	width: 0px;
+}
+body#com-atlassian-confluence.theme-documentation .aui-header .aui-dropdown2-trigger, body#com-atlassian-confluence.theme-documentation #header .aui-header .aui-nav-link, body#com-atlassian-confluence.theme-documentation #header .aui-header .aui-nav-imagelink, body#com-atlassian-confluence.theme-documentation #header .aui-header a {
+	color: #ffffff;
+}
+body#com-atlassian-confluence.theme-documentation .aui-header .aui-dropdown2-trigger .app-switcher-trigger active {background-color:#e8e8e8}
+body#com-atlassian-confluence.theme-documentation #header .aui-header a:hover  {
+	background-color: #d0bbc0;
+	color: #6b1a2b;
+}
+
+body#com-atlassian-confluence.theme-documentation.aui-theme-default a, body#com-atlassian-confluence.theme-documentation.wiki-content a, body#com-atlassian-confluence.theme-documentation.wiki-content a:link, body#com-atlassian-confluence.theme-documentation.wiki-content a:visited, body#com-atlassian-confluence.theme-documentation.wiki-content a:focus, body#com-atlassian-confluence.theme-documentation.wiki-content a:hover, body#com-atlassian-confluence.theme-documentation.wiki-content a:active {
+	color: #8b1e36
+}
+body#com-atlassian-confluence.theme-documentation .aui-header-inner {
+	color: #ffffff!important;
+}
+body#com-atlassian-confluence.theme-documentation.aui-message.success {
+	border-color: #CCCCCC;
+	background: #e8e8e8;
+}
+body#com-atlassian-confluence.theme-documentation H1, body#com-atlassian-confluence.theme-documentation H1 a {
+	font-family: 'garagegothic-boldregular', sans-serif;
+	color: #8b1e36!important;
+	font-size: 38px;
+}
+body#com-atlassian-confluence.theme-documentation #header .aui-header .aui-button.aui-button-primary.aui-style {
+}
+body#com-atlassian-confluence.theme-documentation H2 {
+	color: #3D515D;
+	font-size: 24px;
+}
+body#com-atlassian-confluence.theme-documentation {
+	color: #444444;
+	font-family: helvetica;
+}
+body#com-atlassian-confluence.theme-documentation #main {
+	background-color: #ececec;
+}

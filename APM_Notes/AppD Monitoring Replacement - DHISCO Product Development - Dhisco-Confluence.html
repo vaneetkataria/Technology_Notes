@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                            <title>AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence</title>
+    
+        
+
+                        
+    
+                        
+    
+
+                
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=IE7">
+
+<meta id="confluence-context-path" name="confluence-context-path" content="">
+<meta id="confluence-base-url" name="confluence-base-url" content="https://confluence.dhisco.com">
+
+<meta id="atlassian-token" name="atlassian-token" content="68fc8689d20895a001822eb17f1c34da4aa9da5e">
+
+
+<meta id="confluence-space-key" name="confluence-space-key" content="DQ">
+<script type="text/javascript">
+        var contextPath = '';
+</script>
+
+    
+
+    <meta name="confluence-request-time" content="1594415462824">
+        
+    
+        
+            <meta name="ajs-show-space-welcome-dialog" content="true">
+            <style>.ia-fixed-sidebar, .ia-splitter-left {width: 285px;}.theme-default .ia-splitter #main {margin-left: 285px;}.ia-fixed-sidebar {visibility: hidden;}</style>
+            <meta name="ajs-use-keyboard-shortcuts" content="true">
+            <meta name="ajs-discovered-plugin-features" content="{&quot;com.atlassian.confluence.plugins.confluence-dashboard&quot;:[&quot;recently-worked-on-drafts&quot;],&quot;com.atlassian.confluence.plugins.confluence-jira-metadata&quot;:[&quot;linked-issues-dropdown&quot;]}">
+            <meta name="ajs-keyboardshortcut-hash" content="67c5238a32ab3dd92893da4953b6b1f1">
+            <meta name="ajs-is-confluence-admin" content="false">
+            <meta name="ajs-connection-timeout" content="10000">
+            <script type="text/x-template" title="gliffy-webpanel-footer">
+        <div class="gliffy-webpanel-footer"><span></span></div>
+</script>
+
+
+            
+    
+    
+            <meta name="ajs-page-title" content="AppD Monitoring Replacement">
+            <meta name="ajs-latest-published-page-title" content="AppD Monitoring Replacement">
+            <meta name="ajs-space-name" content="DHISCO Product Development">
+            <meta name="ajs-page-id" content="370936320">
+            <meta name="ajs-latest-page-id" content="370936320">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-parent-page-title" content="DHISCO PRODUCT DEVELOPMENT">
+            <meta name="ajs-parent-page-id" content="214204429">
+            <meta name="ajs-space-key" content="DQ">
+            <meta name="ajs-max-number-editors" content="12">
+            <meta name="ajs-macro-placeholder-timeout" content="5000">
+            <meta name="ajs-jira-metadata-count" content="0">
+            <meta name="ajs-from-page-title" content="">
+            <meta name="ajs-can-remove-page" content="false">
+            <meta name="ajs-can-remove-page-hierarchy" content="false">
+            <meta name="ajs-browse-page-tree-mode" content="view">
+            <meta name="ajs-shared-drafts" content="true">
+            <meta name="ajs-user-display-name" content="Vaneet Kataria">
+            <meta name="ajs-context-path" content="">
+            <meta name="ajs-base-url" content="https://confluence.dhisco.com">
+            <meta name="ajs-version-number" content="7.0.2">
+            <meta name="ajs-build-number" content="8202">
+            <meta name="ajs-remote-user" content="vaneet.kataria@rategain.com">
+            <meta name="ajs-remote-user-key" content="8a5799ee6d6cce14016d824122700004">
+            <meta name="ajs-remote-user-has-licensed-access" content="true">
+            <meta name="ajs-remote-user-has-browse-users-permission" content="true">
+            <meta name="ajs-current-user-fullname" content="Vaneet Kataria">
+            <meta name="ajs-current-user-avatar-url" content="/images/icons/profilepics/default.svg">
+            <meta name="ajs-current-user-avatar-uri-reference" content="/images/icons/profilepics/default.svg">
+            <meta name="ajs-static-resource-url-prefix" content="/s/-egzsz0/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/_">
+            <meta name="ajs-global-settings-attachment-max-size" content="262144000">
+            <meta name="ajs-global-settings-quick-search-enabled" content="true">
+            <meta name="ajs-user-locale" content="en_US">
+            <meta name="ajs-enabled-dark-features" content="site-wide.shared-drafts,site-wide.synchrony,confluence.view.edit.transition,confluence-inline-comments-resolved,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareContentEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.mentions.api.ConfluenceMentionEvent,frontend.editor.v4.compatibility,atlassian.cdn.static.assets,notification.plugin.api.enabled.com.atlassian.confluence.event.events.security.ForgotPasswordEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.tasklist.event.SendTaskEmailEvent,file-annotations,confluence.efi.onboarding.rich.space.content,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.comment.CommentCreateEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.requestaccess.events.AccessGrantedEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.PageMoveEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.follow.FollowEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.inlinecomments.events.InlineCommentReplyEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent,lucene.caching.filter,confluence.table.resizable,notification.batch,confluence-inline-comments-rich-editor,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.blogpost.BlogPostUpdateEvent,site-wide.synchrony.opt-in,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.async.PageCreatedEvent,mobile.supported.version,notification.plugin.api.enabled.com.atlassian.confluence.plugins.files.notifications.event.FileContentMentionUpdateEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.hipchat.api.events.HipChatUserMapped,quick-reload-inline-comments-flags,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.blogpost.BlogPostMovedEvent,clc.quick.create,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.PageUpdateEvent,cql.search.screen,frontend.editor.v4,nps.survey.inline.dialog,confluence.efi.onboarding.new.templates,pdf-preview,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.async.PageMovedEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareCustomEvent,previews.sharing,previews.versions,notification.plugin.api.enabled.com.atlassian.confluence.plugins.files.notifications.event.FileContentUpdateEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.attachment.AttachmentBatchUploadCompletedEvent,collaborative-audit-log,notification.plugin.api.enabled.com.atlassian.confluence.efi.emails.events.OnboardingLessUsersEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.files.notifications.event.FileContentRemoveEvent,previews.conversion-service,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.comment.CommentUpdateEvent,editor.ajax.save,graphql,read.only.mode,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.async.PageEditedEvent,previews.trigger-all-file-types,notification.plugin.api.enabled.com.atlassian.confluence.plugins.inlinecomments.events.InlineCommentResolveEvent,notification.plugin.api.enabled.com.atlassian.confluence.event.events.like.LikeCreatedEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.inlinecomments.events.InlineCommentCreateEvent,attachment.extracted.text.extractor,notification.plugin.api.enabled.com.atlassian.confluence.plugins.requestaccess.events.AccessRequestedEvent,previews.sharing.pushstate,file-annotations.likes,v2.content.name.searcher,notification.plugin.api.enabled.com.atlassian.confluence.event.events.content.page.PageCreateEvent,notification.plugin.api.enabled.com.atlassian.confluence.efi.emails.events.OnboardingNoSpaceCreatedEvent,pulp,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareDraftEvent,notification.plugin.api.enabled.com.atlassian.confluence.plugins.sharepage.api.ShareAttachmentEvent,confluence-inline-comments,confluence-inline-comments-dangling-comment">
+            <meta name="ajs-atl-token" content="68fc8689d20895a001822eb17f1c34da4aa9da5e">
+            <meta name="ajs-confluence-flavour" content="VANILLA">
+            <meta name="ajs-user-date-pattern" content="dd MMM yyyy">
+            <meta name="ajs-access-mode" content="READ_WRITE">
+            <meta name="ajs-render-mode" content="READ_WRITE">
+            <meta name="ajs-date.format" content="MMM dd, yyyy">
+    
+    <link rel="shortcut icon" href="https://confluence.dhisco.com/s/91v14/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/17/_/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://confluence.dhisco.com/s/91v14/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/17/_/favicon.ico">
+
+<link rel="search" type="application/opensearchdescription+xml" href="https://confluence.dhisco.com/opensearch/osd.action" title="Dhisco-Confluence">
+    
+                    
+            <meta name="ajs-create-issue-metadata-show-discovery" content="true">
+            
+
+    <script>
+window.WRM=window.WRM||{};window.WRM._unparsedData=window.WRM._unparsedData||{};window.WRM._unparsedErrors=window.WRM._unparsedErrors||{};
+WRM._unparsedData["com.atlassian.plugins.atlassian-plugins-webresource-plugin:context-path.context-path"]="\u0022\u0022";
+WRM._unparsedData["com.atlassian.confluence.plugins.confluence-feature-discovery-plugin:confluence-feature-discovery-plugin-resources.test-mode"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:policy-update-init.policy-update-data-provider"]="false";
+WRM._unparsedData["com.atlassian.analytics.analytics-client:programmatic-analytics-init.programmatic-analytics-data-provider"]="false";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.applinks-help-paths"]="{\u0022entries\u0022:{\u0022applinks.docs.root\u0022:\u0022https://confluence.atlassian.com/display/APPLINKS-060/\u0022,\u0022applinks.docs.diagnostics.troubleshoot.sslunmatched\u0022:\u0022SSL+and+application+link+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.oauthsignatureinvalid\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.oauthtimestamprefused\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.delete.entity.link\u0022:\u0022Create+links+between+projects\u0022,\u0022applinks.docs.adding.application.link\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.administration.guide\u0022:\u0022Application+Links+Documentation\u0022,\u0022applinks.docs.oauth.security\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.troubleshoot.application.links\u0022:\u0022Troubleshoot+application+links\u0022,\u0022applinks.docs.diagnostics.troubleshoot.unknownerror\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.configuring.auth.trusted.apps\u0022:\u0022Configuring+Trusted+Applications+authentication+for+an+application+link\u0022,\u0022applinks.docs.diagnostics.troubleshoot.authlevelunsupported\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.ssluntrusted\u0022:\u0022SSL+and+application+link+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.unknownhost\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.delete.application.link\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.link.applications\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.diagnostics.troubleshoot.oauthproblem\u0022:\u0022OAuth+troubleshooting+guide\u0022,\u0022applinks.docs.diagnostics.troubleshoot.migration\u0022:\u0022Update+application+links+to+use+OAuth\u0022,\u0022applinks.docs.relocate.application.link\u0022:\u0022Link+Atlassian+applications+to+work+together\u0022,\u0022applinks.docs.administering.entity.links\u0022:\u0022Create+links+between+projects\u0022,\u0022applinks.docs.upgrade.application.link\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.diagnostics.troubleshoot.connectionrefused\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.configuring.auth.oauth\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.insufficient.remote.permission\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.configuring.application.link.auth\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.diagnostics\u0022:\u0022Application+links+diagnostics\u0022,\u0022applinks.docs.configured.authentication.types\u0022:\u0022OAuth+security+for+application+links\u0022,\u0022applinks.docs.adding.entity.link\u0022:\u0022Create+links+between+projects\u0022,\u0022applinks.docs.diagnostics.troubleshoot.unexpectedresponse\u0022:\u0022Network+and+connectivity+troubleshooting+guide\u0022,\u0022applinks.docs.configuring.auth.basic\u0022:\u0022Configuring+Basic+HTTP+Authentication+for+an+Application+Link\u0022,\u0022applinks.docs.diagnostics.troubleshoot.authlevelmismatch\u0022:\u0022OAuth+troubleshooting+guide\u0022}}";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.applinks-types"]="{\u0022crowd\u0022:\u0022Crowd\u0022,\u0022confluence\u0022:\u0022Confluence\u0022,\u0022fecru\u0022:\u0022FishEye / Crucible\u0022,\u0022stash\u0022:\u0022Bitbucket Server\u0022,\u0022jira\u0022:\u0022Jira\u0022,\u0022refapp\u0022:\u0022Reference Application\u0022,\u0022bamboo\u0022:\u0022Bamboo\u0022,\u0022generic\u0022:\u0022Generic Application\u0022}";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.entity-types"]="{\u0022singular\u0022:{\u0022refapp.charlie\u0022:\u0022Charlie\u0022,\u0022fecru.project\u0022:\u0022Crucible Project\u0022,\u0022fecru.repository\u0022:\u0022FishEye Repository\u0022,\u0022stash.project\u0022:\u0022Bitbucket Server Project\u0022,\u0022generic.entity\u0022:\u0022Generic Project\u0022,\u0022confluence.space\u0022:\u0022Confluence Space\u0022,\u0022bamboo.project\u0022:\u0022Bamboo Project\u0022,\u0022jira.project\u0022:\u0022Jira Project\u0022},\u0022plural\u0022:{\u0022refapp.charlie\u0022:\u0022Charlies\u0022,\u0022fecru.project\u0022:\u0022Crucible Projects\u0022,\u0022fecru.repository\u0022:\u0022FishEye Repositories\u0022,\u0022stash.project\u0022:\u0022Bitbucket Server Projects\u0022,\u0022generic.entity\u0022:\u0022Generic Projects\u0022,\u0022confluence.space\u0022:\u0022Confluence Spaces\u0022,\u0022bamboo.project\u0022:\u0022Bamboo Projects\u0022,\u0022jira.project\u0022:\u0022Jira Projects\u0022}}";
+WRM._unparsedData["com.atlassian.applinks.applinks-plugin:applinks-common-exported.authentication-types"]="{\u0022com.atlassian.applinks.api.auth.types.BasicAuthenticationProvider\u0022:\u0022Basic Access\u0022,\u0022com.atlassian.applinks.api.auth.types.TrustedAppsAuthenticationProvider\u0022:\u0022Trusted Applications\u0022,\u0022com.atlassian.applinks.api.auth.types.CorsAuthenticationProvider\u0022:\u0022CORS\u0022,\u0022com.atlassian.applinks.api.auth.types.OAuthAuthenticationProvider\u0022:\u0022OAuth\u0022,\u0022com.atlassian.applinks.api.auth.types.TwoLeggedOAuthAuthenticationProvider\u0022:\u0022OAuth\u0022,\u0022com.atlassian.applinks.api.auth.types.TwoLeggedOAuthWithImpersonationAuthenticationProvider\u0022:\u0022OAuth\u0022}";
+WRM._unparsedData["com.atlassian.confluence.plugins.synchrony-interop:synchrony-status-banner-loader.synchrony-status"]="false";
+WRM._unparsedData["com.atlassian.confluence.plugins.confluence-license-banner:confluence-license-banner-resources.license-details"]="{\u0022daysBeforeLicenseExpiry\u0022:0,\u0022daysBeforeMaintenanceExpiry\u0022:0,\u0022showLicenseExpiryBanner\u0022:false,\u0022showMaintenanceExpiryBanner\u0022:false,\u0022renewUrl\u0022:null,\u0022salesUrl\u0022:null}";
+WRM._unparsedData["com.atlassian.confluence.plugins.confluence-search-ui-plugin:confluence-search-ui-plugin-resources.i18n-data"]="{\u0022search.ui.recent.link.text\u0022:\u0022View more recently visited\u0022,\u0022search.ui.filter.space.category.input.label\u0022:\u0022Find space categories...\u0022,\u0022search.ui.filter.clear.selected\u0022:\u0022Clear selected items\u0022,\u0022search.ui.search.results.empty\u0022:\u0022We couldn\u005Cu0027\u005Cu0027t find anything matching \u005C\u0022{0}\u005C\u0022.\u0022,\u0022search.ui.content.name.search.items.panel.load.all.top.items.button.text\u0022:\u0022Show more app results...\u0022,\u0022search.ui.filter.space.archive.label\u0022:\u0022Search archived spaces\u0022,\u0022search.ui.filter.label\u0022:\u0022filter\u0022,\u0022search.ui.filter.contributor.button.text\u0022:\u0022Contributor\u0022,\u0022search.ui.filter.date.all.text\u0022:\u0022Any time\u0022,\u0022search.ui.filter.space.current.label\u0022:\u0022CURRENT\u0022,\u0022search.ui.clear.input.button.text\u0022:\u0022Clear text\u0022,\u0022help.search.ui.link.title\u0022:\u0022Search tips\u0022,\u0022search.ui.search.results.clear.button\u0022:\u0022clear your filters.\u0022,\u0022search.ui.filter.date.hour.text\u0022:\u0022The past day\u0022,\u0022search.ui.filters.heading\u0022:\u0022Filter by\u0022,\u0022search.ui.filter.label.input.label\u0022:\u0022Find labels...\u0022,\u0022search.ui.filter.date.month.text\u0022:\u0022The past month\u0022,\u0022search.ui.recent.items.anonymous\u0022:\u0022Start exploring. Your search results will appear here.\u0022,\u0022search.ui.input.label\u0022:\u0022Search\u0022,\u0022search.ui.search.result\u0022:\u0022{0,choice,1#{0} search result|1\u005Cu003c{0} search results}\u0022,\u0022search.ui.infinite.scroll.button.text\u0022:\u0022More results\u0022,\u0022search.ui.filter.date.button.text\u0022:\u0022Date\u0022,\u0022search.ui.filter.date.week.text\u0022:\u0022The past week\u0022,\u0022search.ui.filter.label.button.text\u0022:\u0022Label\u0022,\u0022search.ui.input.alert\u0022:\u0022Hit enter to search\u0022,\u0022search.ui.filter.no.result.text\u0022:\u0022We can\u005Cu0027\u005Cu0027t find anything matching your search\u0022,\u0022search.ui.result.subtitle.calendar\u0022:\u0022Team calendar\u0022,\u0022search.ui.filter.date.heading\u0022:\u0022Last modified within\u0022,\u0022search.ui.result.subtitle.user\u0022:\u0022User profile\u0022,\u0022search.ui.filter.contributor.input.label\u0022:\u0022Find people...\u0022,\u0022search.ui.filter.content.type.button.text\u0022:\u0022Type\u0022,\u0022search.ui.filter.space.input.label\u0022:\u0022Find spaces...\u0022,\u0022search.ui.filter.date.year.text\u0022:\u0022The past year\u0022,\u0022search.ui.filter.space.button.text\u0022:\u0022Space\u0022,\u0022search.ui.advanced.search.link.text\u0022:\u0022Advanced search\u0022,\u0022search.ui.generic.error\u0022:\u0022Something went wrong. Refresh the page, or contact your admin if this keeps happening.\u0022,\u0022search.ui.recent.spaces\u0022:\u0022Recent Spaces\u0022,\u0022search.ui.search.results.clear.line2\u0022:\u0022Try a different search term or\u0022,\u0022search.ui.filter.space.category.button.text\u0022:\u0022Space category\u0022,\u0022search.ui.search.results.clear.line1\u0022:\u0022We couldn\u005Cu0027\u005Cu0027t find anything matching your search.\u0022,\u0022search.ui.content.name.search.items.panel.load.all.top.items.admin.button.text\u0022:\u0022Show more settings and app results...\u0022,\u0022search.ui.recent.pages\u0022:\u0022Recently visited\u0022,\u0022search.ui.search.result.anonymous\u0022:\u0022{0,choice,1#{0} search result|1\u005Cu003c{0} search results}. Have an account? {1}Log in{2} to expand your search.\u0022,\u0022search.ui.recent.items.empty\u0022:\u0022Start exploring. Pages and spaces you\u005Cu0027\u005Cu0027ve visited recently will appear here.\u0022,\u0022search.ui.result.subtitle.space\u0022:\u0022Space\u0022,\u0022search.ui.filter.space.init.heading\u0022:\u0022recent spaces\u0022}";
+if(window.WRM._dataArrived)window.WRM._dataArrived();</script>
+<link type="text/css" rel="stylesheet" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.css" data-wrm-key="_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch(1).css" data-wrm-key="atl.confluence.plugins.pagetree-desktop,main,viewcontent,atl.general,page,atl.comments,-_super" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/colors.css" media="all">
+<script type="text/javascript" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.js.download" data-wrm-key="_super" data-wrm-batch-type="context" data-initially-rendered=""></script>
+<script type="text/javascript" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.js(1).download" data-wrm-key="atl.confluence.plugins.pagetree-desktop,main,viewcontent,atl.general,page,atl.comments,-_super" data-wrm-batch-type="context" data-initially-rendered=""></script>
+
+    
+
+        
+    
+
+        
+        <meta name="ajs-site-title" content="Dhisco-Confluence">
+            
+    <link type="text/css" rel="stylesheet" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/confluence_custom.css" media="all">
+<link href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+AJS.bind('init.rte', function() {
+  AJS.$('#notifyWatchers').attr('checked', false);
+});
+</script>
+
+    
+                <link rel="canonical" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+        <link rel="shortlink" href="https://confluence.dhisco.com/x/AAocFg">
+    <meta name="wikilink" content="[DQ:AppD Monitoring Replacement]">
+    <meta name="page-version" content="3">
+    <meta name="ajs-page-version" content="3">
+
+<script type="text/javascript" charset="utf-8" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.js(2).download"></script>
+            <meta name="ajs-use-watch" content="true">
+            <meta name="ajs-attachment-source-content-id" content="370936320">
+            <meta name="ajs-use-inline-tasks" content="true">
+            <meta name="ajs-heartbeat" content="true">
+            <meta name="ajs-action-locale" content="en_US">
+            <meta name="ajs-editor-plugin-resource-prefix" content="/s/91v14/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/7.0.2/_">
+            <meta name="ajs-edit-mode" content="collaborative">
+            <meta name="ajs-user-watching-own-content" content="true">
+            <meta name="ajs-new-page" content="false">
+            <meta name="ajs-editor-mode" content="richtext">
+            <meta name="ajs-auto-start" content="false">
+            <meta name="ajs-conf-revision" content="confluence$content$370936320.49">
+            <meta name="ajs-sync-revision-source" content="synchrony-ack">
+            <meta name="ajs-draft-id" content="370936321">
+            <meta name="ajs-draft-share-id" content="9071b80b-af4e-4a4e-928a-da0bb46df449">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-collaborative-editor-status" content="">
+            <meta name="ajs-existing-draft-id" content="0">
+            <meta name="ajs-content-id" content="370936320">
+            <meta name="ajs-form-name" content="inlinecommentform">
+            <meta name="ajs-can-attach-files" content="true">
+            <meta name="ajs-show-draft-message" content="false">
+            <meta name="ajs-shared-drafts" content="true">
+            <meta name="ajs-collaborative-content" content="true">
+            <meta name="ajs-min-editor-height" content="150">
+            <meta name="ajs-version-comment" content="">
+            <meta name="ajs-draft-type" content="page">
+                
+                <meta name="ajs-synchrony-token" content="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczpcL1wvY29uZmx1ZW5jZS5kaGlzY28uY29tXC9zeW5jaHJvbnlcL3YxIiwic3ViIjoiOGE1Nzk5ZWU2ZDZjY2UxNDAxNmQ4MjQxMjI3MDAwMDQiLCJhY2Nlc3MiOnsiXC9kYXRhXC9ESElTQ08tNzc3ODk5MGEtMDllYy0zNWMyLTg1ZmUtNDZmYWY3ZTc3Y2FlXC9jb25mbHVlbmNlLTM3MDkzNjMyMCI6ImZ1bGwiLCJcL2RhdGFcL0RISVNDTy03Nzc4OTkwYS0wOWVjLTM1YzItODVmZS00NmZhZjdlNzdjYWVcL2NvbmZsdWVuY2UtMzcwOTM2MzIwLXRpdGxlIjoiZnVsbCJ9LCJyZXZpc2lvbk1ldGEiOnsidXNlcktleSI6IjhhNTc5OWVlNmQ2Y2NlMTQwMTZkODI0MTIyNzAwMDA0In0sInNlc3Npb24iOnsiYXZhdGFyVVJMIjoiXC9pbWFnZXNcL2ljb25zXC9wcm9maWxlcGljc1wvZGVmYXVsdC5zdmciLCJuYW1lIjoidmFuZWV0LmthdGFyaWFAcmF0ZWdhaW4uY29tIiwiZnVsbG5hbWUiOiJWYW5lZXQgS2F0YXJpYSJ9LCJpc3MiOiJESElTQ08tNzc3ODk5MGEtMDllYy0zNWMyLTg1ZmUtNDZmYWY3ZTc3Y2FlIiwiZXhwIjoxNTk0NTAxODYzLCJpYXQiOjE1OTQ0MTU0NjN9.n24P-mvcpCx34-ZS7aFLG8qpmNkwLSnUify_vujFW9M">
+    <meta name="ajs-synchrony-base-url" content="https://confluence.dhisco.com/synchrony,https://confluence.dhisco.com/synchrony-proxy">
+    <meta name="ajs-synchrony-app-id" content="DHISCO-7778990a-09ec-35c2-85fe-46faf7e77cae">
+    <meta name="ajs-synchrony-expiry" content="1594500963">
+    <meta name="ajs-use-xhr-fallback" content="true">
+
+            		    <meta name="ajs-max-thumb-width" content="300">
+		    <meta name="ajs-max-thumb-height" content="300">
+		    <meta name="ajs-can-send-email" content="true">
+		    <meta name="ajs-is-dev-mode" content="false">
+		    <meta name="ajs-draft-save-interval" content="30000">
+		    <meta name="ajs-show-hidden-user-macros" content="false">
+		    <meta name="ajs-can-view-profile" content="true">
+		    <meta name="ajs-is-admin" content="false">
+		    <meta name="ajs-confluence.prefs.editor.disable.autocomplete" content="false">
+		    <meta name="ajs-confluence.prefs.editor.disable.autoformat" content="false">
+		    <meta name="ajs-heartbeat-interval" content="30000">
+	
+    <link rel="stylesheet" type="text/css" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch(2).css"><link rel="stylesheet" type="text/css" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch(3).css"><script type="text/javascript" charset="utf-8" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.js(3).download"></script><script type="text/javascript" charset="utf-8" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.js(4).download"></script><link rel="stylesheet" type="text/css" href="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch(4).css"><script type="text/javascript" charset="utf-8" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/batch.js(5).download"></script><style type="text/css">#property-panel a.macro-placeholder-property-panel-display-newline-button span.icon{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvklEQVR42rVTPQuFIBT1p1t7e2EFDrXnVmNb4Ca4BS5BW9AfOA+F+wjfAwfpwuHcDzn3olcGIAv5An3fo+u6L55x27bE5P+cZdkWqVJH6pDMsWxTSsFjmqbAMZIC4zjivm9c14XjOLDvO4wx2LYNwzCkBZqmwXmecM7BWgutNdZ1xTzP8LWkQFVVWJYFUspwQUII1HUd2NeSApxzeJRlCfKLovBxYPa6xe9KsedHLc7TXryzidQpnurvZNm/8QMbqb4yyqv4rAAAAABJRU5ErkJggg==);width:16px;height:16px;display:inline-block}#property-panel a.macro-placeholder-property-panel-display-inline-button span.icon{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAw0lEQVR42q1TMQqAMBDr0/UBroJiBUEf0E51dRMcxUlwFBcHPxA5IUuLONSDcDmupO01VQCiEC+gtYagrusH5FVVCfdz0FfRQVVR5CmoLtzfnWBf/R7WWhhjIFnAmvlToOs6XNeF8zyx7zvWdcU8zxjHEW3bhgK8NydaFAWO48C2bViWBdM0YRgGOOcgPc7t9RWyLEPf92ia5hEuyxJ5nj+Lpae+IkkSpGkKZnLW6u/gDHzX+c6kP4j/nfjmNJ8HiP6NN81gzxU6QYojAAAAAElFTkSuQmCC);width:16px;height:16px;display:inline-block}#property-panel a.macro-placeholder-property-panel-display-inline-button,#property-panel a.macro-placeholder-property-panel-display-newline-button{padding:0 6px}</style><style type="text/css">#charmap-picker{border:0;font-size:16px;font-family:Arial,Helvetica,FreeSans,sans-serif;padding:2px;text-align:center}#charmap-view{padding-right:1em;text-align:left;vertical-align:top}#charmap-info{text-align:center;vertical-align:top;width:100%}#charmap-info>table{border:0;height:100px;padding:0;width:100%}#code-value{font-size:3em}#code-name{font-size:13px}#code-name,#code-value{color:#666;text-align:center}.charmap a:active,.charmap a:hover,.charmap a:link,.charmap a:visited{color:#326ca6;text-decoration:none}</style><style type="text/css">body.ios{min-height:150px}</style><style type="text/css">table.draggable{margin-left:-10px;margin-top:-10px}table.draggable:hover>tbody>tr>td.draggable-column,table.draggable:hover>tbody>tr>td.draggable-row,table.draggable:hover>tbody>tr>td.draggable-table{background-color:#777;border-top:1px solid #777;border-left:1px solid #777}table.draggable:hover>tbody>tr>td.draggable-column,table.draggable:hover>tbody>tr>td.draggable-table{border-right:1px solid #aaa}table.draggable:hover>tbody>tr>td.draggable-row,table.draggable:hover>tbody>tr>td.draggable-table{border-bottom:1px solid #aaa}td.draggable-column,td.draggable-row,td.draggable-table{background-color:transparent;border-top:1px solid transparent;border-left:1px solid transparent;cursor:move}td.draggable-column,td.draggable-table{border-right:1px solid transparent}td.draggable-row,td.draggable-table{border-bottom:1px solid transparent}td.draggable-column{height:10px}td.draggable-row{width:10px}.wiki-content img.confluence-embedded-image,.wiki-content img.editor-inline-macro,.wiki-content table.wysiwyg-macro{cursor:move}.wiki-content table.wysiwyg-macro>tbody>tr>td.wysiwyg-macro-body{cursor:text}#move-indicator{font-weight:400!important}</style><style type="text/css">.quick-comment-form #rte-toolbar .insert-files.toolbar-item{padding:0 6px}.quick-comment-form #rte-toolbar .insert-files .toolbar-trigger{margin:0 -6px}#rte-toolbar .insert-files.toolbar-item{padding:0}#rte-toolbar .insert-files .trigger-text{display:none}#rte-toolbar .insert-files .aui-button{padding:0 6px}</style><style type="text/css">.aui-dialog .wiki-parser-selector{font-size:14px;margin-right:5px}.insert-wiki-markup-panel div,.insert-wiki-markup-panel div form{height:100%;text-align:center}.insert-wiki-markup-panel .spinner{position:absolute;top:50%;left:50%;margin-top:-73px;margin-left:-60px}#insert-wiki-info-title{text-align:left;margin-left:10px}#insert-wiki-markup-form{height:95%}#insert-wiki-markup-form .wiki-title span{box-sizing:border-box;display:-moz-inline-stack;display:inline-block;margin-bottom:10px;max-width:48%;text-align:left;vertical-align:middle;width:48%}#insert-wiki-markup-form .wiki-title span:first-child{margin-right:20px}#insert-wiki-textarea,#insert-wiki-textarea-preview{box-sizing:border-box;display:-moz-inline-stack;display:inline-block;font-size:14px;height:84%;max-width:48%;vertical-align:middle;width:48%;resize:none}#insert-wiki-textarea.originalDefault{height:100%;min-width:100%;width:100%}#insert-wiki-textarea{font-family:Monaco,Consolas,Courier New,"monospace";margin-right:20px}#insert-wiki-textarea-preview{border:1px solid #ccc;border-radius:3px;position:relative}#insert-wiki-textarea-preview iframe{border:0;height:100%;left:0;min-height:100%;overflow:hidden;position:absolute;top:0;width:100%}</style><style type="text/css">#property-panel a.macro-property-panel-Grey span.icon{background-color:#dfe1e6}#property-panel a.macro-property-panel-Green span.icon{background-color:#00875a}#property-panel a.macro-property-panel-Red span.icon{background-color:#de350b}#property-panel a.macro-property-panel-Yellow span.icon{background-color:#ffab00}#property-panel a.macro-property-panel-Blue span.icon{background-color:#b3d4ff}#property-panel a.macro-property-panel-Blue,#property-panel a.macro-property-panel-Brown,#property-panel a.macro-property-panel-Green,#property-panel a.macro-property-panel-Grey,#property-panel a.macro-property-panel-Red,#property-panel a.macro-property-panel-Yellow{padding:6px;display:inline-block}#property-panel a.macro-property-panel-Blue span.icon,#property-panel a.macro-property-panel-Brown span.icon,#property-panel a.macro-property-panel-Green span.icon,#property-panel a.macro-property-panel-Grey span.icon,#property-panel a.macro-property-panel-Red span.icon,#property-panel a.macro-property-panel-Yellow span.icon{display:inline-block;background-image:none;margin:0;border:0;min-width:auto;border-radius:3px;width:16px;height:16px}.editor-inline-macro[data-macro-name=status]{background:transparent;border:0;min-height:16px;margin:0;vertical-align:-4px}#property-panel .editable.status-macro-title{margin-right:10px;float:none;text-transform:uppercase;text-decoration:none;width:88px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:11px;padding:0 5px}#property-panel input.editable.status-macro-title{outline:none;height:30px;line-height:20px;vertical-align:bottom;padding-top:2px}</style></head>
+
+    
+<body id="com-atlassian-confluence" class="theme-default  aui-layout aui-theme-default synchrony-active" data-aui-version="8.3.5" data-gr-c-s-loaded="true">
+
+        
+            <div id="stp-licenseStatus-banner"></div>
+    <ul id="assistive-skip-links" class="assistive">
+    <li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#title-heading">Skip to content</a></li>
+    <li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#breadcrumbs">Skip to breadcrumbs</a></li>
+    <li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#header-menu-bar">Skip to header menu</a></li>
+    <li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#navigation">Skip to action menu</a></li>
+    <li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#quick-search-query">Skip to quick search</a></li>
+</ul>
+<div id="page">
+<div id="full-height-container">
+    <div id="header-precursor">
+        <div class="cell">
+            
+                            </div>
+    </div>
+        
+
+
+
+
+
+<header id="header" role="banner" class="">
+    <nav class="aui-header aui-dropdown2-trigger-group" role="navigation" resolved="" data-aui-responsive="true"><div class="aui-header-inner"><div class="aui-header-before"><a class=" aui-dropdown2-trigger app-switcher-trigger" aria-controls="app-switcher" aria-haspopup="true" role="button" tabindex="0" data-aui-trigger="" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#app-switcher" resolved="" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-appswitcher">Linked Applications</span></a><div id="app-switcher" class="aui-dropdown2 aui-style-default aui-layer" role="menu" aria-hidden="true" data-is-switcher="true" data-environment="{&quot;isUserAdmin&quot;:false,&quot;isAppSuggestionAvailable&quot;:false,&quot;isSiteAdminUser&quot;:false}" resolved=""><div class="aui-dropdown2-section"><ul class="nav-links"><li class="nav-link"><a href="http://bitbucket.ad.dhisco.com:7990/" class="aui-dropdown2-radio " title="http://bitbucket.ad.dhisco.com:7990/" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">Bitbucket</span></a></li><li class="nav-link"><a href="http://devbuild.ad.dhisco.com:8085/" class="aui-dropdown2-radio " title="http://devbuild.ad.dhisco.com:8085" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">Dhisco Bamboo</span></a></li><li class="nav-link"><a href="http://devbuild.ad.dhisco.com:8060/" class="aui-dropdown2-radio " title="http://devbuild.ad.dhisco.com:8060" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">Crucible-Fisheye</span></a></li><li class="nav-link"><a href="http://wiki.ad.dhisco.com/wiki/index.php/Main_Page" class="aui-dropdown2-radio " title="http://wiki.ad.dhisco.com/wiki/index.php/Main_Page" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">DHISCO Wiki</span></a></li><li class="nav-link"><a href="http://devbuild.ad.dhisco.com:9000/" class="aui-dropdown2-radio " title="http://devbuild.ad.dhisco.com:9000/" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">SonarQube</span></a></li><li class="nav-link"><a href="https://confluence.dhisco.com/" class="aui-dropdown2-radio " title="https://confluence.dhisco.com" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">confluence</span></a></li><li class="nav-link"><a href="https://jira.dhisco.com/secure/MyJiraHome.jspa" class="aui-dropdown2-radio " title="https://jira.dhisco.com/secure/MyJiraHome.jspa" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">JIRA</span></a></li><li class="nav-link"><a href="http://devbuild.ad.dhisco.com:8085/" class="aui-dropdown2-radio " title="http://devbuild.ad.dhisco.com:8085/" resolved="" aria-checked="false" tabindex="0"><span class="nav-link-label">DHISCO Bamboo</span></a></li></ul></div></div></div><div class="aui-header-primary"><h1 id="logo" class="aui-header-logo aui-header-logo-custom"><a href="https://confluence.dhisco.com/"><img src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/atl.site.logo" alt="Dhisco-Confluence" data-aui-responsive-header-index="0"></a></h1><ul class="aui-nav" style="width: auto;">
+                            <li>
+            
+        
+        
+<a id="space-menu-link" class=" aui-dropdown2-trigger aui-nav-link" aria-controls="space-menu-link-content" aria-haspopup="true" role="button" title="Spaces" tabindex="0" data-aui-trigger="" resolved="" aria-expanded="false" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#space-menu-link-content">Spaces</a><div id="space-menu-link-content" class="aui-dropdown2 aui-style-default aui-dropdown2-in-header aui-layer" role="menu" aria-hidden="true" resolved=""><div role="application"></div></div>
+        </li>
+                    <li>
+            
+    
+        
+<a id="people-directory-link" href="https://confluence.dhisco.com/browsepeople.action" class=" aui-nav-imagelink" title="People">
+            <span>People</span>
+    </a>
+        </li>
+                                <li class="aui-buttons">
+                                    
+                                        <a href="https://confluence.dhisco.com/pages/createpage.action?spaceKey=DQ&amp;fromPageId=370936320&amp;src=quick-create" id="quick-create-page-button" class="aui-button aui-button-primary" title="Create blank page (Type &#39;c&#39;)" tabindex="0">Create</a>
+                                <a href="https://confluence.dhisco.com/pages/createpage.action?spaceKey=DQ&amp;fromPageId=370936320" id="create-page-button" class="aui-button aui-button-primary clc-create-dialog-btn" title="Create from template" tabindex="0"><span class="aui-icon aui-icon-small aui-iconfont-more">Create </span></a>
+            </li>
+</ul>
+</div><div class="aui-header-secondary"><ul class="aui-nav">
+                        <li>
+        <div id="search-ui" class="aui-quicksearch dont-default-focus header-quicksearch"><input id="quick-search-query" aria-label="Search" placeholder="Search" type="text" title=" (Type &#39;g&#39; then &#39;g&#39;OR &#39;/&#39;)"><div id="quick-search-alert" role="alert">Hit enter to search</div><aui-spinner size="small" resolved=""><div class="aui-spinner spinner"><svg focusable="false" size="20" height="20" width="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"></circle></svg></div></aui-spinner></div>
+    </li>
+        <li>
+            
+        <a id="help-menu-link" class="aui-nav-link aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-haspopup="true" title="Help" resolved="" aria-controls="help-menu-link-content" aria-expanded="false">
+        <span class="aui-icon aui-icon-small aui-iconfont-question-filled">Help</span>
+    </a>
+    <nav id="help-menu-link-content" class="aui-dropdown2 aui-style-default aui-layer" aria-hidden="true" resolved="">
+                    <div class="aui-dropdown2-section">
+                                <ul id="help-menu-link-leading" class="aui-list-truncate section-leading first">
+                                            <li>
+        
+            
+<a id="confluence-help-link" href="https://docs.atlassian.com/confluence/docs-70/" class="    " title="Visit the Confluence documentation home" target="_blank">
+        Online Help
+</a>
+</li>
+                                            <li>
+    
+                
+<a id="keyboard-shortcuts-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="    " title="View available keyboard shortcuts (Type &#39;?&#39;)">
+        Keyboard Shortcuts
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="feed-builder-link" href="https://confluence.dhisco.com/dashboard/configurerssfeed.action" class="    " title="Create your custom RSS feed.">
+        Feed Builder
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="whats-new-menu-link" href="https://confluence.atlassian.com/display/DOC/Confluence+7.0+Release+Notes?a=false" class="    " title="">
+        What’s new
+</a>
+</li>
+                                            <li>
+    
+                
+<a id="gadget-directory-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="   user-item administration-link " title="Browse gadgets provided by Confluence">
+        Available Gadgets
+</a>
+</li>
+                                            <li>
+    
+            
+<a id="confluence-about-link" href="https://confluence.dhisco.com/aboutconfluencepage.action" class="    " title="Get more information about Confluence">
+        About Confluence
+</a>
+</li>
+                                    </ul>
+            </div>
+            </nav>
+    
+    </li>
+        <li>
+                
+    
+    </li>
+        <li>
+                    
+        
+            
+<a id="notifications-anchor" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="mw-anchor aui-nav-imagelink unread" title="Open Notifications (Type &#39;g&#39; then &#39;n&#39;)"><div class="badge-i aui-icon aui-icon-small aui-iconfont-notification"></div><span class="badge-w"><span class="badge">1</span></span></a>
+    
+    </li>
+        <li>
+                                            
+        <a id="user-menu-link" class="aui-dropdown2-trigger aui-dropdown2-trigger-arrowless " aria-haspopup="true" data-username="vaneet.kataria@rategain.com" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" title="Vaneet Kataria" resolved="" aria-controls="user-menu-link-content" aria-expanded="false">
+                    <div class="aui-avatar aui-avatar-small">
+                <div class="aui-avatar-inner">
+                                                                                                    <img src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/default.svg">
+                </div>
+            </div>
+            <span class="aui-icon-dropdown"></span>
+        </a>
+        <nav id="user-menu-link-content" class="aui-dropdown2 aui-style-default aui-layer" aria-hidden="true" resolved="">
+                            <div class="aui-dropdown2-section">
+                    <ul id="user-menu-link-user-preferences" class="aui-list-truncate section-user-preferences first">
+                                                    <li>
+        
+            
+<a id="create-personal-space-link" href="https://confluence.dhisco.com/spaces/createpersonalspace.action" class="   user-item personal-space create-personal-space-link " title="">
+        Add personal space…
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="view-user-history-link" href="https://confluence.dhisco.com/users/viewuserhistory.action" class="   user-item user-history popup-link " title=" (Type &#39;g&#39; then &#39;r&#39;)">
+        Recently viewed
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="user-recently-worked-on" href="https://confluence.dhisco.com/dashboard.action#recently-worked" class="   user-item " title="">
+        Recently worked on
+</a>
+</li>
+                                            </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="user-menu-link-user-content" class="aui-list-truncate section-user-content">
+                                                    <li>
+    
+            
+<a id="view-user-profile-link" href="https://confluence.dhisco.com/users/viewmyprofile.action" class="   user-item user-profile " title="">
+        Profile
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="view-mytasks-link" href="https://confluence.dhisco.com/plugins/inlinetasks/mytasks.action" class="   user-item list-user-status " title="">
+        Tasks
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="user-favourites-link" href="https://confluence.dhisco.com/users/viewmyfavourites.action" class="   user-item " title="">
+        Saved for later
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="user-watches-link" href="https://confluence.dhisco.com/users/viewnotifications.action" class="   user-item " title="">
+        Watches
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="user-drafts-link" href="https://confluence.dhisco.com/users/viewmydrafts.action" class="   user-item " title="">
+        Drafts
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="user-network-link" href="https://confluence.dhisco.com/users/viewfollow.action?username=vaneet.kataria@rategain.com" class="   follow-link " title="">
+        Network
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="user-settings-link" href="https://confluence.dhisco.com/users/viewmysettings.action" class="   user-item " title="">
+        Settings
+</a>
+</li>
+                                                    <li>
+    
+            
+<a id="upm-requests-link" href="https://confluence.dhisco.com/plugins/servlet/upm/requests?source=header_user" class="    " title="">
+        Atlassian Marketplace
+</a>
+</li>
+                                                    <li>
+    
+            
+<a href="https://confluence.dhisco.com/plugins/gliffy/gliffyUserPage.action" class="    " title="">
+        Gliffy Diagram
+</a>
+</li>
+                                            </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="user-menu-link-user-operations" class="aui-list-truncate section-user-operations">
+                                                    <li>
+    
+            
+<a id="logout-link" href="https://confluence.dhisco.com/logout.action" class="   user-item logout-link " title="">
+        Log Out
+</a>
+</li>
+                                            </ul>
+                </div>
+                    </nav>
+                    
+    </li>
+    </ul>
+</div></div><!-- .aui-header-inner--></nav><!-- .aui-header -->
+    <br class="clear">
+</header>
+    
+
+    
+    	<div class="ia-splitter">
+    		<div class="ia-splitter-left">
+    			<div class="ia-fixed-sidebar collapsed" style="top: 40px; left: 0px; width: 55px; visibility: visible;">
+                                            
+                            <div class="acs-side-bar ia-scrollable-section"><div class="acs-side-bar-space-info tipsy-enabled" data-configure-tooltip="Edit space details"><div class="avatar"><div class="space-logo" data-key="DQ" data-name="DHISCO Product Development" data-entity-type="confluence.space"><div class="avatar-img-container"><div class="avatar-img-wrapper"><a href="https://confluence.dhisco.com/display/DQ/DHISCO+PRODUCT+DEVELOPMENT?src=sidebar" title="DHISCO Product Development"><img class="avatar-img" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/DQ" alt="DHISCO Product Development"></a></div></div></div></div><div class="space-information-container"><div class="name"><a href="https://confluence.dhisco.com/display/DQ/DHISCO+PRODUCT+DEVELOPMENT?src=sidebar" title="DHISCO Product Development">DHISCO Product Development</a></div><div class="flyout-handle icon aui-icon aui-icon-small aui-iconfont-edit"></div><div class="favourite-space-icon "><button title="Add to my spaces" id="space-favourite-add" class="space-favourite aui-icon aui-icon-small aui-iconfont-unstar"></button><button class=" space-favourite-hidden  space-favourite aui-icon aui-icon-small aui-iconfont-star" id="space-favourite-remove" title="Remove from my spaces"></button></div></div></div><div class="acs-side-bar-content"><div class="acs-nav-wrapper"><div class="acs-nav" data-has-create-permission="true" data-quick-links-state="null" data-page-tree-state="null" data-nav-type="page-tree"><div class="acs-nav-sections"><div class="main-links-section "><ul class="acs-nav-list"><li class="acs-nav-item wiki current-item" data-collector-key="spacebar-pages"><a class="acs-nav-item-link tipsy-enabled" href="https://confluence.dhisco.com/collector/pages.action?key=DQ&amp;src=sidebar-pages" data-collapsed-tooltip="Pages"><span class="icon"></span><span class="acs-nav-item-label">Pages</span></a></li><li class="acs-nav-item blog" data-collector-key="spacebar-blogs"><a class="acs-nav-item-link tipsy-enabled" href="https://confluence.dhisco.com/pages/viewrecentblogposts.action?key=DQ&amp;src=sidebar-blogs" data-collapsed-tooltip="Blog"><span class="icon"></span><span class="acs-nav-item-label">Blog</span></a></li></ul></div><div class="quick-links-wrapper"><h5 class="ia-quick-links-header-title">Space shortcuts</h5><div class="quick-links-section tipsy-enabled " data-collapsed-tooltip="Space shortcuts"><ul class="acs-nav-list"><li class="acs-nav-item pinned_page blueprint file-list"><a class="acs-nav-item-link tipsy-enabled" href="https://confluence.dhisco.com/display/DQ/File+lists?src=spaceshortcut" data-collapsed-tooltip="null"><span class="icon"></span><span class="acs-nav-item-label">File lists</span></a></li><li class="acs-nav-item external_link"><a class="acs-nav-item-link tipsy-enabled" href="http://wiki.ad.dhisco.com/wiki/index.php/Main_Page" data-collapsed-tooltip="null"><span class="icon"></span><span class="acs-nav-item-label">DHISCO Wiki</span></a></li></ul></div></div></div></div></div><div class="ia-secondary-container tipsy-enabled" data-tree-type="page-tree"><div class="ia-secondary-header"><h5 class="ia-secondary-header-title page-tree"><span class="icon"></span><span class="label">Page tree</span></h5></div><div class="ia-secondary-content">
+
+
+<div class="plugin_pagetree conf-macro output-inline" data-hasbody="false" data-macro-name="pagetree">
+
+        
+        
+    <ul class="plugin_pagetree_children_list plugin_pagetree_children_list_noleftspace">
+        <div class="plugin_pagetree_children" id="children214204429-0">
+<ul class="plugin_pagetree_children_list" id="child_ul214204429-0">
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus214204447-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan214204447-0">                        <a href="https://confluence.dhisco.com/display/DQ/People?src=contextnavpagetreemode">People</a>
+        </span>
+            </div>
+
+        <div id="children214204447-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus357929593-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357929593-0">                        <a href="https://confluence.dhisco.com/display/DQ/Project+Management?src=contextnavpagetreemode">Project Management</a>
+        </span>
+            </div>
+
+        <div id="children357929593-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus136937498-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan136937498-0">                        <a href="https://confluence.dhisco.com/display/DQ/Product+Releases?src=contextnavpagetreemode">Product Releases</a>
+        </span>
+            </div>
+
+        <div id="children136937498-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus214204451-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan214204451-0">                        <a href="https://confluence.dhisco.com/display/DQ/Repositories?src=contextnavpagetreemode">Repositories</a>
+        </span>
+            </div>
+
+        <div id="children214204451-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus214204459-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan214204459-0">                        <a href="https://confluence.dhisco.com/display/DQ/Test?src=contextnavpagetreemode">Test</a>
+        </span>
+            </div>
+
+        <div id="children214204459-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus341840882-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan341840882-0">                        <a href="https://confluence.dhisco.com/display/DQ/DCM+Documentation+-+TechSpa?src=contextnavpagetreemode">DCM Documentation - TechSpa</a>
+        </span>
+            </div>
+
+        <div id="children341840882-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus238485511-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan238485511-0">                        <a href="https://confluence.dhisco.com/display/DQ/WIP?src=contextnavpagetreemode">WIP</a>
+        </span>
+            </div>
+
+        <div id="children238485511-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus247037976-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan247037976-0">                        <a href="https://confluence.dhisco.com/display/DQ/DHISCO+Data+Center+Move?src=contextnavpagetreemode">DHISCO Data Center Move</a>
+        </span>
+            </div>
+
+        <div id="children247037976-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan342984515-0">                        <a href="https://confluence.dhisco.com/pages/viewpage.action?pageId=342984515&amp;src=contextnavpagetreemode">Agile/Scrum Info</a>
+        </span>
+            </div>
+
+        <div id="children342984515-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus347509424-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan347509424-0">                        <a href="https://confluence.dhisco.com/display/DQ/USWOTA+Deploy+plan+to+Production?src=contextnavpagetreemode">USWOTA Deploy plan to Production</a>
+        </span>
+            </div>
+
+        <div id="children347509424-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan347509715-0">                        <a href="https://confluence.dhisco.com/display/DQ/Shop+To+Push+User+Manual?src=contextnavpagetreemode">Shop To Push User Manual</a>
+        </span>
+            </div>
+
+        <div id="children347509715-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus355605904-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-right" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan355605904-0">                        <a href="https://confluence.dhisco.com/display/DQ/Processes?src=contextnavpagetreemode">Processes</a>
+        </span>
+            </div>
+
+        <div id="children355605904-0" class="plugin_pagetree_children_container">
+                                                            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357931962-0">                        <a href="https://confluence.dhisco.com/display/DQ/Pre-Sales+Sandbox+Environment?src=contextnavpagetreemode">Pre-Sales Sandbox Environment</a>
+        </span>
+            </div>
+
+        <div id="children357931962-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357928227-0">                        <a href="https://confluence.dhisco.com/display/DQ/Running+UD+on+local+machine?src=contextnavpagetreemode">Running UD on local machine</a>
+        </span>
+            </div>
+
+        <div id="children357928227-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357927553-0">                        <a href="https://confluence.dhisco.com/display/DQ/Booking+Transaction+Flow+Diagram?src=contextnavpagetreemode">Booking Transaction Flow Diagram</a>
+        </span>
+            </div>
+
+        <div id="children357927553-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357930000-0">                        <a href="https://confluence.dhisco.com/display/DQ/Error+Codes+for+UD?src=contextnavpagetreemode">Error Codes for UD</a>
+        </span>
+            </div>
+
+        <div id="children357930000-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357933378-0">                        <a href="https://confluence.dhisco.com/display/DQ/Script+for+Testing+Credit+Cards?src=contextnavpagetreemode">Script for Testing Credit Cards</a>
+        </span>
+            </div>
+
+        <div id="children357933378-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan357933609-0">                        <a href="https://confluence.dhisco.com/display/DQ/High+Level+Content+Flow?src=contextnavpagetreemode">High Level Content Flow</a>
+        </span>
+            </div>
+
+        <div id="children357933609-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan366018572-0">                        <a href="https://confluence.dhisco.com/display/DQ/Re-Attach+Gliffy+Diagrams?src=contextnavpagetreemode">Re-Attach Gliffy Diagrams</a>
+        </span>
+            </div>
+
+        <div id="children366018572-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan367296876-0">                        <a href="https://confluence.dhisco.com/display/DQ/Supplier+Platform+Smart+controller?src=contextnavpagetreemode">Supplier Platform Smart controller</a>
+        </span>
+            </div>
+
+        <div id="children367296876-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan370934548-0">                        <a href="https://confluence.dhisco.com/display/DQ/Product+Development+Office+hours?src=contextnavpagetreemode">Product Development Office hours</a>
+        </span>
+            </div>
+
+        <div id="children370934548-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan370935034-0">                        <a href="https://confluence.dhisco.com/display/DQ/Dhisco+Tech+RoadMap?src=contextnavpagetreemode">Dhisco Tech RoadMap</a>
+        </span>
+            </div>
+
+        <div id="children370935034-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan370935231-0">                        <a href="https://confluence.dhisco.com/display/DQ/Application+List?src=contextnavpagetreemode">Application List</a>
+        </span>
+            </div>
+
+        <div id="children370935231-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan370935774-0">                        <a href="https://confluence.dhisco.com/display/DQ/Informix+cli+access?src=contextnavpagetreemode">Informix cli access</a>
+        </span>
+            </div>
+
+        <div id="children370935774-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                                            <a id="plusminus370936320-0" class="plugin_pagetree_childtoggle aui-icon aui-icon-small aui-iconfont-chevron-down" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">
+            </a>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span plugin_pagetree_current" id="childrenspan370936320-0">                        <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement?src=contextnavpagetreemode">AppD Monitoring Replacement</a>
+        </span>
+            </div>
+
+        <div id="children370936320-0" class="plugin_pagetree_children_container">
+                                                        <ul class="plugin_pagetree_children_list" id="child_ul370936320-0">
+                                            <li>
+    <div class="plugin_pagetree_childtoggle_container">
+                    <span class="no-children icon"></span>
+            </div>
+    <div class="plugin_pagetree_children_content">
+          
+        
+                    <span class="plugin_pagetree_children_span" id="childrenspan370936437-0">                        <a href="https://confluence.dhisco.com/display/DQ/Architecture?src=contextnavpagetreemode">Architecture</a>
+        </span>
+            </div>
+
+        <div id="children370936437-0" class="plugin_pagetree_children_container">
+            </div>
+    </li>
+                                        </ul>
+                                        </div>
+    </li>
+    </ul>
+</div>
+    </ul>
+
+    <fieldset class="hidden">
+        <input type="hidden" name="treeId" value="">
+        <input type="hidden" name="treeRequestId" value="/plugins/pagetree/naturalchildren.action?decorator=none&amp;excerpt=false&amp;sort=position&amp;reverse=false&amp;disableLinks=false&amp;expandCurrent=true">
+        <input type="hidden" name="treePageId" value="370936320">
+
+        <input type="hidden" name="noRoot" value="false">
+        <input type="hidden" name="rootPageId" value="214204429">
+
+        <input type="hidden" name="rootPage" value="">
+        <input type="hidden" name="startDepth" value="0">
+        <input type="hidden" name="spaceKey" value="DQ">
+
+        <input type="hidden" name="i18n-pagetree.loading" value="Loading...">
+        <input type="hidden" name="i18n-pagetree.error.permission" value="Unable to load page tree. It seems that you do not have permission to view the root page.">
+        <input type="hidden" name="i18n-pagetree.eeror.general" value="There was a problem retrieving the page tree. Please check the server log file for more information.">
+        <input type="hidden" name="loginUrl" value="/login.action?os_destination=%2Fpages%2Fviewpage.action%3FspaceKey%3DDQ%26title%3DAppD%2BMonitoring%2BReplacement&amp;permissionViolation=true">
+        <input type="hidden" name="mobile" value="false">
+
+                <fieldset class="hidden">
+                                                <input type="hidden" name="ancestorId" value="214204429">
+                                    </fieldset>
+    </fieldset>
+</div>
+</div></div></div><div class="hidden"><a href="https://confluence.dhisco.com/collector/pages.action?key=DQ&amp;src=sidebar" id="space-pages-link" title=" (Type &#39;g&#39; then &#39;s&#39;)"></a><script type="text/x-template" title="logo-config-content"><h2>Space Details</h2><div class="personal-space-logo-hint">Your profile picture is used as the logo for your personal space. <a href="/users/profile/editmyprofilepicture.action" target="_blank">Change your profile picture</a>.</div></script></div></div><div class="space-tools-section"><div id="space-tools-menu-additional-items" class="hidden"><div data-label="Reorder pages" data-class="" data-href="/pages/reorderpages.action?key=DQ">Reorder pages</div></div><button id="space-tools-menu-trigger" class=" aui-dropdown2-trigger aui-button aui-button-subtle tipsy-enabled aui-dropdown2-trigger-arrowless " aria-controls="space-tools-menu" aria-haspopup="true" role="button" data-aui-trigger="" resolved="" aria-expanded="false" data-collapsed-tooltip="Space tools"><span class="aui-icon aui-icon-small aui-iconfont-configure">Configure</span><span class="aui-button-label">Space tools</span><span class="aui-icon "></span></button><div id="space-tools-menu" class="aui-dropdown2 aui-style-default space-tools-dropdown aui-layer" role="menu" aria-hidden="true" data-aui-alignment="top left" resolved=""><div role="presentation" class="aui-dropdown2-section space-tools-navigation"><div role="group"><ul class="aui-list-truncate" role="presentation"><li role="presentation"><a role="menuitem" tabindex="-1" class="" href="https://confluence.dhisco.com/spaces/viewspacesummary.action?key=DQ&amp;src=spacetools">Overview</a></li><li role="presentation"><a role="menuitem" tabindex="-1" class="" href="https://confluence.dhisco.com/pages/reorderpages.action?key=DQ&amp;src=spacetools">Content Tools</a></li></ul></div></div><div role="presentation" class="aui-dropdown2-section space-operations"><div role="group"><ul class="aui-list-truncate" role="presentation"><li role="presentation"><a role="menuitem" tabindex="-1" class="" href="https://confluence.dhisco.com/pages/reorderpages.action?key=DQ&amp;src=spacetools">Reorder pages</a></li></ul></div></div></div><a class="expand-collapse-trigger aui-icon aui-icon-small aui-iconfont-chevron-double-right" data-tooltip="Expand sidebar ( [ )"></a></div>
+                    
+                        			<div class="ia-splitter-handle tipsy-enabled" data-tooltip="Expand sidebar ( [ )" title=" (Type &#39;[&#39;)"><div class="ia-splitter-handle-highlight confluence-icon-grab-handle"></div></div></div>
+    		</div>
+        <!-- \#header -->
+
+            
+    
+        <div id="main" class=" aui-page-panel" style="margin-left: 55px;">
+                        <div id="main-header" style="top: 40px; width: 1214px;" class="">
+                        
+    <div id="navigation" class="content-navigation view">
+                    <ul class="ajs-menu-bar">
+                                                                    <li class="ajs-button normal">
+
+        
+        
+    
+                                                        
+    
+    
+            <a id="editPageLink" href="https://confluence.dhisco.com/pages/editpage.action?pageId=370936320" rel="nofollow" class="aui-button aui-button-subtle edit" accesskey="e" title="Edit (Type &#39;e&#39;)">
+                        <span>
+                                    <span class="aui-icon aui-icon-small aui-iconfont-edit"></span>
+                                <u>E</u>dit
+            </span>        </a>
+    </li>
+                                            <li class="ajs-button normal">
+
+        
+            
+    
+                                                        
+    
+    
+            <a id="page-favourite" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" rel="nofollow" class="aui-button aui-button-subtle action-page-favourite" accesskey="f" title="Save for later (Type &#39;f&#39;)">
+                        <span>
+                                    <span class="aui-icon aui-icon-small aui-iconfont-unstar"></span>
+                                Save <u>f</u>or later
+            </span>        </a>
+    </li>
+                                            <li class="ajs-button normal">
+
+        
+            
+    
+                                                        
+    
+    
+            <a id="watch-content-button" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" rel="nofollow" class="aui-button aui-button-subtle watch-menu watch-state-initialised" title="Watch (w)">
+                        <span><span class="aui-icon aui-icon-small aui-iconfont-unwatch"></span> <u>W</u>atch</span>        </a>
+    </li>
+                                            <li class="ajs-button normal">
+
+        
+            
+    
+                                                        
+    
+    
+            <a id="shareContentLink" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" rel="nofollow" class="aui-button aui-button-subtle share" title="Share this page with others (Type &#39;s&#39;OR &#39;k&#39;)">
+                        <span>
+                                    <span class="aui-icon aui-icon-small aui-iconfont-share"></span>
+                                <u>S</u>hare
+            </span>        </a>
+    </li>
+                    
+        <li class="normal ajs-menu-item">
+        <a id="action-menu-link" class="action aui-dropdown2-trigger-arrowless aui-button aui-button-subtle ajs-menu-title aui-dropdown2-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-haspopup="true" data-container="#navigation" resolved="" aria-controls="action-menu" aria-expanded="false">
+            <span>
+                                    <span class="aui-icon aui-icon-small aui-iconfont-more"></span>
+                                
+            </span>
+        </a>         <div id="action-menu" class="aui-dropdown2 aui-style-default aui-layer most-right-menu-item" aria-hidden="true" resolved="">
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-primary" class="section-primary first">
+                                                    <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="view-attachments-link" href="https://confluence.dhisco.com/pages/viewpageattachments.action?pageId=370936320" rel="nofollow" class="action-view-attachments" accesskey="t" title="View Attachments (Type &#39;t&#39;)">
+                        <span>
+                                A<u>t</u>tachments (0)
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-view-history-link" href="https://confluence.dhisco.com/pages/viewpreviousversions.action?pageId=370936320" rel="nofollow" class="action-view-history" title="">
+                        <span>
+                                Page History
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-page-permissions-link" href="https://confluence.dhisco.com/pages/viewinfo.action?pageId=370936320" rel="nofollow" class="action-page-permissions" title="Edit restrictions">
+                        <span>
+                                Restrictions
+            </span>        </a>
+    </li>
+                                        </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-secondary" class="section-secondary">
+                                                    <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="view-page-info-link" href="https://confluence.dhisco.com/pages/viewinfo.action?pageId=370936320" rel="nofollow" class="action-view-info" title="">
+                        <span>
+                                Page Information
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+            
+    
+                                                        
+    
+    
+            <a id="view-resolved-comments" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" rel="nofollow" class="" title="">
+                        <span>Resolved comments (0)</span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="view-in-hierarchy-link" href="https://confluence.dhisco.com/pages/reorderpages.action?key=DQ&amp;openId=370936320#selectedPageInHierarchy" rel="nofollow" class="" title="">
+                        <span>
+                                View in Hierarchy
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-view-source-link" href="https://confluence.dhisco.com/plugins/viewsource/viewpagesrc.action?pageId=370936320" rel="nofollow" class="action-view-source popup-link" title="">
+                        <span>
+                                View Source
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-export-pdf-link" href="https://confluence.dhisco.com/spaces/flyingpdf/pdfpageexport.action?pageId=370936320" rel="nofollow" class="" title="">
+                        <span>
+                                Export to PDF
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-export-word-link" href="https://confluence.dhisco.com/exportword?pageId=370936320" rel="nofollow" class="action-export-word" title="">
+                        <span>
+                                Export to Word
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="import-word-doc" href="https://confluence.dhisco.com/pages/worddav/uploadimport.action?pageId=370936320" rel="nofollow" class="" title="">
+                        <span>
+                                Import Word Document
+            </span>        </a>
+    </li>
+                                        </ul>
+                </div>
+                            <div class="aui-dropdown2-section">
+                    <ul id="action-menu-modify" class="section-modify">
+                                                    <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-copy-page-link" href="https://confluence.dhisco.com/pages/copypage.action?idOfPageToCopy=370936320&amp;spaceKey=DQ" rel="nofollow" class="action-copy" title="">
+                        <span>
+                                Copy
+            </span>        </a>
+    </li>
+                                                <li>
+
+    
+        
+    
+                                                        
+    
+    
+            <a id="action-move-page-dialog-link" href="https://confluence.dhisco.com/pages/viewpage.action?pageId=370936320" rel="nofollow" class="action-move" title="">
+                        <span>
+                                Move
+            </span>        </a>
+    </li>
+                                        </ul>
+                </div>
+                    </div>
+    </li>
+            </ul>
+    </div>
+
+            
+            <div id="title-heading" class="pagetitle with-breadcrumbs">
+                
+                                    <div id="breadcrumb-section">
+                        
+    
+    
+    <ol id="breadcrumbs">
+                                        
+                        
+        <li class="first">
+                        
+                            <span class=""><a href="https://confluence.dhisco.com/collector/pages.action?key=DQ&amp;src=breadcrumbs-collector">Dashboard</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class=""><a href="https://confluence.dhisco.com/display/DQ/DHISCO+PRODUCT+DEVELOPMENT?src=breadcrumbs-parent">DHISCO PRODUCT DEVELOPMENT</a></span>
+                                                                    </li></ol>
+
+
+                    </div>
+                
+                
+        <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#page-banner-end" class="assistive">Skip to end of banner</a>
+<div id="page-banner-start" class="assistive"></div>
+
+                    
+            <div id="page-metadata-banner" style="visibility: visible;"><ul class="banner"><li id="system-content-items" class="noprint"><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement" title="Unrestricted" id="content-metadata-page-restrictions" class="aui-icon aui-icon-small aui-iconfont-unlocked system-metadata-restrictions" resolved=""></a></li><li class="page-metadata-item noprinthas-button" id="content-metadata-jira-wrapper"><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement" title="" id="content-metadata-jira" class="aui-button aui-button-subtle content-metadata-jira tipsy-disabled hidden"><span>Jira links</span></a></li></ul></div>
+            
+
+<a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#page-banner-start" class="assistive">Go to start of banner</a>
+<div id="page-banner-end" class="assistive"></div>
+    
+
+                <h1 id="title-text" class="with-breadcrumbs" style="display: block;">
+                                                <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement">AppD Monitoring Replacement</a>
+                                    </h1>
+            </div>
+        </div><!-- \#main-header -->
+        
+        
+
+        <div id="sidebar-container">
+                                                </div><!-- \#sidebar-container -->
+
+        
+    
+
+        
+
+
+
+
+            
+    
+
+                                
+    
+
+    
+    
+        
+    
+    
+                    
+    
+
+    
+
+    
+            
+        
+
+    
+    
+
+    
+            
+        
+
+
+
+    
+<div id="content" class="page view">
+    
+
+
+<div id="action-messages">
+                        </div>
+
+
+
+            <script type="text/x-template" title="searchResultsGrid">
+    <table class="aui">
+        <thead>
+            <tr class="header">
+                <th class="search-result-title">Page Title</th>
+                <th class="search-result-space">Space</th>
+                <th class="search-result-date">Updated</th>
+            </tr>
+        </thead>
+    </table>
+</script>
+<script type="text/x-template" title="searchResultsGridCount">
+    <p class="search-result-count">{0}</p>
+</script>
+<script type="text/x-template" title="searchResultsGridRow">
+    <tr class="search-result">
+        <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td>
+        <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td>
+        <td class="search-result-date"><span class="date" title="{6}">{5}</span></td>
+    </tr>
+</script>
+        
+    
+            
+
+        
+                            
+    
+
+                    
+
+        
+        <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#page-metadata-end" class="assistive">Skip to end of metadata</a>
+<div id="page-metadata-start" class="assistive"></div>
+
+    <div class="page-metadata">
+        <ul>
+            <li class="page-metadata-modification-info">
+                
+        
+    
+        
+    
+        
+            
+            Created by <span class="author">     <a href="https://confluence.dhisco.com/display/~deepak.bhoria@rategain.com" class="url fn confluence-userlink userlink-0" data-username="deepak.bhoria@rategain.com" title="" data-user-hover-bound="true">Deepak Bhoria</a></span>, last modified by <span class="editor">     <a href="https://confluence.dhisco.com/display/~atul.sharma@rategain.com" class="url fn confluence-userlink userlink-1" data-username="atul.sharma@rategain.com" title="" data-user-hover-bound="true">Atul Sharma</a></span> on <a class="last-modified" title="Show changes" href="https://confluence.dhisco.com/pages/diffpagesbyversion.action?pageId=370936320&amp;selectedPageVersions=2&amp;selectedPageVersions=3">Jun 03, 2020</a>
+                </li>
+        </ul>
+    </div>
+
+
+<a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#page-metadata-start" class="assistive">Go to start of metadata</a>
+<div id="page-metadata-end" class="assistive"></div>
+
+        
+                                            
+        <div id="main-content" class="wiki-content">
+                           
+        <p class="auto-cursor-target">For monitoring, reporting and alerting, we researched on elk stack and prometheus stack. Both of them are quit good and widely accepted in community</p><p class="auto-cursor-target">&nbsp;for monitoring and alerting mechanisms.</p><div class="table-wrap"><table class="relative-table confluenceTable" style="width: 100.0%;" resolved=""><colgroup><col style="width: 7.96325%;"><col style="width: 46.5544%;"><col style="width: 26.7228%;"><col style="width: 18.7596%;"></colgroup><tbody><tr><td class="confluenceTd">Parameters</td><td class="confluenceTd">Appdynamics</td><td class="confluenceTd">ELK stack</td><td class="confluenceTd"><p>PIG stack</p></td></tr><tr><td class="confluenceTd">Scaling</td><td class="confluenceTd">Easy</td><td class="confluenceTd"><p><span>Easy </span></p><p><span>Because of inbuilt sharding and api for rebalancing.</span></p><p><span> </span><span style="color: rgb(17,85,204);text-decoration: underline;"><a href="https://stackoverflow.com/questions/35717790/how-to-add-a-new-node-to-my-elasticsearch-cluster" class="external-link" rel="nofollow">https://stackoverflow.com/questions/35717790/how-to-add-a-new-node-to-my-elasticsearch-cluster</a></span></p></td><td class="confluenceTd"><p>Difficult<br>No inbuilt scaling, Solutions like Thanos, Cortex help but difficult to setup<br>Running multiple prometheus: <a href="https://sysdig.com/blog/challenges-scale-prometheus/" class="external-link" rel="nofollow">https://sysdig.com/blog/challenges-scale-prometheus/</a><br>scaling InfluxDb is hard</p></td></tr><tr><td class="confluenceTd">Dynamic configuration changes</td><td class="confluenceTd">Easy</td><td class="confluenceTd">Easy <br>Urls can be added to heartbeat dynamically for changes<br>Nodes can be added to metric beat to capture remote node metrics<br>More nodes can be added to ES cluster to scale accordingly</td><td class="confluenceTd"><p>Easy<br>Node exporter can be added nodes to expose metrics under /prometheus/metrics url<br>Promethues config can be dyamically updated to include those nodes to reflect changes in real time</p></td></tr><tr><td class="confluenceTd">Logs Analysis</td><td class="confluenceTd">Easy<br><a href="https://docs.appdynamics.com/display/PRO45/Configure+Log+Analytics+Using+Source+Rules" class="external-link" rel="nofollow">https://docs.appdynamics.com/display/PRO45/Configure+Log+Analytics+Using+Source+Rules</a></td><td class="confluenceTd">Easy<br>Logs are indexed at same place as metrics. So indexing and correlation between logs and metrics is easy.</td><td class="confluenceTd"><p>Difficult<br>Its a metric server only. Need to jump across different platform to establish correlation</p></td></tr><tr><td class="confluenceTd">Security</td><td class="confluenceTd">High</td><td class="confluenceTd">High<br>communication b/w ES and Kibana is secured by https</td><td class="confluenceTd"><p>Low<br>Ok for internal network. But not good if grafana or other services are running in external network. They are planning to do TLS encryption in future.</p></td></tr><tr><td class="confluenceTd">Ease of use</td><td class="confluenceTd">Easy</td><td class="confluenceTd">Harder to maintain<br>Lots of applications need to be configured, run and monitored separately in cluster mode<br>Heartbeat, MetricBeat, Filebeat, APM, Elastic Search, Logstash, Kibana</td><td class="confluenceTd"><p>Easy to deploy and maintain<br>Prometheus, Influxdb, grafana can be run on single node easily.</p></td></tr><tr><td class="confluenceTd">Push Custom metrics through code</td><td class="confluenceTd">Yes</td><td class="confluenceTd">Yes<br>agent api allows to push custom data as tags</td><td class="confluenceTd"><p>Yes<br>agent api allows to push custom data as tags</p></td></tr><tr><td colspan="1" class="confluenceTd">Visualization for custom metrics</td><td colspan="1" class="confluenceTd">Low Options<br>Analytics widget options provide limited visualizations</td><td colspan="1" class="confluenceTd">More options<br>Kibana lets users create custom visualizations which can be added to dashboard</td><td colspan="1" class="confluenceTd"><p>Limited options<br>Grafana provides custom visualizations, but those are limited by timeseries queries only</p></td></tr><tr><td class="confluenceTd">Storage requirement</td><td class="confluenceTd">High although data is stored in disks</td><td class="confluenceTd">High</td><td class="confluenceTd">Low</td></tr><tr><td class="confluenceTd">CPU-RAM</td><td class="confluenceTd">Low</td><td class="confluenceTd">High</td><td class="confluenceTd">Low</td></tr><tr><td colspan="1" class="confluenceTd">Charges</td><td colspan="1" class="confluenceTd">Paid</td><td colspan="1" class="confluenceTd"><p>Free, Open source</p><p>Alerting, Machine learning based solutions are paid</p></td><td colspan="1" class="confluenceTd">Free, Open source</td></tr></tbody></table></div><div id="floating-scrollbar" style="position: fixed; bottom: 0px; height: 30px; overflow: auto hidden; display: block; left: 95px; width: 1194px;"><div style="border: 1px solid rgb(255, 255, 255); opacity: 0.01; width: 1307px;"></div></div><p class="auto-cursor-target">Currently we are testing ELK, PIG stack on <a href="http://valpocdevsys01a.asp.dhisco.com/" class="external-link" rel="nofollow">valpocdevsys01a.asp.dhisco.com</a>. Dashboard are running at:</p><p class="auto-cursor-target"><span>Kibana dashboard: </span><a href="http://valpocdevsys01a.asp.dhisco.com:5601/app/kibana#/dashboards" class="external-link" rel="nofollow">http://valpocdevsys01a.asp.dhisco.com:5601/app/kibana#/dashboards</a></p><p class="auto-cursor-target">Grafana dashboard: <a href="http://valpocdevsys01a.asp.dhisco.com:3000/" class="external-link" rel="nofollow">http://valpocdevsys01a.asp.dhisco.com:3000/</a></p><p class="auto-cursor-target">References:</p><p class="auto-cursor-target">Elastic search vs influx db benchmarking comparison:</p><div class="table-wrap"><table class="confluenceTable" resolved=""><colgroup><col></colgroup><tbody><tr><td class="confluenceTd"><p><a class="external-link" href="https://www.slideshare.net/influxdata/lets-compare-a-benchmark-review-of-influxdb-and-elasticsearch" rel="nofollow">https://www.slideshare.net/influxdata/lets-compare-a-benchmark-review-of-influxdb-and-elasticsearch</a></p></td></tr><tr><td class="confluenceTd"><p><a class="external-link" href="https://jolicode.com/blog/influxdb-vs-elasticsearch-for-time-series-and-metrics-data" rel="nofollow">https://jolicode.com/blog/influxdb-vs-elasticsearch-for-time-series-and-metrics-data</a></p></td></tr></tbody></table></div><p>People prefering influx db:</p><p><a href="https://www.influxdata.com/blog/influxdb-markedly-elasticsearch-in-time-series-data-metrics-benchmark/" class="external-link" rel="nofollow">https://www.influxdata.com/blog/influxdb-markedly-elasticsearch-in-time-series-data-metrics-benchmark/</a></p><p>People prefering elastic-search over influx db:</p><p><a href="https://medium.com/kudos-engineering/choosing-the-elastic-stack-as-a-time-series-database-9fac202c53ba" class="external-link" rel="nofollow">https://medium.com/kudos-engineering/choosing-the-elastic-stack-as-a-time-series-database-9fac202c53ba</a></p>
+
+                
+        
+    
+        </div>
+
+                        
+    
+
+
+
+<div id="likes-and-labels-container"><div id="likes-section" class="no-print"><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement" class="like-button"><span class="aui-icon aui-icon-small aui-iconfont-like"></span><span class="like-button-text">Like</span></a><span class="like-summary like-summary-margin-left">Be the first to like this</span></div><div id="labels-section" class="pageSection group">
+    <div class="labels-section-content content-column" entityid="370936320" entitytype="page">
+	<div class="labels-content">
+		
+    <ul class="label-list label-list-right  has-pen">
+            <li class="no-labels-message">
+            No labels
+        </li>
+                <li class="labels-edit-container">
+            <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="show-labels-editor" title="Edit Labels (Type &#39;l&#39;)">
+                <span class="aui-icon aui-icon-small aui-iconfont-devtools-tag-small">Edit Labels</span>
+            </a>
+        </li>
+        </ul>
+
+    </div>
+</div>
+</div></div>
+        
+		
+            
+
+
+
+
+            
+        
+
+
+
+
+
+
+
+
+                        
+    
+<div id="comments-section" class="pageSection group">
+        
+    
+
+
+    <div class="bottom-comment-panels comment-panels">
+                
+                    
+    
+
+
+        
+        
+    
+    <div class="quick-comment-container comment add"><p class="comment-user-logo"><a class="userLogoLink userlink-2" data-username="vaneet.kataria@rategain.com" href="https://confluence.dhisco.com/users/profile/editmyprofilepicture.action" title="" data-user-hover-bound="true"><img class="userLogo logo defaultLogo" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/add_profile_pic.svg" alt="User icon: Add a picture of yourself" title=""></a></p><div class="quick-comment-body"><div class="quick-comment-loading-container" style="display:none;"></div><div id="editor-messages"></div><div id="all-messages"></div><form style="display:block;" class="quick-comment-form aui" method="post" name="inlinecommentform" action="https://confluence.dhisco.com/pages/doaddcomment.action?pageId=370936320"><div title="Add a Comment (Type &#39;m&#39;)" class="quick-comment-prompt"><span>Write a comment…</span></div></form></div></div>
+
+            </div>
+
+            <div id="comments-actions" class="aui-toolbar noprint" style="display: none;">
+            <p class="toolbar-group">
+                <span class="toolbar-item"><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement?showComments=true&amp;showCommentArea=true#addcomment" id="add-comment-rte" accesskey="m" class="toolbar-trigger">Add Comment</a></span>
+            </p>
+        </div>
+    </div>
+        
+
+
+                
+    
+            
+</div>
+
+    
+
+    
+
+
+
+
+    
+    
+
+    
+    
+    
+
+
+    
+<div id="space-tools-web-items" class="hidden">
+                <div data-label="Overview" data-href="/spaces/viewspacesummary.action?key=DQ">Overview</div>
+            <div data-label="Content Tools" data-href="/pages/reorderpages.action?key=DQ">Content Tools</div>
+    </div>
+        
+
+
+
+            </div><!-- \#main -->
+            
+    
+    
+        
+            
+            
+
+<div id="footer" role="contentinfo" style="margin-left: 55px;">
+    <section class="footer-body">
+
+                                                    
+        
+
+        
+        <div class="gliffy-webpanel-footer"><span></span></div>
+<ul id="poweredby">
+            <li class="noprint">Powered by <a href="http://www.atlassian.com/software/confluence" class="hover-footer-link" rel="nofollow">Atlassian Confluence</a> <span id="footer-build-information">7.0.2</span></li>
+            <li class="print-only">Printed by Atlassian Confluence 7.0.2</li>
+            <li class="noprint"><a href="https://support.atlassian.com/help/confluence" class="hover-footer-link" rel="nofollow">Report a bug</a></li>
+            <li class="noprint"><a href="https://www.atlassian.com/company" class="hover-footer-link" rel="nofollow">Atlassian News</a></li>
+        </ul>
+
+        
+
+        <div id="footer-logo"><a href="http://www.atlassian.com/" rel="nofollow">Atlassian</a></div>
+
+                    
+        
+    </section>
+</div>
+
+    
+</div>
+
+</div><!-- \#full-height-container -->
+</div><!-- \#page -->
+
+    <span style="display:none;" id="confluence-server-performance">{"serverDuration": 96, "requestCorrelationId": "603c8a14183b47d4"}</span>
+
+
+    
+<div id="editor-preload-container" style="display: none;">
+ 
+
+<div class="hidden">
+        
+
+
+<content tag="breadcrumbs">
+    
+    
+    <ol id="quickedit-breadcrumbs">
+                                        
+                        
+        <li class="first">
+                        
+                            <span class=""><a href="https://confluence.dhisco.com/display/DQ" target="_blank">DHISCO Product Development</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class=""><a href="https://confluence.dhisco.com/collector/pages.action?key=DQ" target="_blank">Dashboard</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class=""><a href="https://confluence.dhisco.com/display/DQ/DHISCO+PRODUCT+DEVELOPMENT" target="_blank">DHISCO PRODUCT DEVELOPMENT</a></span>
+                                                                                    
+                        
+        </li><li>
+                        
+                            <span class="edited-page-title"><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement" target="_blank">AppD Monitoring Replacement</a></span>
+                                                                    </li></ol>
+
+</content>
+</div>
+
+
+        
+    
+
+                                                                                        
+
+<script type="text/x-template" title="editor-css" id="editor-css-resources">
+    <link type="text/css" rel="stylesheet" href="/s/b5c11122e1833a99459df9a088ce1792-CDN/91v14/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/d93d268058b84612d3e531c24ce29c9c/_/download/contextbatch/css/editor-content/batch.css?frontend.editor.v4=true" data-wrm-key="editor-content" data-wrm-batch-type="context" media="all">
+<link type="text/css" rel="stylesheet" href="/s/91v14/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/17/_/styles/colors.css" media="all">
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+<div class="editor-container">
+
+        
+            
+
+<div id="link-browser-tab-items" class="hidden">
+                <div title="Search" data-weight="10">search</div>
+            <div title="Recently viewed" data-weight="20">recentlyviewed</div>
+            <div title="Files" data-weight="30">attachments</div>
+            <div title="Web link" data-weight="40">weblink</div>
+            <div title="Advanced" data-weight="50">advanced</div>
+    </div>
+            <div id="image-properties-tab-items" class="hidden">
+                <div title="Effects" data-weight="10">image-effects</div>
+            <div title="Title" data-weight="20">image-attributes</div>
+    </div>
+            
+
+ 
+
+
+
+
+
+
+
+
+
+
+<div id="toolbar">
+    <div id="rte-toolbar" class="aui-toolbar aui-toolbar2">
+
+        <div class="aui-toolbar2-primary toolbar-primary">
+            <ul class="aui-buttons rte-toolbar-group-formatting">
+                            <li id="format-dropdown" class="toolbar-item toolbar-dropdown">
+                    <div class="aui-dd-parent">
+                        <a id="format-dropdown-display" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="toolbar-trigger aui-dd-trigger aui-button" data-control-id="formatselect">
+                            <span class="dropdown-text">Paragraph</span>
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                        </a>
+                        <ul id="format-dropdown-display-menu" class="aui-dropdown hidden">
+                            <li class="dropdown-item format-p" data-format="p" data-tooltip="Paragraph (Ctrl+0)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Paragraph</a>
+</li>
+                                <li class="dropdown-item format-h1" data-format="h1" data-tooltip="Heading 1 (Ctrl+1)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Heading 1</a>
+</li>
+                                <li class="dropdown-item format-h2" data-format="h2" data-tooltip="Heading 2 (Ctrl+2)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Heading 2</a>
+</li>
+                                <li class="dropdown-item format-h3" data-format="h3" data-tooltip="Heading 3 (Ctrl+3)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Heading 3</a>
+</li>
+                                <li class="dropdown-item format-h4" data-format="h4" data-tooltip="Heading 4 (Ctrl+4)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Heading 4</a>
+</li>
+                                <li class="dropdown-item format-h5" data-format="h5" data-tooltip="Heading 5 (Ctrl+5)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Heading 5</a>
+</li>
+                                <li class="dropdown-item format-h6" data-format="h6" data-tooltip="Heading 6 (Ctrl+6)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Heading 6</a>
+</li>
+                                <li class="dropdown-item format-pre" data-format="pre" data-tooltip="Preformatted (Ctrl+7)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Preformatted</a>
+</li>
+                                <li class="dropdown-item format-blockquote" data-format="blockquote" data-tooltip="Quote (Ctrl+8)">
+    <a class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">Quote</a>
+</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="aui-buttons rte-toolbar-group-style">
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-bold" data-tooltip="Bold (Ctrl+B)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="bold">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-bold ">Bold</span>
+    </a>
+</li>
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-italic" data-tooltip="Italic (Ctrl+I)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="italic">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-italic ">Italic</span>
+    </a>
+</li>
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-underline" data-tooltip="Underline (Ctrl+U)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="underline">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-underline ">Underline</span>
+    </a>
+</li>
+                            <li id="color-picker-control" class="toolbar-item toolbar-splitbutton">
+                    <a class="toolbar-trigger aui-button" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" id="rte-button-color" data-color="003366" data-tooltip="Color"><span class="icon aui-icon aui-icon-small aui-iconfont-editor-color ">Color picker</span><span class="selected-color"></span></a><div class="aui-dd-parent"><a class="toolbar-trigger aui-dd-trigger aui-button" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" id="rte-button-color-selector" data-control-id="colorSelector" data-tooltip="More colors"><span class="icon aui-icon aui-icon-small aui-iconfont-dropdown ">More colors</span></a><div class="color-picker-container"><div class="color-picker aui-dropdown hidden"><ul><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Black" data-tooltip="Black" style="background-color: #000000" data-color="000000">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Burnt orange" data-tooltip="Burnt orange" style="background-color: #993300" data-color="993300">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Dark olive" data-tooltip="Dark olive" style="background-color: #333300" data-color="333300">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Dark green" data-tooltip="Dark green" style="background-color: #003300" data-color="003300">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Dark azure" data-tooltip="Dark azure" style="background-color: #003366" data-color="003366">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Navy blue" data-tooltip="Navy blue" style="background-color: #000080" data-color="000080">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Indigo" data-tooltip="Indigo" style="background-color: #333399" data-color="333399">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Very dark grey" data-tooltip="Very dark grey" style="background-color: #333333" data-color="333333">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Maroon" data-tooltip="Maroon" style="background-color: #800000" data-color="800000">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Orange" data-tooltip="Orange" style="background-color: #FF6600" data-color="FF6600">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Olive" data-tooltip="Olive" style="background-color: #808000" data-color="808000">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Green" data-tooltip="Green" style="background-color: #008000" data-color="008000">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Teal" data-tooltip="Teal" style="background-color: #008080" data-color="008080">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Blue" data-tooltip="Blue" style="background-color: #0000FF" data-color="0000FF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Greyish blue" data-tooltip="Greyish blue" style="background-color: #666699" data-color="666699">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Grey" data-tooltip="Grey" style="background-color: #7A869A" data-color="7A869A">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Red" data-tooltip="Red" style="background-color: #FF0000" data-color="FF0000">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Amber" data-tooltip="Amber" style="background-color: #FF9900" data-color="FF9900">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Yellow green" data-tooltip="Yellow green" style="background-color: #99CC00" data-color="99CC00">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Sea green" data-tooltip="Sea green" style="background-color: #339966" data-color="339966">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Turquoise" data-tooltip="Turquoise" style="background-color: #33CCCC" data-color="33CCCC">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Royal blue" data-tooltip="Royal blue" style="background-color: #3366FF" data-color="3366FF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Purple" data-tooltip="Purple" style="background-color: #800080" data-color="800080">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Medium grey" data-tooltip="Medium grey" style="background-color: #A5ADBA" data-color="A5ADBA">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Magenta" data-tooltip="Magenta" style="background-color: #FF00FF" data-color="FF00FF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Gold" data-tooltip="Gold" style="background-color: #FFCC00" data-color="FFCC00">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Yellow" data-tooltip="Yellow" style="background-color: #FFFF00" data-color="FFFF00">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Lime" data-tooltip="Lime" style="background-color: #00FF00" data-color="00FF00">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Aqua" data-tooltip="Aqua" style="background-color: #00FFFF" data-color="00FFFF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Sky blue" data-tooltip="Sky blue" style="background-color: #00CCFF" data-color="00CCFF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Red violet" data-tooltip="Red violet" style="background-color: #993366" data-color="993366">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Light grey" data-tooltip="Light grey" style="background-color: #C1C7D0" data-color="C1C7D0">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Pink" data-tooltip="Pink" style="background-color: #FF99CC" data-color="FF99CC">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Peach" data-tooltip="Peach" style="background-color: #FFCC99" data-color="FFCC99">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Light yellow" data-tooltip="Light yellow" style="background-color: #FFFF99" data-color="FFFF99">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Pale green" data-tooltip="Pale green" style="background-color: #CCFFCC" data-color="CCFFCC">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Pale cyan" data-tooltip="Pale cyan" style="background-color: #CCFFFF" data-color="CCFFFF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Light sky blue" data-tooltip="Light sky blue" style="background-color: #99CCFF" data-color="99CCFF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="Plum" data-tooltip="Plum" style="background-color: #CC99FF" data-color="CC99FF">&nbsp;</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" aria-label="White" data-tooltip="White" style="background-color: #FFFFFF" data-color="FFFFFF">&nbsp;</a></li></ul></div></div></div>
+                </li>
+                <li id="more-menu" class="toolbar-item toolbar-dropdown">
+                    <div class="aui-dd-parent">
+                        <a id="rte-button-more" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="toolbar-trigger aui-dd-trigger aui-button" data-tooltip="More">
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-styles ">Formatting</span>
+                                            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                        </a>
+                        <div id="rte-button-more-menu" class="aui-dropdown grouped hidden">
+                            <div class="grouped-dropdown-item">
+                                <ul>
+                                                        <li class="dropdown-item more-menu-trigger" data-control-id="strikethrough" data-tooltip="Strikethrough (Ctrl+Shift+S)">
+    <a id="rte-strikethrough" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Strikethrough
+    </a>
+</li>
+                                                             <li class="dropdown-item more-menu-trigger" data-control-id="sub" data-tooltip="">
+    <a id="rte-sub" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Subscript
+    </a>
+</li>
+                                                             <li class="dropdown-item more-menu-trigger" data-control-id="sup" data-tooltip="">
+    <a id="rte-sup" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Superscript
+    </a>
+</li>
+                                                    <li class="dropdown-item more-menu-trigger" data-control-id="monospace" data-tooltip="Format text with monospaced font">
+    <a id="rte-monospace" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+Monospace
+    </a>
+</li>
+
+                                                                                                                </ul>
+                            </div>
+                            <div class="grouped-dropdown-item">
+                                <ul>
+                                    <li class="dropdown-item more-menu-trigger no-icon" data-format="removeformat" data-tooltip="Clears formatting on currently selected text">
+<a id="rte-removeformat" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+    Clear formatting
+</a>
+</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+            <ul class="aui-buttons rte-toolbar-group-lists">
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-bullist" data-tooltip="Bullet list (Ctrl+Shift+B)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="bullist">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-list-bullet ">Bullet list</span>
+    </a>
+</li>
+                    
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-numlist" data-tooltip="Numbered list (Ctrl+Shift+N)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="numlist">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-list-number ">Numbered list</span>
+    </a>
+</li>
+            </ul>
+                            <ul class="aui-buttons rte-toolbar-group-task-lists">
+                    
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-tasklist" data-tooltip="Task list ([ then ])">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="tasklist">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-task ">Task list</span>
+    </a>
+</li>
+                </ul>
+            
+            <ul class="aui-buttons rte-toolbar-group-indentation">
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-outdent" data-tooltip="Outdent">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="outdent">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-indent-left ">Outdent</span>
+    </a>
+</li>
+                    
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-indent" data-tooltip="Indent">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="indent">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-indent-right ">Indent</span>
+    </a>
+</li>
+            </ul>
+
+            <ul class="aui-buttons rte-toolbar-group-justification">
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-justifyleft" data-tooltip="Align left">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="justifyleft">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-align-left ">Align left</span>
+    </a>
+</li>
+                    
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-justifycenter" data-tooltip="Align center">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="justifycenter">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-align-center ">Align center</span>
+    </a>
+</li>
+                    
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-justifyright" data-tooltip="Align right">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="justifyright">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-align-right ">Align right</span>
+    </a>
+</li>
+            </ul>
+
+                            <ul class="aui-buttons hidden" id="page-layout-2-group">
+                    <li id="page-layout-2" class="toolbar-item" data-tooltip="Page layout">
+                        <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="aui-button aui-button-subtle toolbar-trigger" id="rte-button-pagelayout-2">
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-layout ">Page layout</span>
+                        </a>
+                    </li>
+                </ul>
+            
+
+            <ul class="aui-buttons rte-toolbar-group-files hidden"></ul>
+
+            <ul class="aui-buttons rte-toolbar-group-link no-separator">
+                <li class="toolbar-item" data-tooltip="Insert link (Ctrl+K)">
+                    <a id="rte-button-link" class="toolbar-trigger aui-button aui-button-subtle" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="linkbrowserButton">
+                                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-link "></span>
+                        <span class="trigger-text">Link</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="aui-buttons rte-toolbar-group-table no-separator">
+                <li class="toolbar-item toolbar-dropdown" id="insert-table-dropdown">
+                    <div class="aui-dd-parent">
+                        <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="toolbar-trigger aui-dd-trigger aui-button aui-button-subtle" id="rte-button-insert-table" data-tooltip="Insert table">
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-table "></span>
+                            <span class="dropdown-text">Table</span>
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                        </a>
+
+                        <div id="table-picker-container" class="hidden aui-box-shadow">
+                            <div class="table-picker-box" data-tooltip="Hold SHIFT for a table without a heading.">
+                                <div class="table-picker-background">
+                                    <div class="picker picker-cell"></div>
+                                    <div class="picker picker-heading heading"></div>
+                                    <div class="picker picker-selected-cell"></div>
+                                    <div class="picker picker-selected-heading heading"></div>
+                                </div>
+                                <p class="desc"></p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+                                    
+            
+            <ul class="aui-buttons rte-toolbar-group-insert no-separator">
+                <li class="toolbar-item toolbar-dropdown" id="insert-menu">
+                    <div class="aui-dd-parent">
+                        <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="toolbar-trigger aui-dd-trigger aui-button aui-button-subtle" id="rte-button-insert" data-tooltip="Insert more content">
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-add "></span>
+                            <span class="dropdown-text">Insert</span>
+                                        
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                        </a>
+
+                        <div id="insert-menu-options" class="aui-dropdown grouped hidden">
+                            <div class="grouped-dropdown-item">
+                                <span class="assistive">Insert content</span>
+                                <ul id="content-insert-list">
+                                    
+        
+                <li class="dropdown-item content-image" data-command="mceConfimage" data-tooltip="Insert files and images (Ctrl+M)">
+<a id="rte-insert-image" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-image "></span>
+ Files and images
+</a>
+</li>
+                                            
+        
+                <li class="dropdown-item content-link" data-control-id="linkbrowserButton" data-tooltip="Insert link (Ctrl+K)">
+<a id="rte-insert-link" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-link "></span>
+ Link
+</a>
+</li>
+                                            
+        
+                <li class="dropdown-item content-wikimarkup" data-command="InsertWikiMarkup" data-tooltip="Insert markup (Ctrl+Shift+D)">
+<a id="rte-insert-wikimarkup" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-code "></span>
+ Markup
+</a>
+</li>
+                                            
+    
+                <li class="dropdown-item content-hr" data-command="InsertHorizontalRule" data-tooltip="Insert horizontal rule (----)">
+<a id="rte-insert-hr" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-horizontal-rule "></span>
+ Horizontal rule
+</a>
+</li>
+                                                                                
+        
+                <li class="dropdown-item content-tasklist" data-command="InsertInlineTaskListNoToggle" data-tooltip="Insert task list ([ then ])">
+<a id="rte-insert-tasklist" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-task "></span>
+ Task list
+</a>
+</li>
+                                                                            
+        
+                <li class="dropdown-item content-date" data-command="confMenuInsertDate" data-tooltip="Insert date (/ then /)">
+<a id="rte-insert-date" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-calendar "></span>
+ Date
+</a>
+</li>
+                                            
+    
+                <li class="dropdown-item content-emoticon" data-command="mceEmotion" data-tooltip="Insert emoticon">
+<a id="rte-insert-emoticon" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-emoji "></span>
+ Emoticon
+</a>
+</li>
+                                            
+    
+                <li class="dropdown-item content-symbol" data-command="confCharmap" data-tooltip="Insert symbol">
+<a id="rte-insert-symbol" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-symbol "></span>
+ Symbol
+</a>
+</li>
+                                    </ul>
+                                <span class="assistive">Insert macro</span>
+                                <ul id="macro-insert-list">
+                                                                                                                                                                                                <li class="dropdown-item macro-insertmention-button" data-macro-name="insertmention-button" data-tooltip="Insert &#39;User mention&#39; macro">
+<a id="insertmention-button" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-mention "></span>
+ User mention
+</a>
+</li>
+                                                                                                                                                            <li class="dropdown-item macro-jiralink" data-macro-name="jiralink" data-tooltip="Insert &#39;Jira Issue/Filter&#39; macro">
+<a id="jiralink" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-jira "></span>
+ Jira Issue/Filter
+</a>
+</li>
+                                                                                                                                                            <li class="dropdown-item macro-info" data-macro-name="info" data-tooltip="Insert &#39;Info&#39; macro">
+<a id="info" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-info-filled "></span>
+ Info
+</a>
+</li>
+                                                                                                                                                            <li class="dropdown-item macro-gliffy" data-macro-name="gliffy" data-tooltip="Insert &#39;Gliffy Diagram&#39; macro">
+<a id="gliffy" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                        
+    
+    <span class="icon "></span>
+ Gliffy Diagram
+</a>
+</li>
+                                                                                                                                                            <li class="dropdown-item macro-status" data-macro-name="status" data-tooltip="Insert &#39;Status&#39; macro">
+<a id="status" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                        
+    
+    <span class="icon confluence-icon-status-macro"></span>
+ Status
+</a>
+</li>
+                                                                                                                                                            <li class="dropdown-item macro-gallery" data-macro-name="gallery" data-tooltip="Insert &#39;Gallery&#39; macro">
+<a id="gallery" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-gallery "></span>
+ Gallery
+</a>
+</li>
+                                                                                                                                                            <li class="dropdown-item macro-toc" data-macro-name="toc" data-tooltip="Insert &#39;Table of Contents&#39; macro">
+<a id="toc" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+                
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-overview "></span>
+ Table of Contents
+</a>
+</li>
+                                                                    </ul>
+                            </div>
+                            <div class="grouped-dropdown-item">
+                                <ul id="more-macros-list">
+                                    
+        
+                <li class="dropdown-item content-macro" data-command="mceConfMacroBrowser" data-tooltip="Open the macro browser (Ctrl+Shift+A)">
+<a id="rte-insert-macro" class="item-link" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#">
+    Other macros
+</a>
+</li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+                            <ul class="aui-buttons rte-toolbar-group-page-layouts-section-types">
+                    <li id="pagelayout-menu" class="toolbar-item toolbar-dropdown">
+                        <div class="aui-dd-parent">
+                            <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="toolbar-trigger aui-dd-trigger aui-button aui-button-subtle" id="rte-button-pagelayout" data-tooltip="Page layout">
+                                            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-default">Page layout</span>
+                                            
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-dropdown "></span>
+                            </a>
+
+                            <ul id="pagelayout-menu-options" class="aui-dropdown hidden">
+                                <li class="dropdown-item" data-tooltip="No layout">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-none&quot;, &quot;columns&quot;: 0   }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-none">No layout</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (simple)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-simple&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;]   }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-simple">Two column (simple)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (simple, left sidebar)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-simple-left&quot;, &quot;columns&quot;: [&quot;aside&quot;, &quot;large&quot;]   }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-simple-left">Two column (simple, left sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (simple, right sidebar)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-simple-right&quot;, &quot;columns&quot;: [&quot;large&quot;, &quot;aside&quot;]   }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-simple-right">Two column (simple, right sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Three column (simple)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-three-simple&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;, &quot;&quot;]   }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-three-simple">Three column (simple)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two">Two column</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (left sidebar)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-left&quot;, &quot;columns&quot;: [&quot;aside&quot;, &quot;large&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-left">Two column (left sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Two column (right sidebar)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-two-right&quot;, &quot;columns&quot;: [&quot;large&quot;, &quot;aside&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-two-right">Two column (right sidebar)</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Three column">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-three&quot;, &quot;columns&quot;: [&quot;&quot;, &quot;&quot;, &quot;&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-three">Three column</span>
+    </a>
+</li>
+                                <li class="dropdown-item" data-tooltip="Three column (left and right sidebars)">
+    <a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" class="item-link" data-atlassian-layout="{&quot;name&quot;: &quot;pagelayout-three-sidebars&quot;, &quot;columns&quot;: [&quot;sidebars&quot;, &quot;large&quot;, &quot;sidebars&quot;] , &quot;header&quot;: true  , &quot;footer&quot;:true  }">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-check hidden"></span>
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-layout pagelayout-three-sidebars">Three column (left and right sidebars)</span>
+    </a>
+</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            
+                        
+            <ul class="aui-buttons aui-button-subtle rte-toolbar-group-undo">
+                
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-undo" data-tooltip="Undo (Ctrl+Z)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="undo">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-undo ">Undo</span>
+    </a>
+</li>
+                    
+            <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-redo" data-tooltip="Redo (Ctrl+Y)">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="redo">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-redo ">Redo</span>
+    </a>
+</li>
+            </ul>
+        </div>                                                    <div id="draft-status" style="display:none"></div>
+                <div class="aui-toolbar2-secondary">
+            <ul class="aui-buttons aui-button-subtle rte-toolbar-group-searchreplace">
+                <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-searchreplace" data-tooltip="Find/Replace">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="searchreplace">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-search ">Find/Replace</span>
+    </a>
+</li>
+            </ul>
+            <ul class="aui-buttons aui-button-subtle rte-toolbar-group-help">
+                <li class="toolbar-item aui-button aui-button-subtle" id="rte-button-help" data-tooltip="Help">
+    <a class="toolbar-trigger" href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" data-control-id="help">
+                    
+    
+    <span class="icon aui-icon aui-icon-small aui-iconfont-editor-help ">Keyboard shortcuts help</span>
+    </a>
+</li>
+            </ul>
+        </div>    </div></div>
+
+
+                <div id="editor-notifications-container"><div id="all-messages"><div id="action-messages"></div></div></div><div id="editor-precursor"><div class="cell"><div class="aui-buttons aui-toolbar2"><button class="aui-button aui-button-subtle rte-button-labels" type="button" data-tooltip="Labels" id="rte-button-labels" data-explicit-restrictions="" data-inherited-restrictions=""><span class="icon aui-icon aui-icon-small aui-iconfont-devtools-tag"></span></button><button class="aui-button aui-button-subtle rte-button-restrictions" type="button" data-tooltip="Unrestricted" id="rte-button-restrictions" data-explicit-restrictions="false" data-inherited-restrictions="false"><span class="icon aui-icon aui-icon-small aui-iconfont-unlocked"></span></button></div><div id="content-title-div" class="collaborative"><input type="text" name="title" id="content-title" tabindex="1" class="text pagetitle" autocomplete="off" value="AppD Monitoring Replacement" placeholder="Page title"></div></div></div>
+    
+<div id="wysiwyg">
+    <div id="rte" class="cell editor-default collaborative">
+        <textarea id="wysiwygTextarea" name="wysiwygContent" class="hidden tinymce-editor"></textarea>
+    </div>
+</div>
+<div id="editor-html-source-container" class="hidden">
+    <textarea id="editor-html-source" class="monospaceInput"></textarea>
+</div>
+
+<div id="preview">
+    <div id="previewArea" class="cell">
+    </div>
+</div>
+
+    <div id="savebar-container"><div id="rte-savebar" class="aui-toolbar aui-toolbar2"><div class="toolbar-split toolbar-split-row"><div class="toolbar-split toolbar-split-left"><div class="aui-buttons"></div></div><div class="toolbar-split toolbar-split-right"><div id="pluggable-status-container" class="toolbar-item rte-toolbar-pluggable-status"><div id="pluggable-status" class="synchrony"><div class="synchrony-status-indicator"><div class="status-indicator-icon aui-icon aui-icon-small aui-iconfont-devtools-task-in-progress" data-tooltip="We&#39;re automatically saving all of your changes in a draft."></div><div class="status-indicator-message" data-tooltip="We&#39;re automatically saving all of your changes in a draft.">Connecting...</div></div></div></div><div class="aui-buttons" id="rte-savebar-tinymce-plugin-point"></div><div class="aui-buttons"><span id="rte-spinner" class="toolbar-item shared-drafts">&nbsp;</span></div><div class="aui-buttons toolbar-group-edit assistive"><button id="rte-button-edit" class="aui-button" title="Return To edit Mode" type="button"><span class="trigger-text">Edit</span></button></div><div class="aui-buttons toolbar-group-preview toolbar-group-preview-page toolbar-group-preview-shared-draft"></div><div class="save-button-container"><button class="aui-button aui-button-primary" type="submit" id="rte-button-publish" name="confirm" value="Save" title="Save"><span class="trigger-text">Save</span></button></div><div class="aui-buttons cancel-button-container-shared-draft"><button class="aui-button" type="submit" id="rte-button-cancel" name="cancel" value="cancel">Close</button></div><div class="aui-buttons toolbar-group-preview toolbar-group-ellipsis"><button class="aui-button toolbar-item aui-dropdown2-trigger aui-dropdown2-trigger-arrowless" aria-haspopup="true" id="rte-button-ellipsis" type="button" resolved="" aria-controls="rte-ellipsis-menu" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-more"></span></button></div><div id="rte-ellipsis-menu" data-aui-alignment="top auto" class="aui-style-default aui-dropdown2 aui-layer" resolved="" aria-hidden="true"><div class="aui-dropdown2-section"><ul class="aui-list-truncate"><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" id="rte-button-preview">Preview</a></li><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" id="rte-show-changes">View changes</a></li></ul></div><div class="aui-dropdown2-section"><ul class="aui-list-truncate"><li><a href="https://confluence.dhisco.com/display/DQ/AppD+Monitoring+Replacement#" id="rte-show-revert">Revert to last published version</a></li></ul></div></div></div></div></div></div>
+
+    <section role="dialog" id="quit-editor-dialog" class="aui-layer aui-dialog2 aui-dialog2-medium" aria-hidden="true"><header class="aui-dialog2-header"></header><div class="aui-dialog2-content"></div><footer class="aui-dialog2-footer"><div class="aui-dialog2-footer-actions"><button id="qed-publish-button" class="aui-button aui-button-primary update">Update</button><button id="qed-discard-button" title="Discard all unpublished changes" class="aui-button toolbar-item exit">Revert page</button><button id="qed-save-exit-button" class="aui-button aui-button-primary exit">Keep draft</button><button id="qed-close-button" class="aui-button toolbar-item">Close</button></div></footer></section>
+
+    
+</div>
+
+
+
+<script type="text/x-template" title="dynamic-editor-metadata" id="dynamic-editor-metadata-template">
+            <meta name="ajs-use-watch" content="true">
+            <meta name="ajs-attachment-source-content-id" content="370936320">
+            <meta name="ajs-use-inline-tasks" content="true">
+            <meta name="ajs-heartbeat" content="true">
+            <meta name="ajs-action-locale" content="en_US">
+            <meta name="ajs-editor-plugin-resource-prefix" content="/s/91v14/8202/acab2c864c42e4af386f37e1f28db0e52c85b2ff/7.0.2/_">
+            <meta name="ajs-edit-mode" content="collaborative">
+            <meta name="ajs-user-watching-own-content" content="true">
+            <meta name="ajs-new-page" content="false">
+            <meta name="ajs-editor-mode" content="richtext">
+            <meta name="ajs-auto-start" content="false">
+            <meta name="ajs-conf-revision" content="confluence$content$370936320.49">
+            <meta name="ajs-sync-revision-source" content="synchrony-ack">
+            <meta name="ajs-draft-id" content="370936321">
+            <meta name="ajs-draft-share-id" content="9071b80b-af4e-4a4e-928a-da0bb46df449">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-collaborative-editor-status" content="">
+            <meta name="ajs-existing-draft-id" content="0">
+            <meta name="ajs-content-id" content="370936320">
+            <meta name="ajs-form-name" content="inlinecommentform">
+            <meta name="ajs-can-attach-files" content="true">
+            <meta name="ajs-show-draft-message" content="false">
+            <meta name="ajs-shared-drafts" content="true">
+            <meta name="ajs-collaborative-content" content="true">
+            <meta name="ajs-min-editor-height" content="150">
+            <meta name="ajs-version-comment" content="">
+            <meta name="ajs-draft-type" content="page">
+                
+                <meta name="ajs-synchrony-token" content="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJodHRwczpcL1wvY29uZmx1ZW5jZS5kaGlzY28uY29tXC9zeW5jaHJvbnlcL3YxIiwic3ViIjoiOGE1Nzk5ZWU2ZDZjY2UxNDAxNmQ4MjQxMjI3MDAwMDQiLCJhY2Nlc3MiOnsiXC9kYXRhXC9ESElTQ08tNzc3ODk5MGEtMDllYy0zNWMyLTg1ZmUtNDZmYWY3ZTc3Y2FlXC9jb25mbHVlbmNlLTM3MDkzNjMyMCI6ImZ1bGwiLCJcL2RhdGFcL0RISVNDTy03Nzc4OTkwYS0wOWVjLTM1YzItODVmZS00NmZhZjdlNzdjYWVcL2NvbmZsdWVuY2UtMzcwOTM2MzIwLXRpdGxlIjoiZnVsbCJ9LCJyZXZpc2lvbk1ldGEiOnsidXNlcktleSI6IjhhNTc5OWVlNmQ2Y2NlMTQwMTZkODI0MTIyNzAwMDA0In0sInNlc3Npb24iOnsiYXZhdGFyVVJMIjoiXC9pbWFnZXNcL2ljb25zXC9wcm9maWxlcGljc1wvZGVmYXVsdC5zdmciLCJuYW1lIjoidmFuZWV0LmthdGFyaWFAcmF0ZWdhaW4uY29tIiwiZnVsbG5hbWUiOiJWYW5lZXQgS2F0YXJpYSJ9LCJpc3MiOiJESElTQ08tNzc3ODk5MGEtMDllYy0zNWMyLTg1ZmUtNDZmYWY3ZTc3Y2FlIiwiZXhwIjoxNTk0NTAxODYzLCJpYXQiOjE1OTQ0MTU0NjN9.n24P-mvcpCx34-ZS7aFLG8qpmNkwLSnUify_vujFW9M">
+    <meta name="ajs-synchrony-base-url" content="https://confluence.dhisco.com/synchrony,https://confluence.dhisco.com/synchrony-proxy">
+    <meta name="ajs-synchrony-app-id" content="DHISCO-7778990a-09ec-35c2-85fe-46faf7e77cae">
+    <meta name="ajs-synchrony-expiry" content="1594500963">
+    <meta name="ajs-use-xhr-fallback" content="true">
+
+            		    <meta name="ajs-max-thumb-width" content="300">
+		    <meta name="ajs-max-thumb-height" content="300">
+		    <meta name="ajs-can-send-email" content="true">
+		    <meta name="ajs-is-dev-mode" content="false">
+		    <meta name="ajs-draft-save-interval" content="30000">
+		    <meta name="ajs-show-hidden-user-macros" content="false">
+		    <meta name="ajs-can-view-profile" content="true">
+		    <meta name="ajs-is-admin" content="false">
+		    <meta name="ajs-confluence.prefs.editor.disable.autocomplete" content="false">
+		    <meta name="ajs-confluence.prefs.editor.disable.autoformat" content="false">
+		    <meta name="ajs-heartbeat-interval" content="30000">
+	
+    </script>
+
+<script type="text/x-template" title="tableForm" id="table-form-template">
+    <form id="tinymce-table-form" class="aui">
+        <div class="field-group">
+            <label for="rows">Rows</label>
+            <input id="rows" name="rows" type="text" size="3" autocomplete="off" value="{0}">
+        </div>
+        <div class="field-group">
+            <label for="cols">Columns</label>
+            <input id="cols" name="cols" type="text" size="3" autocomplete="off" value="{1}">
+        </div>
+        <div class="field-group hidden">
+            <input id="width" type="hidden" name="width" value="">
+            <label for="width">Width</label>
+        </div>
+        <div class="group">
+            <div class="checkbox">
+                <input id="table-heading-checkbox" class="checkbox" type="checkbox" name="heading" checked="checked" value="true">
+                <label for="table-heading-checkbox">First row is heading</label>
+            </div>
+        </div>
+        <div class="group hidden">
+            <div class="checkbox">
+                <input id="table-equal-width-columns-checkbox" class="checkbox" type="checkbox" name="equal-width-columns" value="false">
+                <label for="table-equal-width-columns-checkbox">Equal width columns</label>
+            </div>
+        </div>
+    </form>
+</script>
+<input type="hidden" name="draftId" value="370936321" id="draftId"><input type="hidden" name="originalVersion" value="3" id="originalVersion">
+<input type="hidden" name="syncRev" value="0.oLgFbIrKC5LxKAJQ-Sz09w.0" id="syncRev">    <input type="hidden" name="atl_token" value="68fc8689d20895a001822eb17f1c34da4aa9da5e">
+</div><div id="inline-dialog-notifications-miniview" class="aui-inline-dialog"><div class="aui-inline-dialog-contents contents" style="width: 500px;"><iframe id="notifications-miniview-iframe" src="./AppD Monitoring Replacement - DHISCO Product Development - Dhisco-Confluence_files/notifications-miniview.html" frameborder="0"></iframe></div><div id="arrow-notifications-miniview" class="aui-inline-dialog-arrow arrow aui-css-arrow"></div></div><div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap" class="fancybox-ie"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body></html>
