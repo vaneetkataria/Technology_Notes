@@ -1,0 +1,534 @@
+1. Check Message format for SRP and CMP from UAT kafka cluster . 
+
+    System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss").format(LocalDateTime.now())); 
+SRP:
+    @Value("${kafka.pushcore.archive.topic}") private String pushcoreArchiveTopic;
+    @Value("${hadoop.log.enable}") private Boolean enabledHadoopLog;
+
+
+SupplyRulesProcessor Data from PushCoreHadoop Uat kafka topic:  
+{
+  "brand": "IC",
+  "pid": "DUSHA",
+  "rpc": "IKB15",
+  "invtype": "XEXG",
+  "echoToken": "b7951e41-d89a-4bc6-92cb-b53a52e44e90",
+  "startDate": "2020-06-11",
+  "endDate": "2020-06-11",
+  "uniqueId": "1_16",
+  "pushCoreJson": "{\"OTA_HotelAvailNotifRQ\":{\"EchoToken\":\"b7951e41-d89a-4bc6-92cb-b53a52e44e90\",\"MessageContentCode\":\"3\",\"TimeStamp\":\"2020-06-11T22:23:55\",\"Version\":7.001,\"AvailStatusMessages\":{\"BrandCode\":\"IC\",\"HotelCode\":\"DUSHA\",\"AvailStatusMessage\":[{\"BookingLimit\":1,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":4,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-06-11\",\"End\":\"2020-06-11\",\"RatePlanCode\":\"IKB15\",\"RatePlanCategory\":\"IKB15\",\"InvTypeCode\":\"XEXG\"},\"UniqueID\":{\"ID\":\"1\",\"Type\":\"16\"}}]}},\"DailyPricingBased\":false}",
+  "dtimestamp": "2020-06-11T22:23:56"
+} 
+CREATE EXTERNAL TABLE `srp_stats`(
+  `brand` string COMMENT 'from deserializer', 
+  `pid` string COMMENT 'from deserializer', 
+  `rpc` string COMMENT 'from deserializer', 
+  `invtype` string COMMENT 'from deserializer', 
+  `echotoken` string COMMENT 'from deserializer', 
+  `startdate` string COMMENT 'from deserializer', 
+  `enddate` string COMMENT 'from deserializer', 
+  `uniqueid` string COMMENT 'from deserializer', 
+  `pushcorejson` string COMMENT 'from deserializer', 
+  `dtimestamp` timestamp COMMENT 'from deserializer')
+PARTITIONED BY ( 
+  `year` string, 
+  `month` string, 
+  `day` string)
+ROW FORMAT SERDE 
+  'org.openx.data.jsonserde.JsonSerDe' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat'
+LOCATION
+  's3://dhisco-amadeus/s2p-container/PushcoreHadoop'
+TBLPROPERTIES (
+  'has_encrypted_data'='false', 
+  'transient_lastDdlTime'='1593079451');
+
+SELECT  
+brand,
+pid,
+rpc,
+invtype,
+echoToken,
+uniqueId,
+pushCoreJson,
+dtimestamp,
+startdate,
+enddate
+FROM dhisco_srp_stats.srp_stats
+WHERE year = '2020'
+        AND month = '06'
+        AND day = '10' limit 20;
+
+ALTER TABLE dhisco_srp_stats.srp_stats ADD
+    PARTITION (year=2020,month=06,day=10) LOCATION 's3://dhisco-amadeus/s2p-container/PushcoreHadoop/2020/06/10';
+ALTER TABLE dhisco_srp_stats.srp_stats ADD
+    PARTITION (year='2020',month='06',day='12') LOCATION 's3://dhisco-amadeus/s2p-container/PushcoreHadoop/2020/06/12';
+
+ALTER TABLE dhisco_srp_stats.srp_stats CHANGE startdate String;
+ALTER TABLE dhisco_srp_stats.srp_stats CHANGE enddate String;
+
+SELECT * FROM dhisco_srp_stats.srp_stats where year ='2020' and month = '06' and day = '12' and 
+date_parse(startdate,'%Y-%m-%d') = CAST('2020-08-30' AS DATE)
+limit 10;
+
+Channel Message Processor : 
+
+{
+  "dtimestamp": "2020-06-18 08:23:00",
+  "sessionId": "25ef3532-fdef-42ae-8993-501823a2000f",
+  "echoToken": "700eb922-9cca-4fc8-ac2d-3fd415c09f86",
+  "channelId": 1,
+  "channel": "MikiTravel",
+  "brandCode": "IC",
+  "hotelCode": "DUSHA",
+  "ratePlanCode": "IJW15",
+  "invCode": "KOTG",
+  "ratePlanCategory": "IJW15",
+  "channelHotelCode": "IC;DUSHA",
+  "channelRatePlanCode": "IJW15",
+  "channelInvCode": "KOTG",
+  "rezgainRequest": "{\"SessionID\":\"25ef3532-fdef-42ae-8993-501823a2000f\",\"Framework\":2,\"HotelID\":1710,\"ChannelID\":960,\"ChannelProductID\":0,\"ChannelName\":\"RoyalArabian\",\"RoomName\":\"KOTG\",\"RoomCode\":\"KOTG\",\"RateName\":\"IJW15\",\"RateCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"UserID\":\"TEST\",\"Password\":\"TEST\",\"ChannelHotelCode\":\"IC;DUSHA\",\"AdditionalParam\":\"IC;DUSHA\",\"SessionRequired\":false,\"Currency\":\"EUR\",\"DateUpdates\":[{\"Date\":\"2020-06-18\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-19\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-20\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-21\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-22\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-23\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-24\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-25\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-26\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-27\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-28\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-29\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-06-30\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-01\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-02\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-03\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-04\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-05\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-06\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-07\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-08\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-09\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-10\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-11\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-12\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-13\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-14\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-15\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-16\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-17\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-18\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-19\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-20\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-21\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-22\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-23\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-24\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-25\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-26\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-27\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-28\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-29\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-30\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-07-31\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-01\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-02\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-03\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-04\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-05\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-06\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-07\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-08\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-09\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-10\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-11\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-12\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-13\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-14\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-15\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-16\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-17\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-18\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-19\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-20\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-21\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-22\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-23\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-24\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-25\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-26\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-27\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-28\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-29\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-30\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-08-31\",\"Group\":0,\"RequestID\":\"1\",\"UpdateAttributes\":[{\"ID\":49,\"Name\":\"Available\",\"Value\":\"0\",\"Type\":1},{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-01\",\"Group\":0,\"RequestID\":\"2\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-04\",\"Group\":0,\"RequestID\":\"3_3\",\"UpdateAttributes\":[{\"ID\":97,\"Name\":\"GuaranteePolicy\",\"Value\":\"DepositRequired\",\"Type\":2},{\"ID\":2,\"Name\":\"Breakfast\",\"Value\":\"19\",\"Type\":2},{\"ID\":102,\"Name\":\"1Adult\",\"Value\":\"258.95\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":104,\"Name\":\"2Adult\",\"Value\":\"283.95\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-05\",\"Group\":0,\"RequestID\":\"3_3\",\"UpdateAttributes\":[{\"ID\":102,\"Name\":\"1Adult\",\"Value\":\"244.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"294.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-09\",\"Group\":0,\"RequestID\":\"5\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-10\",\"Group\":0,\"RequestID\":\"6\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"2\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-16\",\"Group\":0,\"RequestID\":\"7\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-17\",\"Group\":0,\"RequestID\":\"8\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"2\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-20\",\"Group\":0,\"RequestID\":\"9\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"5\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-09-21\",\"Group\":0,\"RequestID\":\"10\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"4\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-14\",\"Group\":0,\"RequestID\":\"11\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-15\",\"Group\":0,\"RequestID\":\"12\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"2\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-18\",\"Group\":0,\"RequestID\":\"13\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"6\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-19\",\"Group\":0,\"RequestID\":\"14\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"5\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-20\",\"Group\":0,\"RequestID\":\"15\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"4\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-23\",\"Group\":0,\"RequestID\":\"3_3_3\",\"UpdateAttributes\":[{\"ID\":102,\"Name\":\"1Adult\",\"Value\":\"244.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":104,\"Name\":\"2Adult\",\"Value\":\"269.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"294.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-24\",\"Group\":0,\"RequestID\":\"3_3_3\",\"UpdateAttributes\":[{\"ID\":102,\"Name\":\"1Adult\",\"Value\":\"244.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":104,\"Name\":\"2Adult\",\"Value\":\"269.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"294.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-25\",\"Group\":0,\"RequestID\":\"17\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"6\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-26\",\"Group\":0,\"RequestID\":\"18\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"5\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-27\",\"Group\":0,\"RequestID\":\"19\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"4\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-30\",\"Group\":0,\"RequestID\":\"3\",\"UpdateAttributes\":[{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"308.95\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-10-31\",\"Group\":0,\"RequestID\":\"3\",\"UpdateAttributes\":[{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"308.95\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-01\",\"Group\":0,\"RequestID\":\"21\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"6\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-02\",\"Group\":0,\"RequestID\":\"22\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"5\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-03\",\"Group\":0,\"RequestID\":\"23\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"4\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-04\",\"Group\":0,\"RequestID\":\"24\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-05\",\"Group\":0,\"RequestID\":\"25\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"2\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-06\",\"Group\":0,\"RequestID\":\"3_3_3\",\"UpdateAttributes\":[{\"ID\":102,\"Name\":\"1Adult\",\"Value\":\"244.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":104,\"Name\":\"2Adult\",\"Value\":\"269.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"294.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-07\",\"Group\":0,\"RequestID\":\"3_3_3\",\"UpdateAttributes\":[{\"ID\":102,\"Name\":\"1Adult\",\"Value\":\"244.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":104,\"Name\":\"2Adult\",\"Value\":\"269.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"294.97\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-11\",\"Group\":0,\"RequestID\":\"27\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-12\",\"Group\":0,\"RequestID\":\"28\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"2\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-20\",\"Group\":0,\"RequestID\":\"3\",\"UpdateAttributes\":[{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"315.37\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-22\",\"Group\":0,\"RequestID\":\"30\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"6\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-23\",\"Group\":0,\"RequestID\":\"31\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"5\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-24\",\"Group\":0,\"RequestID\":\"32\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":12,\"Name\":\"MinLOS\",\"Value\":\"4\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-11-28\",\"Group\":0,\"RequestID\":\"3_3\",\"UpdateAttributes\":[{\"ID\":104,\"Name\":\"2Adult\",\"Value\":\"297.17\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0},{\"ID\":105,\"Name\":\"3Adult\",\"Value\":\"322.17\",\"Type\":3,\"IsTaxIncluded\":1,\"TaxAmount\":0.0}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-12-09\",\"Group\":0,\"RequestID\":\"34\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"3\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]},{\"Date\":\"2020-12-10\",\"Group\":0,\"RequestID\":\"35\",\"UpdateAttributes\":[{\"ID\":1,\"Name\":\"Allocation\",\"Value\":\"2\",\"Type\":1},{\"ID\":13,\"Name\":\"MinLOSThrough\",\"Value\":\"2\",\"Type\":2}],\"LOS_Pricing\":[],\"CancelPenalities\":[]}]}",
+  "rezgainResponse": "{\"SessionId\":\"25ef3532-fdef-42ae-8993-501823a2000f\",\"Status\":1,\"ResponseDateList\":[{\"ChRequestId\":\"1\",\"Value\":\"2020-06-18\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-19\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-20\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-21\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-22\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-23\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-24\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-25\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-26\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-27\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-28\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-29\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-06-30\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-01\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-02\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-03\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-04\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-05\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-06\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-07\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-08\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-09\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-10\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-11\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-12\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-13\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-14\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-15\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-16\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-17\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-18\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-19\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-20\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-21\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-22\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-23\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-24\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-25\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-26\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-27\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-28\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-29\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-30\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-07-31\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-01\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-02\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-03\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-04\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-05\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-06\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-07\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-08\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-09\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-10\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-11\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-12\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-13\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-14\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-15\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-16\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-17\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-18\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-19\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-20\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-21\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-22\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-23\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-24\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-25\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-26\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-27\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-28\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-29\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-30\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"1\",\"Value\":\"2020-08-31\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"2\",\"Value\":\"2020-09-01\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3\",\"Value\":\"2020-09-04\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3\",\"Value\":\"2020-09-05\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"5\",\"Value\":\"2020-09-09\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"6\",\"Value\":\"2020-09-10\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"7\",\"Value\":\"2020-09-16\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"8\",\"Value\":\"2020-09-17\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"9\",\"Value\":\"2020-09-20\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"10\",\"Value\":\"2020-09-21\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"11\",\"Value\":\"2020-10-14\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"12\",\"Value\":\"2020-10-15\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"13\",\"Value\":\"2020-10-18\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"14\",\"Value\":\"2020-10-19\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"15\",\"Value\":\"2020-10-20\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3_3\",\"Value\":\"2020-10-23\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3_3\",\"Value\":\"2020-10-24\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"17\",\"Value\":\"2020-10-25\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"18\",\"Value\":\"2020-10-26\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"19\",\"Value\":\"2020-10-27\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3\",\"Value\":\"2020-10-30\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3\",\"Value\":\"2020-10-31\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"21\",\"Value\":\"2020-11-01\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"22\",\"Value\":\"2020-11-02\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"23\",\"Value\":\"2020-11-03\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"24\",\"Value\":\"2020-11-04\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"25\",\"Value\":\"2020-11-05\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3_3\",\"Value\":\"2020-11-06\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3_3\",\"Value\":\"2020-11-07\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"27\",\"Value\":\"2020-11-11\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"28\",\"Value\":\"2020-11-12\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3\",\"Value\":\"2020-11-20\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"30\",\"Value\":\"2020-11-22\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"31\",\"Value\":\"2020-11-23\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"32\",\"Value\":\"2020-11-24\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"3_3\",\"Value\":\"2020-11-28\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"34\",\"Value\":\"2020-12-09\",\"Status\":1,\"Message\":\"\"},{\"ChRequestId\":\"35\",\"Value\":\"2020-12-10\",\"Status\":1,\"Message\":\"\"}]}",
+  "pushCoreJson": "{\"OTA_HotelAvailNotifRQ\":{\"EchoToken\":\"700eb922-9cca-4fc8-ac2d-3fd415c09f86\",\"MessageContentCode\":\"3\",\"TimeStamp\":\"2020-06-18T08:22:59\",\"Version\":7.001,\"AvailStatusMessages\":{\"BrandCode\":\"IC\",\"HotelCode\":\"DUSHA\",\"AvailStatusMessage\":[{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"RestrictionStatuses\":{\"RestrictionStatus\":[{\"Restriction\":\"Master\",\"Status\":\"Close\"}]},\"StatusApplicationControl\":{\"Start\":\"2020-06-18\",\"End\":\"2020-08-31\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"1\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-09-01\",\"End\":\"2020-09-01\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"2\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-09-09\",\"End\":\"2020-09-09\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"5\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":2,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-09-10\",\"End\":\"2020-09-10\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"6\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-09-16\",\"End\":\"2020-09-16\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"7\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":2,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-09-17\",\"End\":\"2020-09-17\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"8\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":5,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-09-20\",\"End\":\"2020-09-20\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"9\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":4,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-09-21\",\"End\":\"2020-09-21\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"10\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-10-14\",\"End\":\"2020-10-14\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"11\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":2,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-10-15\",\"End\":\"2020-10-15\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"12\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":6,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-10-18\",\"End\":\"2020-10-18\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"13\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":5,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-10-19\",\"End\":\"2020-10-19\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"14\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":4,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-10-20\",\"End\":\"2020-10-20\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"15\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":6,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-10-25\",\"End\":\"2020-10-25\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"17\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":5,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-10-26\",\"End\":\"2020-10-26\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"18\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":4,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-10-27\",\"End\":\"2020-10-27\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"19\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":6,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-11-01\",\"End\":\"2020-11-01\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"21\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":5,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-11-02\",\"End\":\"2020-11-02\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"22\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":4,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-11-03\",\"End\":\"2020-11-03\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"23\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-11-04\",\"End\":\"2020-11-04\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"24\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":2,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-11-05\",\"End\":\"2020-11-05\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"25\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-11-11\",\"End\":\"2020-11-11\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"27\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":2,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-11-12\",\"End\":\"2020-11-12\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"28\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":6,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-11-22\",\"End\":\"2020-11-22\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"30\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":5,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-11-23\",\"End\":\"2020-11-23\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"31\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":4,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":true},\"StatusApplicationControl\":{\"Start\":\"2020-11-24\",\"End\":\"2020-11-24\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"32\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":3,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-12-09\",\"End\":\"2020-12-09\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"34\",\"Type\":\"16\"}},{\"BookingLimit\":2,\"BookingLimitMessageType\":\"SetLimit\",\"LengthsOfStay\":{\"LengthOfStay\":[{\"MinMaxMessageType\":\"SetMinLOS\",\"Time\":2,\"TimeUnit\":\"Day\"}],\"arrivalDateBased\":false},\"StatusApplicationControl\":{\"Start\":\"2020-12-10\",\"End\":\"2020-12-10\",\"RatePlanCode\":\"IJW15\",\"RatePlanCategory\":\"IJW15\",\"InvTypeCode\":\"KOTG\"},\"UniqueID\":{\"ID\":\"35\",\"Type\":\"16\"}}]}},\"OTA_HotelRatePlanNotifRQ\":{\"EchoToken\":\"25ef3532-fdef-42ae-8993-501823a2000f\",\"MessageContentCode\":\"8\",\"TimeStamp\":\"2020-06-18T08:22:59\",\"Version\":7.001,\"RatePlans\":{\"BrandCode\":\"IC\",\"HotelCode\":\"DUSHA\",\"RatePlan\":[{\"RatePlanCategory\":\"IJW15\",\"RatePlanCode\":\"IJW15\",\"Rates\":{\"Rate\":[{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-09-04\",\"End\":\"2020-09-04\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":258.95,\"AmountAfterTax\":258.95,\"NumberOfGuests\":1}]},\"MealsIncluded\":{\"MealPlanCodes\":[\"19\"]},\"CancelPolicies\":{\"CancelPenalty\":[{\"AmountPercent\":{\"NmbrOfNights\":1,\"Percent\":0},\"Deadline\":{\"offsetDropTime\":\"BeforeArrival\"},\"NonRefundable\":true}]},\"GuaranteePolicies\":{\"GuaranteePolicy\":{\"GuaranteeType\":\"DepositRequired\"}}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-09-04\",\"End\":\"2020-09-04\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":283.95,\"AmountAfterTax\":283.95,\"NumberOfGuests\":2}]},\"MealsIncluded\":{\"MealPlanCodes\":[\"19\"]},\"CancelPolicies\":{\"CancelPenalty\":[{\"AmountPercent\":{\"NmbrOfNights\":1,\"Percent\":0},\"Deadline\":{\"offsetDropTime\":\"BeforeArrival\"},\"NonRefundable\":true}]},\"GuaranteePolicies\":{\"GuaranteePolicy\":{\"GuaranteeType\":\"DepositRequired\"}}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-09-05\",\"End\":\"2020-09-05\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":294.97,\"AmountAfterTax\":294.97,\"NumberOfGuests\":3}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-09-05\",\"End\":\"2020-09-05\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":244.97,\"AmountAfterTax\":244.97,\"NumberOfGuests\":1}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-10-23\",\"End\":\"2020-10-24\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":294.97,\"AmountAfterTax\":294.97,\"NumberOfGuests\":3}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-10-23\",\"End\":\"2020-10-24\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":244.97,\"AmountAfterTax\":244.97,\"NumberOfGuests\":1}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-10-23\",\"End\":\"2020-10-24\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":269.97,\"AmountAfterTax\":269.97,\"NumberOfGuests\":2}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-10-30\",\"End\":\"2020-10-31\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":308.95,\"AmountAfterTax\":308.95,\"NumberOfGuests\":3}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-11-06\",\"End\":\"2020-11-07\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":269.97,\"AmountAfterTax\":269.97,\"NumberOfGuests\":2}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-11-06\",\"End\":\"2020-11-07\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":294.97,\"AmountAfterTax\":294.97,\"NumberOfGuests\":3}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-11-06\",\"End\":\"2020-11-07\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":244.97,\"AmountAfterTax\":244.97,\"NumberOfGuests\":1}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-11-20\",\"End\":\"2020-11-20\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":315.37,\"AmountAfterTax\":315.37,\"NumberOfGuests\":3}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-11-28\",\"End\":\"2020-11-28\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":322.17,\"AmountAfterTax\":322.17,\"NumberOfGuests\":3}]}},{\"CurrencyCode\":\"EUR\",\"Start\":\"2020-11-28\",\"End\":\"2020-11-28\",\"InvTypeCode\":\"KOTG\",\"RateTimeUnit\":\"Day\",\"BaseByGuestAmts\":{\"BaseByGuestAmt\":[{\"AgeQualifyingCode\":\"10\",\"AmountBeforeTax\":297.17,\"AmountAfterTax\":297.17,\"NumberOfGuests\":2}]}}]},\"UniqueID\":{\"ID\":\"3\",\"Type\":\"16\"}}]}},\"DailyPricingBased\":true}",
+  "status": "SUCCESS",
+  "message": "success from adaptor"
+}
+
+CREATE EXTERNAL TABLE IF NOT EXISTS dhisco_cmp_stats.cmp_stats (
+  `dtimestamp` timestamp,
+  `sessionid` string,
+  `echotoken` string,
+  `channelid` int,
+  `channel` string,
+  `brandcode` string,
+  `hotelcode` string,
+  `rateplancode` string,
+  `invcode` string,
+  `rateplancategory` string,
+  `channelhotelcode` string,
+  `channelrateplancode` string,
+  `channelinvcode` string,
+  `rezgainrequest` string,
+  `rezgainresponse` string,
+  `pushcorejson` string,
+  `status` string,
+  `message` string 
+) PARTITIONED BY (
+  year string,
+  month string,
+  day string 
+)
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+WITH SERDEPROPERTIES (
+  'serialization.format' = '1'
+) LOCATION 's3://dhisco-amadeus/s2p-container/reporting/'
+TBLPROPERTIES ('has_encrypted_data'='false');
+
+ALTER TABLE dhisco_cmp_stats.cmp_stats ADD
+    PARTITION (year=2020,month=06,day=23) LOCATION 's3://dhisco-amadeus/s2p-container/reporting/2020/06/23';
+select * from dhisco_cmp_stats.cmp_stats where year = '2020' and month = '06' and day = '22' limit 10;
+MSCK REPAIR TABLE dhisco_srp_stats.srp_stats;
+
+2. Check Message format from ACN UAT kafka cluster . 
+
+ACN message from production kafka cluster from topic topic_stats_acn_dhisco_amadeus : 
+{
+  "txn_id": "IetLDMfxQvuKLL",
+  "connector": "AMADEUS",
+  "process_time": 529,
+  "created_at": "2020-06-13 20:26:03.073000",
+  "created_dt": "2020-06-13",
+  "err_codes": [],
+  "brand": "HH",
+  "property": "HNL699",
+  "sga": "7A",
+  "nrcs": [
+    {
+      "rpc": "COR",
+      "rpi": "N"
+    },
+    {
+      "rpc": "CWT",
+      "rpi": "N",
+      "ccn": "N0000108"
+    },
+    {
+      "rpc": "CWV",
+      "rpi": "N",
+      "ccn": "N3155338\r"
+    },
+    {
+      "rpc": "GOV",
+      "rpi": "N"
+    },
+    {
+      "rpc": "PRO",
+      "rpi": "N"
+    },
+    {
+      "rpc": "RAC",
+      "rpi": "N"
+    },
+    {
+      "rpc": "SRS",
+      "rpi": "N"
+    },
+    {
+      "rpc": "WKD",
+      "rpi": "N"
+    }
+  ],
+  "arrival_date": "2020-06-13",
+  "departure_at": "2020-06-14",
+  "status": "NoChange",
+  "delivery_status": 4,
+  "retry_count": 1,
+  "adults": 1,
+  "rooms": 1,
+  "method_stats": [
+    {
+      "name": "com.dhisco.cache.amadeus.service.InputStepService",
+      "duration": 1
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.service.HashStepService",
+      "duration": 0
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.service.LookupStepService",
+      "duration": 1
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.service.EnrichmentStepService",
+      "duration": 4
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.service.NotificationStepService",
+      "duration": 520
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.service.PersistenceStepService",
+      "duration": 3
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.service.AmadeusNotifyService",
+      "duration": 529
+    },
+    {
+      "name": "com.dhisco.cache.amadeus.consumer.AmadeusConsumer",
+      "duration": 529
+    }
+  ],
+  "shop_time": "2020-06-13 20:25:59.000000"
+}
+
+CREATE EXTERNAL TABLE `amadeus_stats`(
+  `txn_id` string COMMENT 'from deserializer', 
+  `connector` string COMMENT 'from deserializer', 
+  `process_time` int COMMENT 'from deserializer', 
+  `req` string COMMENT 'from deserializer', 
+  `res` string COMMENT 'from deserializer', 
+  `created_at` timestamp COMMENT 'from deserializer', 
+  `created_dt` date COMMENT 'from deserializer', 
+  `err_codes` array<string> COMMENT 'from deserializer', 
+  `brand` string COMMENT 'from deserializer', 
+  `property` string COMMENT 'from deserializer', 
+  `sga` string COMMENT 'from deserializer', 
+  `nrcs` array<struct<rpc:string,rpi:string,ccn:string>> COMMENT 'from deserializer', 
+  `arrival_date` date COMMENT 'from deserializer', 
+  `departure_at` date COMMENT 'from deserializer', 
+  `status` string COMMENT 'from deserializer', 
+  `delivery_status` int COMMENT 'from deserializer', 
+  `retry_count` int COMMENT 'from deserializer', 
+  `adults` int COMMENT 'from deserializer', 
+  `rooms` int COMMENT 'from deserializer', 
+  `shop_time` timestamp COMMENT 'from deserializer')
+PARTITIONED BY ( 
+  `year` string, 
+  `month` string, 
+  `day` string)
+ROW FORMAT SERDE 
+  'org.apache.hive.hcatalog.data.JsonSerDe' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  's3://dhisco-amadeus/prod-container/topic_stats_acn_dhisco_amadeus'
+TBLPROPERTIES (
+  'transient_lastDdlTime'='1582195461')
+
+
+3. Login to UAT connector machine and see s3 connector configuration . 
+
+UAT : valstpuatkfc01a.asp.dhisco.com -- /opt/kafka_custom/config
+
+bin/connect-distributed.sh  /opt/kafka_custom/config/connect-s3-srp-distributed.properties &> connect-s3-srp-distributed.out & -- port 8095 
+ 
+bin/connect-distributed.sh  /opt/kafka_custom/config/connect-s3-cmp-distributed.properties &> connect-s3-cmp-distributed.out & -- port 8086
+
+Prod : valstpprdkfc01a.asp.dhisco.com , valstpprdkfc01b.asp.dhisco.com , valstpprdkfc01c.asp.dhisco.com
+
+Prod:
+GET http://valstpprdkfc01a.asp.dhisco.com:8074/connectors/dhisco-amadeus-s3-sink/config
+{
+  "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+  "s3.region": "us-east-1",
+  "partition.duration.ms": "60000",
+  "topics.dir": "prod-container",
+  "flush.size": "10000",
+  "schema.compatibility": "NONE",
+  "tasks.max": "2",
+  "topics": "topic_stats_acn_dhisco_amadeus",
+  "s3.part.size": "5242880",
+  "timezone": "UTC",
+  "locale": "en",
+  "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+  "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+  "name": "dhisco-amadeus-s3-sink",
+  "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+  "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+  "s3.bucket.name": "dhisco-amadeus",
+  "path.format": "YYYY/MM/dd",
+  "timestamp.extractor": "RecordField",
+  "timestamp.field": "created_dt"
+}
+
+Prod:
+POST http://valstpprdkfc01a.asp.dhisco.com:8074/connectors/dhisco-amadeus-s3-sink/config
+ACN connector config taken from prodution connector . 
+{
+"name": "dhisco-amadeus-s3-sink",
+"config": {
+"connector.class": "io.confluent.connect.s3.S3SinkConnector",
+"s3.region": "us-east-1",
+"partition.duration.ms": "60000",
+"topics.dir": "prod-container",
+"flush.size": "10000",
+"schema.compatibility": "NONE",
+"tasks.max": "2",
+"topics": "topic_stats_acn_dhisco_amadeus",
+"s3.part.size": "5242880",
+"timezone": "UTC",
+"locale": "en",
+"format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+"partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+"name": "dhisco-amadeus-s3-sink",
+"schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+"storage.class": "io.confluent.connect.s3.storage.S3Storage",
+"s3.bucket.name": "dhisco-amadeus",
+"path.format": "YYYY/MM/dd",
+"timestamp.extractor": "RecordField",
+"timestamp.field": "created_dt"
+    },
+"tasks": [
+        {
+"connector": "dhisco-amadeus-s3-sink",
+"task": 0
+        },
+        {
+"connector": "dhisco-amadeus-s3-sink",
+"task": 1
+        }
+    ],
+"type": "sink"
+}
+
+
+4. Login to Amazon AWS and check data present in s3 and see how data is partitioned . 
+
+https://433796783685.signin.aws.amazon.com/console
+atul.sharma@rategain.com
+RateGain@123456
+
+
+5. Now see how data can be partioned for SRP and CMP messages . Will existing connector setup done by deepak will help or 
+   do i need some more changes regarding partioning ----------------Have done for SRP.
+
+6. How can we use sub directory in connector config .--- done for srp
+curl --location --request POST 'http://valstpuatkfc01a.asp.dhisco.com:8095/connectors/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "name" : "dhisco-srp-s3-sink",
+  "config":{
+  "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+  "s3.region": "us-east-1",
+  "partition.duration.ms": "60000",
+  "topics.dir": "s2p-container",
+  "flush.size": "1000",
+  "schema.compatibility": "NONE",
+  "tasks.max": "1",
+  "topics": "PushcoreHadoop",
+  "s3.part.size": "5242880",
+  "timezone": "UTC",
+  "locale": "en",
+  "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+  "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+  "name": "dhisco-srp-s3-sink",
+  "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+  "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+  "s3.bucket.name": "dhisco-amadeus",
+  "path.format": "YYYY/MM/dd",
+  "timestamp.extractor": "Record"
+}
+}'
+
+7. Setup connector in UAT . ------done for srp
+8. Add data in UAT kafka cluster .----done for srp  
+9. Check if data is going in s3 bucket accordingly .-- done for SRP
+
+ 
+10.Check how athena is configured for ACN and configure same for SRP and CMP . 
+11. Run query .
+12. Setup in production . 
+
+13. Analysis for production setup
+
+=====> For SRP
+
+Setup in TestCase 1 :
+{
+    "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+    "s3.region": "us-east-1",
+    "partition.duration.ms": "60000",
+    "topics.dir": "s2p-container",
+    "flush.size": "1000",
+    "schema.compatibility": "NONE",
+    "tasks.max": "1",
+    "topics": "PushcoreHadoop",
+    "s3.part.size": "5242880",
+    "timezone": "UTC",
+    "locale": "en",
+    "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "name": "dhisco-srp-s3-sink",
+    "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+    "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+    "s3.bucket.name": "dhisco-amadeus",
+    "path.format": "YYYY/MM/dd",
+    "timestamp.extractor": "Record"
+}
+
+Average Record size is 1 KB
+Behaviour ==>
+5 MB buffer is allocated 
+
+Buffer is Full    |  Num Records are full | 1 Minutes lapsed
+     No                      Yes                     NO
+
+Because of the above condition 1 MB average files are produced . 
+
+Optimised solution:
+
+Buffer size ==> 5MB
+flush size ==> 40000 
+partiion.duration.ms ==> don't set it
+rotate.interval.ms ==> 600000
+
+Config in Testcase 2:[For Prod as well just tasks are 3]
+
+{
+    "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+    "s3.region": "us-east-1",
+    "partition.duration.ms": "86400000",
+    "topics.dir": "s2p-container",
+    "flush.size": "10000",
+    "schema.compatibility": "NONE",
+    "tasks.max": "1",
+    "topics": "PushcoreHadoop",
+    "s3.part.size": "5242880",
+    "timezone": "UTC",
+    "locale": "en",
+    "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "name": "dhisco-srp-s3-sink",
+    "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+    "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+    "rotate.interval.ms": "600000",
+    "s3.bucket.name": "dhisco-amadeus",
+    "path.format": "YYYY/MM/dd",
+    "timestamp.extractor": "Record"
+}
+
+
+====> For CMP
+
+Setup for Test case 1:
+{
+    "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+    "s3.region": "us-east-1",
+    "partition.duration.ms": "60000",
+    "topics.dir": "s2p-container",
+    "flush.size": "100",
+    "schema.compatibility": "NONE",
+    "tasks.max": "1",
+    "topics": "reporting",
+    "s3.part.size": "5242880",
+    "timezone": "UTC",
+    "rotate.interval.ms": "60000",
+    "locale": "en",
+    "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+    "task.class": "io.confluent.connect.s3.S3SinkTask",
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "name": "dhisco-cmp-s3-sink",
+    "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+    "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+    "rotate.schedule.interval.ms": "60000",
+    "s3.bucket.name": "dhisco-amadeus",
+    "path.format": "YYYY/MM/dd",
+    "timestamp.extractor": "Record"
+}
+
+TestCase 2 : [For Prod as well just tasks are 3]
+
+{
+    "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+    "s3.region": "us-east-1",
+    "partition.duration.ms": "86400000",
+    "topics.dir": "s2p-container",
+    "flush.size": "1000",
+    "schema.compatibility": "NONE",
+    "tasks.max": "1",
+    "topics": "reporting",
+    "s3.part.size": "5242880",
+    "timezone": "UTC",
+    "locale": "en",
+    "format.class": "io.confluent.connect.s3.format.json.JsonFormat",
+    "task.class": "io.confluent.connect.s3.S3SinkTask",
+    "partitioner.class": "io.confluent.connect.storage.partitioner.TimeBasedPartitioner",
+    "name": "dhisco-cmp-s3-sink",
+    "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+    "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+    "rotate.interval.ms": "600000",
+    "s3.bucket.name": "dhisco-amadeus",
+    "path.format": "YYYY/MM/dd",
+    "timestamp.extractor": "Record"
+}
+
+KAFKA_HEAP_OPTS="-Xms512m -Xmx2g" bin/connect-distributed.sh config/connect-s3-srp-distributed.properties &> connect-s3-srp-distributed.out &
+KAFKA_HEAP_OPTS="-Xms512m -Xmx2g" bin/connect-distributed.sh config/connect-s3-cmp-distributed.properties &> connect-s3-cmp-distributed.out &
+
+
+
+postman collection : https://www.getpostman.com/collections/d897af52c9a87d9a677b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
