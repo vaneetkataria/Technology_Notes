@@ -39,6 +39,15 @@ public class ProcessManager {
 					break;
 				}
 			}
+			/*new Thread(() -> {
+				while (true) {
+					try {
+						System.out.println(reader.readLine());
+					} catch (IOException e) {
+					}
+				}
+			});*/
+
 		} catch (IOException e) {
 			exitCode = COMMAND_EXECUTION_FAILED;
 		}

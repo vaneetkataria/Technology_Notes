@@ -10,7 +10,7 @@ import com.dhisco.product.discovery.utils.CassandraConnector;
 import com.dhisco.product.discovery.utils.ProcessManager;
 import com.dhisco.product.discovery.utils.KafkaAdminTasksSupport;
 
-//@Component
+@Component
 public class AfterCountAndValidateShoppingMessagesIT extends TestRunnerAfterTestSupport {
 
 	@Autowired

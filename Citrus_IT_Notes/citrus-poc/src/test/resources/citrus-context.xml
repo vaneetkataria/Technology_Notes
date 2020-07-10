@@ -7,6 +7,7 @@
 	xmlns:citrus-test="http://www.citrusframework.org/schema/testcase"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:citrus-zookeeper="http://www.citrusframework.org/schema/zookeeper/config"
+	xmlns:citrus-kafka="http://www.citrusframework.org/schema/kafka/config"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.citrusframework.org/schema/config http://www.citrusframework.org/schema/config/citrus-config.xsd
@@ -14,7 +15,8 @@
        http://www.citrusframework.org/schema/ws/config http://www.citrusframework.org/schema/ws/config/citrus-ws-config.xsd
        http://www.citrusframework.org/schema/http/config http://www.citrusframework.org/schema/http/config/citrus-http-config.xsd
        http://www.citrusframework.org/schema/testcase http://www.citrusframework.org/schema/testcase/citrus-testcase.xsd
-       http://www.citrusframework.org/schema/zookeeper/config http://www.citrusframework.org/schema/zookeeper/config/citrus-zookeeper-config.xsd">
+       http://www.citrusframework.org/schema/zookeeper/config http://www.citrusframework.org/schema/zookeeper/config/citrus-zookeeper-config.xsd
+       http://www.citrusframework.org/schema/kafka/config http://www.citrusframework.org/schema/kafka/config/citrus-kafka-config.xsd">
 
 	<context:component-scan base-package="com.dhisco" />
 
@@ -26,6 +28,13 @@
 
 	<citrus-zookeeper:client id="zookeeperClient"
 		url="127.0.0.1:2181" timeout="20000" />
+
+	<citrus-kafka:endpoint id="propertyStateKafkaEndPoint"
+		topic="product.discovery.property.state" 
+		server="localhost:9092"
+		partition="1" 
+		consumer-group="citrus_group"
+		timeout = "300000" />
 
 
 </beans>

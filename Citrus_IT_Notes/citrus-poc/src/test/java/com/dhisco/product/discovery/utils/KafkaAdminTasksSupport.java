@@ -52,7 +52,7 @@ public class KafkaAdminTasksSupport {
 
 	private AdminZkClient createAdminZkClient(String zookeeperHost) {
 		return new AdminZkClient(KafkaZkClient.apply(zookeeperHost, false, sessionTimeOut, connectionTimeOut,
-				maxInFlightRequests, Time.SYSTEM, "", ""));
+				maxInFlightRequests, Time.SYSTEM, "", "", null));
 	}
 
 }
