@@ -412,23 +412,7 @@ Setup in TestCase 1 :
     "timestamp.extractor": "Record"
 }
 
-Average Record size is 1 KB
-Behaviour ==>
-5 MB buffer is allocated 
-
-Buffer is Full    |  Num Records are full | 1 Minutes lapsed
-     No                      Yes                     NO
-
-Because of the above condition 1 MB average files are produced . 
-
-Optimised solution:
-
-Buffer size ==> 5MB
-flush size ==> 40000 
-partiion.duration.ms ==> don't set it
-rotate.interval.ms ==> 600000
-
-Config in Testcase 2:[For Prod as well just tasks are 3]
+finalised Config in Testcase 2:[For Prod as well just tasks are 3]
 
 {
     "connector.class": "io.confluent.connect.s3.S3SinkConnector",
@@ -482,7 +466,7 @@ Setup for Test case 1:
     "timestamp.extractor": "Record"
 }
 
-TestCase 2 : [For Prod as well just tasks are 3]
+finalised TestCase 2 : [For Prod as well just tasks are 3]
 
 {
     "connector.class": "io.confluent.connect.s3.S3SinkConnector",
