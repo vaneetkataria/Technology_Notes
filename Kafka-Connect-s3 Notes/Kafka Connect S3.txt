@@ -1,4 +1,4 @@
-11. Check Message format for SRP and CMP from UAT kafka cluster . 
+1. Check Message format for SRP and CMP from UAT kafka cluster . 
 
     System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss").format(LocalDateTime.now())); 
 SRP:
