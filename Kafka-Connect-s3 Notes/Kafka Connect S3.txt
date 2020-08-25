@@ -1,7 +1,7 @@
 1. Check Message format for SRP and CMP from UAT kafka cluster . 
 
     System.out.println(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss").format(LocalDateTime.now())); 
-SRP:
+SSRP:
     @Value("${kafka.pushcore.archive.topic}") private String pushcoreArchiveTopic;
     @Value("${hadoop.log.enable}") private Boolean enabledHadoopLog;
 
